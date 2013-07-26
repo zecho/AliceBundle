@@ -1,0 +1,32 @@
+{
+    "name": "hautelook/alice-bundle",
+    "description": "Symfony2 Bundle that helps loading fixture data written with the Alice library",
+    "keywords": ["Symfony2", "Fixture", "ORM", "Alice"],
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Baldur Rensch",
+            "email": "brensch@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "nelmio/alice": "1.4.*@dev",
+        "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
+        "doctrine/data-fixtures": "1.0.*@dev"
+    },
+    "require-dev": {
+        "symfony/framework-bundle": "~2.1",
+        "symfony/event-dispatcher": "~2.1",
+        "symfony/console": "~2.1",
+        "symfony/browser-kit": "~2.1",
+        "symfony/form": "~2.1",
+        "symfony/yaml": "~2.1",
+        "symfony/class-loader": "~2.1"
+    },
+    "autoload": {
+        "psr-0": { "Hautelook\\AliceBundle": "" }
+    },
+    "target-dir": "Hautelook/AliceBundle"
+}
