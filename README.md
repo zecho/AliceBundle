@@ -45,7 +45,14 @@ public function registerBundles()
 
 ## Configuration
 
-None at the moment. Configuration for seed and locale are coming soon.
+You can configure the Seed, and the Locale that the Faker will use:
+
+```yaml
+# app/config/config.yml
+
+hautelook_alice:
+    locale: en_US   # default
+    seed: 1         # default
 
 ## Usage
 
@@ -76,6 +83,5 @@ class TestLoader extends DataFixtureLoader
 
 ## Future and ToDos:
 
-- Add configuration for see and locale
 - Unit and functional tests
 - Clean up composer dev dependencies

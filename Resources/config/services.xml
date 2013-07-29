@@ -12,9 +12,9 @@
     <services>
 
         <service id="hautelook_alice.loader.yaml" class="%hautelook_alice.loader.yaml.class%">
-            <argument>en_US</argument><!-- locale -->
+            <argument>%hautelook_alice.locale%</argument>
             <argument type="collection"/>
-            <argument></argument><!-- seed -->
+            <argument>%hautelook_alice.seed%</argument>
         </service>
 
         <service id="hautelook_alice.loader" class="%hautelook_alice.loader.class%">
