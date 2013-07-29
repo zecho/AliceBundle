@@ -1,6 +1,8 @@
 tools:
     php_code_coverage:
         enabled: true
+        config_path: ~
+        test_command: phpunit
         filter:
             excluded_paths:
                 - '*/Tests/*'
@@ -41,4 +43,12 @@ tools:
             excluded_paths:
                 - '*/Tests/*'
     sensiolabs_security_checker:
+        enabled: true
+    php_pdepend:
+        command: pdepend
+        configuration_file:   ~
+        suffixes:
+            - php
+        excluded_dirs:
+            - vendor
         enabled: true
