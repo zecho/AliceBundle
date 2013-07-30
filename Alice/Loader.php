@@ -93,7 +93,7 @@ class Loader
             $objects = array_merge($objects, $set);
         }
 
-        foreach ($objects as $name => $obj) {
+        foreach ($loader->getReferences() as $name => $obj) {
             $this->persister->detach($obj);
             $this->references->set($name, $obj);
         }
