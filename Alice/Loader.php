@@ -118,13 +118,15 @@ class Loader
         if (empty($this->loaders[$key])) {
             throw new \InvalidArgumentException("Unknown loader type: {$key}");
         }
-//        if (is_string($file) && preg_match('{\.ya?ml(\.php)?$}', $file)) {
-//            $loader = self::getLoader('Yaml', $options);
-//        } elseif ((is_string($file) && preg_match('{\.php$}', $file)) || is_array($file)) {
-//            $loader = self::getLoader('Base', $options);
-//        } else {
-//            throw new \InvalidArgumentException('Unknown file/data type: '.gettype($file).' ('.json_encode($file).')');
-//        }
+        /*
+        if (is_string($file) && preg_match('{\.ya?ml(\.php)?$}', $file)) {
+            $loader = self::getLoader('Yaml', $options);
+        } elseif ((is_string($file) && preg_match('{\.php$}', $file)) || is_array($file)) {
+            $loader = self::getLoader('Base', $options);
+        } else {
+            throw new \InvalidArgumentException('Unknown file/data type: '.gettype($file).' ('.json_encode($file).')');
+        }
+        */
         /** @var $loader \Nelmio\Alice\LoaderInterface */
         $loader = $this->loaders[$key];
 
