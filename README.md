@@ -54,6 +54,7 @@ You can configure the Seed, and the Locale that the Faker will use:
 hautelook_alice:
     locale: en_US   # default
     seed: 1         # default
+```
 
 ## Usage
 
