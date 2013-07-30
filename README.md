@@ -5,6 +5,7 @@ A Symfony2 bundle to help load Doctrine Fixtures with Alice
 
 [![Build Status](https://travis-ci.org/hautelook/AliceBundle.png?branch=master)](https://travis-ci.org/hautelook/AliceBundle)
 [![Scrutinizer Continuous Inspections](https://scrutinizer-ci.com/g/hautelook/AliceBundle/badges/general.png?s=fe44656b6d81a9f3a3972c2a3108231c6147ac3d)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/hautelook/AliceBundle/badges/quality-score.png?s=0b9ff0ac44085bc49fdb98f4ea1fec2fea918a39)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/)
 
 
 ## Introduction
