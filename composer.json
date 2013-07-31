@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "nelmio/alice": "1.5.*",
+        "nelmio/alice": "1.5.*@dev",
         "doctrine/doctrine-fixtures-bundle": "2.1.*@dev",
         "doctrine/data-fixtures": "1.0.*@dev"
     },
