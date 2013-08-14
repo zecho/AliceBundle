@@ -38,6 +38,7 @@ public function registerBundles()
 {
     $bundles = array(
         // ...
+        new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
         new Hautelook\AliceBundle\HautelookAliceBundle(),
         // ...
     );
