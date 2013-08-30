@@ -81,12 +81,12 @@ class Loader
      */
     public function load(array $files)
     {
+        /** @var $loader \Nelmio\Alice\Loader\Base */
+        $loader = $this->getLoader('yaml');
+        $loader->setProviders($this->providers);
+
         $objects = array();
         foreach ($files as $file) {
-            /** @var $loader \Nelmio\Alice\Loader\Base */
-            $loader = $this->getLoader('yaml');
-            $loader->setProviders($this->providers);
-
             $set = $loader->load($file);
             $this->persister->persist($set);
 
