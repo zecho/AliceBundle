@@ -26,7 +26,15 @@ $ composer require hautelook/alice-bundle
 
 You can follow `dev-master`, or use a more stable tag (recommended for various reasons). On the
 [Github repository](https://github.com/hautelook/AliceBundle), or on [Packagist](http://www.packagist.org), you can
-always find the latest tag.
+always find the latest tag. It is very likely that you have a `stable` stability setting in your composer file which
+will prevent some of the required packages from being installed. To get around this, you will have to install the two 
+required packages as well: 
+
+```bash
+$ composer.phar require "doctrine/data-fixtures dev-master"
+$ composer.phar require "doctrine/doctrine-fixtures-bundle 2.1.*@dev"
+$ composer.phar require "hautelook/alice-bundle 0.1.*"
+```
 
 Now add the Bundle to your Kernel:
 
