@@ -32,7 +32,7 @@ required packages as well:
 
 ```bash
 $ composer.phar require "doctrine/data-fixtures dev-master"
-$ composer.phar require "doctrine/doctrine-fixtures-bundle 2.1.*@dev"
+$ composer.phar require "doctrine/doctrine-fixtures-bundle 2.2.*"
 $ composer.phar require "hautelook/alice-bundle 0.1.*"
 ```
 
