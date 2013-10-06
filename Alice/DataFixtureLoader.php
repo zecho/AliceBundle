@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Nelmio\Alice\ProcessorInterface;
 
 /**
  * Class DataFixtureLoader
@@ -37,6 +38,10 @@ abstract class DataFixtureLoader implements FixtureInterface, ContainerAwareInte
         $loader->setObjectManager($manager);
         $loader->setProviders(array($this));
 
+        foreach ($this->getProcessors() as $processor) {
+            $loader->addProcessor($processor);
+        }
+
         $loader->load($this->getFixtures());
     }
 
@@ -46,6 +51,16 @@ abstract class DataFixtureLoader implements FixtureInterface, ContainerAwareInte
      * @return array<string>
      */
     abstract protected function getFixtures();
+
+    /**
+     * Returns an array of ProcessorInterface to process fixtures
+     *
+     * @return array<ProcessorInterface>
+     */
+    protected function getProcessors()
+    {
+        return array();
+    }
 
     /**
      * Sets the Container.
