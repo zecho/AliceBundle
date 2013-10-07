@@ -4,6 +4,7 @@ namespace Hautelook\AliceBundle\Alice;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
+use Nelmio\Alice\ProcessorInterface;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -16,6 +17,11 @@ class Loader
      * @var array
      */
     private $providers;
+
+    /**
+     * @var ProcessorInterface[]
+     */
+    private $processors;
 
     /**
      * @var array
@@ -49,6 +55,7 @@ class Loader
     public function __construct($loaders, LoggerInterface $logger = null)
     {
         $this->loaders = $loaders;
+        $this->processors = array();
         $this->logger = $logger;
         $this->references = new ArrayCollection();
     }
@@ -88,7 +95,7 @@ class Loader
         $objects = array();
         foreach ($files as $file) {
             $set = $loader->load($file);
-            $this->persister->persist($set);
+            $this->persist($set);
 
             $objects = array_merge($objects, $set);
         }
@@ -97,6 +104,9 @@ class Loader
             $this->persister->detach($obj);
             $this->references->set($name, $obj);
         }
+
+        // remove processors when file is loaded
+        $this->processors = array();
     }
 
     /**
@@ -105,6 +115,14 @@ class Loader
     public function setProviders(array $providers)
     {
         $this->providers = $providers;
+    }
+
+    /**
+     * @param ProcessorInterface $processor
+     */
+    public function addProcessor(ProcessorInterface $processor)
+    {
+        $this->processors[] = $processor;
     }
 
     /**
@@ -131,5 +149,27 @@ class Loader
         $loader = $this->loaders[$key];
 
         return $loader;
+    }
+
+    /**
+     * Persists objects with the preProcess and postProcess methods used by the processors.
+     *
+     * @param $objects
+     */
+    private function persist($objects)
+    {
+        foreach ($this->processors as $processor) {
+            foreach ($objects as $obj) {
+                $processor->preProcess($obj);
+            }
+        }
+
+        $this->persister->persist($objects);
+
+        foreach ($this->processors as $processor) {
+            foreach ($objects as $obj) {
+                $processor->postProcess($obj);
+            }
+        }
     }
 }
