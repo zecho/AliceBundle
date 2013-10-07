@@ -19,7 +19,7 @@ class Loader
     private $providers;
 
     /**
-     * @var array
+     * @var ProcessorInterface[]
      */
     private $processors;
 
@@ -95,7 +95,7 @@ class Loader
         $objects = array();
         foreach ($files as $file) {
             $set = $loader->load($file);
-            $this->persist($this->persister, $set);
+            $this->persist($set);
 
             $objects = array_merge($objects, $set);
         }
@@ -154,22 +154,21 @@ class Loader
     /**
      * Persists objects with the preProcess and postProcess methods used by the processors.
      *
-     * @param $persister
      * @param $objects
      */
-    private function persist($persister, $objects)
+    private function persist($objects)
     {
-        foreach ($this->processors as $proc) {
+        foreach ($this->processors as $processor) {
             foreach ($objects as $obj) {
-                $proc->preProcess($obj);
+                $processor->preProcess($obj);
             }
         }
 
-        $persister->persist($objects);
+        $this->persister->persist($objects);
 
-        foreach ($this->processors as $proc) {
+        foreach ($this->processors as $processor) {
             foreach ($objects as $obj) {
-                $proc->postProcess($obj);
+                $processor->postProcess($obj);
             }
         }
     }

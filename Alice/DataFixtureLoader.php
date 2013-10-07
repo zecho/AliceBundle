@@ -55,7 +55,7 @@ abstract class DataFixtureLoader implements FixtureInterface, ContainerAwareInte
     /**
      * Returns an array of ProcessorInterface to process fixtures
      *
-     * @return array<ProcessorInterface>
+     * @return ProcessorInterface[]
      */
     protected function getProcessors()
     {
