@@ -7,6 +7,7 @@
     <parameters>
         <parameter key="hautelook_alice.loader.yaml.class">Nelmio\Alice\Loader\Yaml</parameter>
         <parameter key="hautelook_alice.loader.class">Hautelook\AliceBundle\Alice\Loader</parameter>
+        <parameter key="hautelook_alice.solarium.loader.class">Hautelook\AliceBundle\Solarium\Loader</parameter>
     </parameters>
 
     <services>
@@ -18,6 +19,13 @@
         </service>
 
         <service id="hautelook_alice.loader" class="%hautelook_alice.loader.class%">
+            <argument type="collection">
+                <argument key="yaml" type="service" id="hautelook_alice.loader.yaml" />
+            </argument>
+            <argument type="service" id="logger" on-invalid="null"/>
+        </service>
+
+        <service id="hautelook_alice.solarium.loader" class="%hautelook_alice.solarium.loader.class%">
             <argument type="collection">
                 <argument key="yaml" type="service" id="hautelook_alice.loader.yaml" />
             </argument>
