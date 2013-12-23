@@ -20,7 +20,7 @@ class DoctrineFixtureTest extends TestCase
         $command = $this->application->find('doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array());
+        $commandTester->execute(array(), array('interactive' => false));
 
         $display = $commandTester->getDisplay();
 

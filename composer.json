@@ -15,12 +15,15 @@
         "nelmio/alice": "~1.6",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "doctrine/doctrine-bundle": "~1.2"
-        "doctrine/orm": "~2.4"
     },
     "require-dev": {
         "symfony/framework-bundle": "~2.1",
         "symfony/console": "~2.1",
         "symfony/yaml": "~2.1"
+        "nelmio/alice": "~1.5.1",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
+        "doctrine/data-fixtures": "1.0.*@dev"
+        "doctrine/orm": "~2.4"
     },
     "autoload": {
         "psr-0": { "Hautelook\\AliceBundle": "" }
