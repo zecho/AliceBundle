@@ -1,5 +1,12 @@
 <?php
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
+$loader = require __DIR__ . '/../vendor/autoload.php';
+
+AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
+
+
 function includeIfExists($file)
 {
     if (file_exists($file)) {

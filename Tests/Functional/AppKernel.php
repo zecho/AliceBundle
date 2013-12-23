@@ -2,6 +2,11 @@
 
 namespace Hautelook\AliceBundle\Tests\Functional;
 
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
+use Hautelook\AliceBundle\HautelookAliceBundle;
+use Hautelook\AliceBundle\Tests\Functional\TestBundle\TestBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -10,10 +15,12 @@ class AppKernel extends Kernel
     public function registerBundles()
     {
         return array(
-            new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
-            new \Hautelook\AliceBundle\HautelookAliceBundle(),
+            new FrameworkBundle(),
+            new HautelookAliceBundle(),
+            new DoctrineBundle(),
+            new DoctrineFixturesBundle(),
 
-            new \Hautelook\AliceBundle\Tests\Functional\TestBundle\TestBundle(),
+            new TestBundle(),
         );
     }
 
