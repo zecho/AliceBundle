@@ -24,7 +24,6 @@
         "symfony/browser-kit": "~2.1"
     },
     "autoload": {
-        "psr-0": { "Hautelook\\AliceBundle": "" }
-    },
-    "target-dir": "Hautelook/AliceBundle"
+        "psr-4": { "Hautelook\\AliceBundle\\": "" }
+    }
 }
