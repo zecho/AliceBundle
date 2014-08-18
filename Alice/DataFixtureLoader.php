@@ -86,4 +86,16 @@ abstract class DataFixtureLoader implements FixtureInterface, ContainerAwareInte
     {
         return $this->manager->find($className, $ids);
     }
+
+    /**
+     * This is the identity provider that is currently not available in the stable version
+     * of Alice 1.* This will be available natively in 2.
+     *
+     * @param mixed $input
+     * @return mixed
+     */
+    public function identity($input)
+    {
+        return $input;
+    }
 }
