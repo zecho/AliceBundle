@@ -131,6 +131,14 @@ class Loader
     }
 
     /**
+     * @return ArrayCollection
+     */
+    public function getReferences()
+    {
+        return $this->references;
+    }
+
+    /**
      * @param string $key
      *
      * @throws \InvalidArgumentException
@@ -178,6 +186,12 @@ class Loader
         }
     }
 
+    /**
+     * Returns whether the passed in object has "identity" as defined by Doctrine.
+     * 
+     * @param mixed $reference
+     * @return bool
+     */
     private function hasIdentity($reference)
     {
         return count($this->objectManager->getClassMetadata(get_class($reference))->getIdentifier()) > 0;
