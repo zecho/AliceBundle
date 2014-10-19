@@ -71,7 +71,12 @@ class Loader
 
         $newReferences = array();
         foreach ($this->references as $name => $reference) {
-            $newReferences[$name] = $this->persister->merge($reference);
+            // Don't merge value objects, e.g. Doctrine embeddables
+            if ($this->hasIdentity($reference)) {
+                $reference = $this->persister->merge($reference);
+            }
+
+            $newReferences[$name] = $reference;
         }
         $this->references = new ArrayCollection($newReferences);
 
@@ -171,5 +176,10 @@ class Loader
                 $processor->postProcess($obj);
             }
         }
+    }
+
+    private function hasIdentity($reference)
+    {
+        return count($this->objectManager->getClassMetadata(get_class($reference))->getIdentifier()) > 0;
     }
 }
