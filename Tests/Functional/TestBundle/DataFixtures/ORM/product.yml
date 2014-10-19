@@ -2,5 +2,5 @@ Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Product:
     product{1..10}:
         name: Product <current()>
         price: 10.0
-        description: Super awesome product
+        description: Awesome <identity(@self->name)>
         brand: @brand*

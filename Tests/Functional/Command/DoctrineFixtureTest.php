@@ -73,6 +73,7 @@ class DoctrineFixtureTest extends TestCase
                 'Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Product',
                 $i
             );
+            $this->assertStringStartsWith('Awesome Product', $product->getDescription());
 
             // Make sure every product has a brand
             $this->assertInstanceOf(
