@@ -10,7 +10,7 @@ class FixtureLoader1 extends DataFixtureLoader implements DependentFixtureInterf
     /**
      * Returns an array of file paths to fixtures
      *
-     * @return array<string>
+     * @return string[]
      */
     protected function getFixtures()
     {
@@ -23,7 +23,7 @@ class FixtureLoader1 extends DataFixtureLoader implements DependentFixtureInterf
      * This method must return an array of fixtures classes
      * on which the implementing class depends on
      *
-     * @return array
+     * @return string[]
      */
     function getDependencies()
     {

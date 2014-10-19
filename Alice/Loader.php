@@ -115,7 +115,7 @@ class Loader
     }
 
     /**
-     * @param array $providers
+     * @param DataFixtureLoader[] $providers
      */
     public function setProviders(array $providers)
     {
@@ -134,7 +134,7 @@ class Loader
      * @param string $key
      *
      * @throws \InvalidArgumentException
-     * @return mixed
+     * @return \Nelmio\Alice\LoaderInterface
      */
     protected function getLoader($key)
     {

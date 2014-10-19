@@ -9,7 +9,7 @@ class FixtureLoader2 extends DataFixtureLoader
     /**
      * Returns an array of file paths to fixtures
      *
-     * @return array<string>
+     * @return string[]
      */
     protected function getFixtures()
     {
