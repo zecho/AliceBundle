@@ -29,9 +29,6 @@
     "suggest": {
         "hautelook/solarium-fixtures": "To add Solarium fixtures"
     },
-    "suggests": {
-        "hautelook/solarium-fixtures": "For Solarium fixtures"
-    },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }
     }
