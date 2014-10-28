@@ -14,6 +14,8 @@ to your bundles. Additionally, the loader shares the references to your fixtures
 use them there. Refer to the [Alice documentation](https://github.com/nelmio/alice/blob/master/README.md) for more
 information.
 
+And if you prefer watching, a screencast about using this bundle is also available: https://knpuniversity.com/screencast/alice-fixtures
+
 ## Installation
 
 Simply run assuming you have installed composer.phar or composer binary (or add to your `composer.json` and run composer
