@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class RootController extends Controller
 {
-    public function testAction(Request $request)
+    public function testAction()
     {
         return new Response("TestResponse");
     }

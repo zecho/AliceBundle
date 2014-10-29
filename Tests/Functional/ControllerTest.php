@@ -9,6 +9,6 @@ class ControllerTest extends TestCase
 {
     public function testServiceSetup()
     {
-        $client = $this->createClient();
+        $this->createClient();
     }
 }

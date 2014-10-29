@@ -1,11 +1,6 @@
 tools:
     php_code_coverage:
-        enabled: true
-        config_path: ~
-        test_command: phpunit
-        filter:
-            excluded_paths:
-                - '*/Tests/*'
+        enabled: false
     php_mess_detector:
         enabled: true
         extensions:
@@ -52,3 +47,4 @@ tools:
         excluded_dirs:
             - vendor
         enabled: true
+    external_code_coverage: true
