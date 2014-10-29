@@ -87,7 +87,7 @@ class DoctrineFixtureTest extends TestCase
     {
         for ($i = 1; $i <= 10; $i++) {
             /** @var $brand \Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Brand */
-            $brand = $this->getDoctrine()->getManager()->find(
+            $this->getDoctrine()->getManager()->find(
                 'Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Brand',
                 $i
             );
