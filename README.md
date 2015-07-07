@@ -74,21 +74,19 @@ Simply add a loader class in your bundle, and extend the `DataFixtureLoader` cla
 ```php
 <?php
 
-namespace Acme\DemoBundle\DataFixtures\ORM;
+namespace AppBundle\DataFixtures\ORM;
 
 use Hautelook\AliceBundle\Alice\DataFixtureLoader;
-use Nelmio\Alice\Fixtures;
 
 class TestLoader extends DataFixtureLoader
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getFixtures()
     {
         return  array(
             __DIR__ . '/test.yml',
-
         );
     }
 }
