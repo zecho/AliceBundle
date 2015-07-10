@@ -5,11 +5,6 @@ namespace Hautelook\AliceBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-/**
- * This is the class that validates and merges configuration from your app/config files
- *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
- */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -24,11 +19,18 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('locale')
                     ->defaultValue('en_US')
+                    ->info('default locale to use with faker if none is specified in the expression')
                 ->end()
-                ->scalarNode('seed')
+                ->integerNode('seed')
                     ->defaultValue(1)
+                    ->info('a seed  to make sure faker generates data consistently across runs, set to null to disable')
                 ->end()
-            ->end();
+                ->scalarNode('logger')
+                    ->defaultValue('logger')
+                    ->info('ID of a service implementing the Psr\Log\LoggerInterface')
+                ->end()
+            ->end()
+        ;
 
         return $treeBuilder;
     }

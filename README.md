@@ -17,47 +17,34 @@ information.
 
 And if you prefer watching, a screencast about using this bundle is also available: https://knpuniversity.com/screencast/alice-fixtures
 
+## Documentation
+
+1. [Install](#install)
+2. [Basic usage](#basic-usage)
+
 ## Installation
 
-Simply run assuming you have installed composer.phar or composer binary (or add to your `composer.json` and run composer
-install:
+1. You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
 ```bash
-$ composer require hautelook/alice-bundle
+composer require hautelook/alice-bundle
 ```
 
-You can follow `dev-master`, or use a more stable tag (recommended for various reasons). On the
-[Github repository](https://github.com/hautelook/AliceBundle), or on [Packagist](http://www.packagist.org), you can
-always find the latest tag. It is very likely that you have a `stable` stability setting in your composer file which
-will prevent some of the required packages from being installed. To get around this, you will have to install the two 
-required packages as well: 
-
-```bash
-$ composer.phar require "doctrine/data-fixtures dev-master"
-$ composer.phar require "doctrine/doctrine-fixtures-bundle 2.2.*"
-$ composer.phar require "hautelook/alice-bundle 0.1.*"
-```
-
-Now add the Bundle to your Kernel:
-
+2. Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
 ```php
 <?php
-// app/AppKernel.php
+// app/config/AppKernel.php
 
 public function registerBundles()
 {
-    $bundles = array(
-        // ...
-        new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
-        new Hautelook\AliceBundle\HautelookAliceBundle(),
-        // ...
-    );
+    //...
+    $bundles[] = new Fidry\LoopBackApiBundle\LoopBackApiBundle();
+
+    return $bundles;
 }
 ```
 
-## Configuration
-
-You can configure the Seed, and the Locale that the Faker will use:
+3. Configure the bundle to your needs:
 
 ```yaml
 # app/config/config.yml
@@ -96,3 +83,7 @@ class TestLoader extends DataFixtureLoader
 
 - Unit and functional tests
 - Clean up composer dev dependencies
+
+## License
+
+[![license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](Resources/meta/LICENSE)

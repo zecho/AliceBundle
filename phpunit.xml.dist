@@ -3,6 +3,10 @@
          bootstrap="Tests/bootstrap.php"
         >
 
+    <php>
+        <server name="KERNEL_DIR" value="Tests/SymfonyApp" />
+    </php>
+
     <testsuites>
         <testsuite name="AliceBundle Test Suite">
             <directory>./Tests</directory>

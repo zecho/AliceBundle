@@ -4,34 +4,28 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <parameters>
-        <parameter key="hautelook_alice.loader.yaml.class">Nelmio\Alice\Loader\Yaml</parameter>
-        <parameter key="hautelook_alice.loader.class">Hautelook\AliceBundle\Alice\Loader</parameter>
-        <parameter key="hautelook_alice.solarium.loader.class">Hautelook\AliceBundle\Solarium\Loader</parameter>
-    </parameters>
-
     <services>
-
-        <service id="hautelook_alice.loader.yaml" class="%hautelook_alice.loader.yaml.class%">
+        <service id="hautelook_alice.faker" class="Faker\Generator">
+            <factory class="Faker\Factory" method="create" />
             <argument>%hautelook_alice.locale%</argument>
-            <argument type="collection"/>
+            <call method="seed">
+                <argument type="string" id="%seed%" />
+            </call>
+        </service>
+
+        <service id="hautelook_alice.fixtures.loader" class="Hautelook\AliceBundle\Alice\Fixtures">
+            <argument>%hautelook_alice.locale%</argument>
+            <argument type="collection" />
             <argument>%hautelook_alice.seed%</argument>
+            <tag name="hautelook_alice.fixtures.loader" />
         </service>
 
-        <service id="hautelook_alice.loader" class="%hautelook_alice.loader.class%">
-            <argument type="collection">
-                <argument key="yaml" type="service" id="hautelook_alice.loader.yaml" />
-            </argument>
-            <argument type="service" id="logger" on-invalid="null"/>
-        </service>
-
-        <service id="hautelook_alice.solarium.loader" class="%hautelook_alice.solarium.loader.class%">
-            <argument type="collection">
-                <argument key="yaml" type="service" id="hautelook_alice.loader.yaml" />
-            </argument>
-            <argument type="service" id="logger" on-invalid="null"/>
-        </service>
-
+        <service id="hautelook_alice.fixtures.loader_chain"
+                 class="Hautelook\AliceBundle\Alice\Fixtures\Loader\LoaderChain" />
+        <service id="hautelook_alice.processor_chain"
+                 class="Hautelook\AliceBundle\Alice\ProcessorChain" />
+        <service id="hautelook_alice.faker.provider_chain"
+                 class="Hautelook\AliceBundle\Faker\Provider\ProviderChain" />
     </services>
 
 </container>
