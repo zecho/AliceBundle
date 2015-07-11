@@ -9,18 +9,18 @@ use Symfony\Component\DependencyInjection\Reference;
 /**
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-final class LoaderCompilerPass implements CompilerPassInterface
+final class ProcessorCompilerPass implements CompilerPassInterface
 {
     /**
      * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
-        $definition = $container->findDefinition('hautelook_alice.fixtures.loader_chain');
+        $definition = $container->findDefinition('hautelook_alice.processor_chain');
 
-        $taggedServices = $container->findTaggedServiceIds('hautelook_alice.fixtures.loader');
+        $taggedServices = $container->findTaggedServiceIds('hautelook_alice.processor');
         foreach ($taggedServices as $serviceId => $tags) {
-            $definition->addMethodCall('addLoader', [$serviceId, new Reference($serviceId)]);
+            $definition->addMethodCall('addProcessor', [new Reference($serviceId)]);
         }
     }
 }

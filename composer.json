@@ -11,13 +11,14 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "doctrine/doctrine-bundle": "~1.2",
-        "doctrine/doctrine-fixtures-bundle": "~2.2",
-        "nelmio/alice": "~2.0"
+        "php": ">=5.4.0",
+        "nelmio/alice": "2.0.x-dev"
     },
   "require-dev": {
         "doctrine/orm": "~2.4",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "fabpot/php-cs-fixer": "^1.9",
         "hautelook/solarium-fixtures": "~1.0",
         "phpunit/phpunit": "^4.7",
         "solarium/solarium": "~3.1",
@@ -34,5 +35,8 @@
     },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Hautelook\\AliceBundle\\Tests\\": "Tests" }
     }
 }

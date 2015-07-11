@@ -5,27 +5,20 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="hautelook_alice.faker" class="Faker\Generator">
+        <service id="hautelook_alice.faker" class="Faker\Generator" lazy="true">
             <factory class="Faker\Factory" method="create" />
             <argument>%hautelook_alice.locale%</argument>
             <call method="seed">
-                <argument type="string" id="%seed%" />
+                <argument>%hautelook_alice.seed%</argument>
             </call>
         </service>
 
-        <service id="hautelook_alice.fixtures.loader" class="Hautelook\AliceBundle\Alice\Fixtures">
-            <argument>%hautelook_alice.locale%</argument>
-            <argument type="collection" />
-            <argument>%hautelook_alice.seed%</argument>
-            <tag name="hautelook_alice.fixtures.loader" />
-        </service>
-
-        <service id="hautelook_alice.fixtures.loader_chain"
-                 class="Hautelook\AliceBundle\Alice\Fixtures\Loader\LoaderChain" />
         <service id="hautelook_alice.processor_chain"
-                 class="Hautelook\AliceBundle\Alice\ProcessorChain" />
+                 class="Hautelook\AliceBundle\Alice\ProcessorChain"
+                 lazy="true" />
         <service id="hautelook_alice.faker.provider_chain"
-                 class="Hautelook\AliceBundle\Faker\Provider\ProviderChain" />
+                 class="Hautelook\AliceBundle\Faker\Provider\ProviderChain"
+                 lazy="true" />
     </services>
 
 </container>

@@ -2,8 +2,8 @@
 
 namespace Hautelook\AliceBundle;
 
-use Hautelook\AliceBundle\DependencyInjection\Compiler\ChainCompilerPass;
-use Hautelook\AliceBundle\DependencyInjection\Compiler\LoaderCompilerPass;
+use Hautelook\AliceBundle\DependencyInjection\Compiler\ProcessorCompilerPass;
+use Hautelook\AliceBundle\DependencyInjection\Compiler\ProviderCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -16,20 +16,7 @@ class HautelookAliceBundle extends Bundle
     {
         parent::build($container);
 
-        $container->addCompilerPass(new LoaderCompilerPass());
-        $container->addCompilerPass(
-            new ChainCompilerPass(
-                'hautelook_alice.processor_chain',
-                'hautelook_alice.processor',
-                'addProcessor'
-            )
-        );
-        $container->addCompilerPass(
-            new ChainCompilerPass(
-                'hautelook_alice.faker.provider_chain',
-                'hautelook_alice.faker.provider',
-                'addProvider'
-            )
-        );
+        $container->addCompilerPass(new ProcessorCompilerPass());
+        $container->addCompilerPass(new ProviderCompilerPass());
     }
 }

@@ -1,36 +1,35 @@
 AliceBundle
 ===========
 
-A Symfony2 bundle to help load Doctrine Fixtures with Alice
+A [Symfony](symfony.com) bundle manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
+[fzaninotto/Faker](https://github.com/fzaninotto/Faker).
 
 [![Build Status](https://travis-ci.org/hautelook/AliceBundle.png?branch=master)](https://travis-ci.org/hautelook/AliceBundle)
 [![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/hautelook/AliceBundle/badges/quality-score.png?s=0b9ff0ac44085bc49fdb98f4ea1fec2fea918a39)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/)
 [![Code Coverage](https://scrutinizer-ci.com/g/hautelook/AliceBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/1169e133-3d02-4ba8-a87e-f152c620f8b5/mini.png)](https://insight.sensiolabs.com/projects/1169e133-3d02-4ba8-a87e-f152c620f8b5)
 
-## Introduction
-
-This bundle provides a new loader as well as an abstract `DataFixureLoader` that makes it easy for you to add fixtures
-to your bundles. Additionally, the loader shares the references to your fixtures among your bundles, so that you can
-use them there. Refer to the [Alice documentation](https://github.com/nelmio/alice/blob/master/README.md) for more
-information.
-
-And if you prefer watching, a screencast about using this bundle is also available: https://knpuniversity.com/screencast/alice-fixtures
-
 ## Documentation
 
 1. [Install](#install)
 2. [Basic usage](#basic-usage)
+3. [Custom Faker Provider](Resources/doc/faker-provider.md)
+4. [Custom Processors](Resources/doc/processors.md)
+5. [Doctrine support](Resources/doc/doctrine.md)
+
+Other references:
+* [Knp University screencast](https://knpuniversity.com/screencast/alice-fixtures)
 
 ## Installation
 
-1. You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
+You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
 ```bash
 composer require hautelook/alice-bundle
 ```
 
-2. Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
+Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
+
 ```php
 <?php
 // app/config/AppKernel.php
@@ -38,51 +37,67 @@ composer require hautelook/alice-bundle
 public function registerBundles()
 {
     //...
-    $bundles[] = new Fidry\LoopBackApiBundle\LoopBackApiBundle();
+    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        //...
+        $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
+    }
 
     return $bundles;
 }
 ```
 
-3. Configure the bundle to your needs:
+Configure the bundle to your needs:
 
 ```yaml
 # app/config/config.yml
 
 hautelook_alice:
-    locale: en_US   # default
-    seed: 1         # default
+    locale: en_US   # Locale to use with faker; must be a valid Faker locale otherwise will fallback to en_EN
+    seed: 1         # A seed to make sure faker generates data consistently across runs, set to null to disable
+    logger: logger  # ID of a service implementing the Psr\Log\LoggerInterface
 ```
 
-## Usage
+Fore more information regarding the locale, refer to
+[Faker documentation on localization](https://github.com/fzaninotto/Faker#localization)
 
-Simply add a loader class in your bundle, and extend the `DataFixtureLoader` class. Example
+## Basic usage
+
+Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), install
+the `doctrine/doctrine-bundle` and `doctrine/doctrine-fixtures-bundle` packages and registered both bundles, create a
+`DataFixtureLoader` which extends [AbstractDataFixtureLoader](Doctrine/DataFixtures/AbstractDataFixtureLoader.php)
+and implements the[FixtureInterface](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/FixtureInterface.php)
+interface:
 
 ```php
 <?php
 
 namespace AppBundle\DataFixtures\ORM;
 
-use Hautelook\AliceBundle\Alice\DataFixtureLoader;
+use Doctrine\Common\DataFixtures\FixtureInterface;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader;
 
-class TestLoader extends DataFixtureLoader
+class BrandFixtureLoader extends AbstractDataFixtureLoader implements FixtureInterface
 {
     /**
      * {@inheritdoc}
      */
     protected function getFixtures()
     {
-        return  array(
-            __DIR__ . '/test.yml',
+        return array(
+            __DIR__ . '/brand.yml',
         );
     }
 }
 ```
 
-## Future and ToDos:
+Then simply load your fixtures with the doctrine command `php app/console doctrine:fixtures:load` as you normally would.
 
-- Unit and functional tests
-- Clean up composer dev dependencies
+[See more](#documentation).
+
+## Credits
+
+This bundle is developped by [Baldur Rensch](https://github.com/baldurrensch), [HauteLook](https://github.com/hautelook)
+and its [awesome contributors](https://github.com/hautelook/AliceBundle/graphs/contributors).
 
 ## License
 

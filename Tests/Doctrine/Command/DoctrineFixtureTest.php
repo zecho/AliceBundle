@@ -5,14 +5,12 @@ namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 use Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand;
 use Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand;
 use Doctrine\Common\Persistence\ObjectManager;
+use Hautelook\AliceBundle\Tests\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class DoctrineFixtureTest extends KernelTestCase
 {
-    protected static $class = 'Hautelook\AliceBundle\Tests\SymfonyApp\AppKernel';
-
     /**
      * @var Application
      */
@@ -32,7 +30,7 @@ class DoctrineFixtureTest extends KernelTestCase
         $this->application->add(new LoadDataFixturesDoctrineCommand());
         $this->application->add(new CreateSchemaDoctrineCommand());
 
-        $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
+        $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
         $this->createDatabase();
     }
 
@@ -60,7 +58,7 @@ class DoctrineFixtureTest extends KernelTestCase
     }
 
     /**
-     * Generate schema via the doctrine command
+     * Generate schema via the doctrine command.
      */
     private function createDatabase()
     {
@@ -72,8 +70,8 @@ class DoctrineFixtureTest extends KernelTestCase
 
     private function verifyProducts()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            /** @var $brand \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product */
+        for ($i = 1; $i <= 10; ++$i) {
+            /* @var \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product */
             $product = $this->doctrineManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product',
                 $i
@@ -90,8 +88,8 @@ class DoctrineFixtureTest extends KernelTestCase
 
     private function verifyBrands()
     {
-        for ($i = 1; $i <= 10; $i++) {
-            /** @var $brand \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand */
+        for ($i = 1; $i <= 10; ++$i) {
+            /* @var $brand \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand */
             $this->doctrineManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand',
                 $i

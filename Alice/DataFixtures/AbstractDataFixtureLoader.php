@@ -1,6 +1,6 @@
 <?php
 
-namespace Hautelook\AliceBundle\Alice;
+namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
 use Nelmio\Alice\Fixtures;
 use Nelmio\Alice\ProcessorInterface;
@@ -49,7 +49,7 @@ abstract class AbstractDataFixtureLoader implements ContainerAwareInterface
     }
 
     /**
-     * Loads the fixtures files
+     * Loads the fixtures files.
      *
      * @param object $persister
      *
@@ -64,7 +64,7 @@ abstract class AbstractDataFixtureLoader implements ContainerAwareInterface
     }
 
     /**
-     * Returns an array of file paths to fixtures
+     * Returns an array of file paths to fixtures.
      *
      * @return string[]
      */

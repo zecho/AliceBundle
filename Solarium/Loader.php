@@ -81,6 +81,7 @@ class Loader
      * @param string $key
      *
      * @throws \InvalidArgumentException
+     *
      * @return mixed
      */
     protected function getLoader($key)

@@ -5,17 +5,16 @@ namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader;
 
-class BrandFixtureLoader extends AbstractDataFixtureLoader implements FixtureInterface
+class BrandFixtureLoader extends AbstractDataFixtureLoader
 {
     /**
-     * Returns an array of file paths to fixtures
-     *
-     * @return string[]
+     * {@inheritdoc}
      */
     protected function getFixtures()
     {
         return array(
-            __DIR__ . '/brand.yml',
+            __DIR__.'/brand.yml',
+            __DIR__.'/product.yml',
         );
     }
 }

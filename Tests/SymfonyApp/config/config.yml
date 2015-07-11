@@ -8,6 +8,8 @@ framework:
     form: ~
     validation: ~
     session: ~
+    test: ~
+
 doctrine:
     orm:
         default_entity_manager: default

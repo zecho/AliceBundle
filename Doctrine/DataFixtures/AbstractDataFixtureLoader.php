@@ -4,8 +4,7 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Hautelook\AliceBundle\Alice\AbstractDataFixtureLoader as HautelookAliceDataFixtureLoader;
-use Nelmio\Alice\Persister\Doctrine;
+use Hautelook\AliceBundle\Alice\DataFixtures\AbstractDataFixtureLoader as HautelookAliceDataFixtureLoader;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
@@ -14,7 +13,7 @@ use Nelmio\Alice\Persister\Doctrine;
 abstract class AbstractDataFixtureLoader extends HautelookAliceDataFixtureLoader implements FixtureInterface
 {
     /**
-     * Loads the fixtures files
+     * Loads the fixtures files.
      *
      * @param ObjectManager $objectManager
      */
