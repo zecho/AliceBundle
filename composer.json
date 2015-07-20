@@ -1,7 +1,7 @@
 {
     "name": "hautelook/alice-bundle",
-    "description": "Symfony2 Bundle that helps loading fixture data written with the Alice library",
-    "keywords": ["Symfony2", "Fixture", "ORM", "Alice"],
+    "description": "Symfony2 Bundle to manage fixtures with Alice and Faker.",
+    "keywords": ["Symfony", "Fixture", "ORM", "Alice", "Faker"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
@@ -19,9 +19,7 @@
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "fabpot/php-cs-fixer": "^1.9",
-        "hautelook/solarium-fixtures": "~1.0",
         "phpunit/phpunit": "^4.7",
-        "solarium/solarium": "~3.1",
         "symfony/browser-kit": "~2.1",
         "symfony/console": "~2.1",
         "symfony/framework-bundle": "~2.1",
@@ -31,7 +29,9 @@
         "theofidry/psysh-bundle": "@beta"
     },
     "suggest": {
-        "hautelook/solarium-fixtures": "To add Solarium fixtures"
+        "doctrine/orm": "To use Doctrine ORM",
+        "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
+        "doctrine/doctrine-fixtures-bundle": "To use Doctrine fixtures loader"
     },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }
