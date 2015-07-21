@@ -6,8 +6,7 @@ As explained in [nelmio/alice](https://github.com/nelmio/alice#custom-faker-data
 declare custom data provider. However to use [Custom Faker Provider classes][1]
 you will have to declare them as services:
 
-```
-php
+```php
 <?php
 
 namespace AppBundle\DataFixtures\Faker\Provider;
@@ -54,8 +53,7 @@ declaration of your provider. This faker generator instance is configured with:
 * the bundle seed
 * the registered providers
 
-```
-php
+```php
 <?php
 
 namespace AppBundle\DataFixtures\Faker\Provider;

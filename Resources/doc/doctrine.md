@@ -47,7 +47,7 @@ The to load them you can use the doctrine command `doctrine:fixtures:load`.
 
 There is currently a known bug which prevents to use the
 [`OrderedFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface) and
-[`DependentFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface). See #13 for more
+[`DependentFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface). See [#13](https://github.com/theofidry/AliceBundle/issues/13) for more
 details.
 
 Next chapter: [Back to Table of Contents](../../README.md#documentation)<br />

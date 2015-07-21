@@ -4,7 +4,7 @@ Refer to [nelmio/alice](https://github.com/nelmio/alice#processors) documentatio
 class. Given you declared a processor `AppBundle/DataFixtures/Processor/UserProcessor`, you have to declared it as a
 service with the tag `hautelook_alice.processor` to register it:
 
-```
+```yaml
 # app/config/services.yml
 
 services:
