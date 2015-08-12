@@ -1,7 +1,7 @@
 # Processors
 
 Refer to [nelmio/alice](https://github.com/nelmio/alice#processors) documentation to see how to create a Processor
-class. Given you declared a processor `AppBundle/DataFixtures/Processor/UserProcessor`, you have to declared it as a
+class. Given you declared a processor `AppBundle\DataFixtures\Processor\UserProcessor`, you have to declared it as a
 service with the tag `hautelook_alice.processor` to register it:
 
 ```yaml
@@ -9,7 +9,7 @@ service with the tag `hautelook_alice.processor` to register it:
 
 services:
     alice.processor.user:
-        class: AppBundle/DataFixtures/Processor/UserProcessor
+        class: AppBundle\DataFixtures\Processor\UserProcessor
         tags: [ { name: hautelook_alice.processor } ]
 ```
 
