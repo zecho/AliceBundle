@@ -18,8 +18,7 @@ doctrine:
         entity_managers:
             default:
                 connection: default
-                mappings:
-                    TestBundle: ~
+                auto_mapping: true
     dbal:
         driver: pdo_sqlite
         path: %kernel.cache_dir%/db.sqlite

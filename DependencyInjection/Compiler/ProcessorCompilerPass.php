@@ -16,9 +16,9 @@ final class ProcessorCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $processorChainDefinition = $container->findDefinition('hautelook_alice.processor_chain');
+        $processorChainDefinition = $container->findDefinition('hautelook_alice.alice.processor_chain');
 
-        $processorsIds = $container->findTaggedServiceIds('hautelook_alice.processor');
+        $processorsIds = $container->findTaggedServiceIds('hautelook_alice.alice.processor');
         $processors = [];
         foreach ($processorsIds as $processorId => $tags) {
             $processors[] = new Reference($processorId);

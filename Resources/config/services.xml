@@ -13,12 +13,29 @@
             </call>
         </service>
 
-        <service id="hautelook_alice.processor_chain"
+        <service id="hautelook_alice.alice.processor_chain"
                  class="Hautelook\AliceBundle\Alice\ProcessorChain"
                  lazy="true" />
+
         <service id="hautelook_alice.faker.provider_chain"
                  class="Hautelook\AliceBundle\Faker\Provider\ProviderChain"
                  lazy="true" />
+
+        <service id="hautelook_alice.fixtures.loader" class="Hautelook\AliceBundle\Alice\DataFixtures\Loader">
+            <argument type="service" id="hautelook_alice.alice.processor_chain" />
+            <argument type="service" id="hautelook_alice.faker.provider_chain" />
+            <argument>%hautelook_alice.locale%</argument>
+            <argument>%hautelook_alice.seed%</argument>
+            <argument type="service" id="logger" on-invalid="ignore" />
+        </service>
+
+        <service id="hautelook_alice.command.load_command"
+                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
+                 lazy="true">
+            <argument type="service" id="doctrine" />
+            <argument type="service" id="hautelook_alice.fixtures.loader" />
+            <tag name="console.command" />
+        </service>
     </services>
 
 </container>
