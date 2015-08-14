@@ -26,7 +26,8 @@
         "symfony/yaml": "~2.1",
         "symfony/validator": "~2.1",
         "symfony/finder": "^2.7",
-        "theofidry/psysh-bundle": "@beta"
+        "theofidry/psysh-bundle": "@beta",
+        "symfony/expression-language": "^2.7"
     },
     "suggest": {
         "doctrine/orm": "To use Doctrine ORM",
