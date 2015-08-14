@@ -15,7 +15,7 @@ which implements one of the following interface:
 * [`DependentFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface)
 
 Then to use the features provided by this bundle, simply extend the
-[`Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader`](Doctrine/DataFixtures/AbstractDataFixtureLoader)
+[`Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader)
 class:
 
 ```php
@@ -24,9 +24,9 @@ class:
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
-class BrandFixtureLoader extends AbstractDataFixtureLoader
+class BrandFixtureLoader extends AbstractLoader
 {
     /**
      * {@inheritdoc}

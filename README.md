@@ -64,7 +64,7 @@ Fore more information regarding the locale, refer to
 
 Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), install
 the `doctrine/doctrine-bundle` and `doctrine/doctrine-fixtures-bundle` packages and registered both bundles, create a
-`DataFixtureLoader` which extends [AbstractDataFixtureLoader](Doctrine/DataFixtures/AbstractDataFixtureLoader.php)
+`DataFixtureLoader` which extends [AbstractLoader](Doctrine/DataFixtures/AbstractLoader.php)
 and implements the[FixtureInterface](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/FixtureInterface.php)
 interface:
 
@@ -74,9 +74,9 @@ interface:
 namespace AppBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
-class BrandFixtureLoader extends AbstractDataFixtureLoader implements FixtureInterface
+class BrandFixtureLoader extends AbstractLoader implements FixtureInterface
 {
     /**
      * {@inheritdoc}

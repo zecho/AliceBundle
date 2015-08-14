@@ -4,9 +4,9 @@ namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractDataFixtureLoader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
-class ProductFixtureLoader extends AbstractDataFixtureLoader implements DependentFixtureInterface
+class ProductFixtureLoader extends AbstractLoader implements DependentFixtureInterface
 {
     /**
      * {@inheritdoc}
