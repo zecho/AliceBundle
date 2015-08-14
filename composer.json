@@ -20,12 +20,10 @@
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "fabpot/php-cs-fixer": "^1.9",
         "phpunit/phpunit": "^4.7",
-        "symfony/browser-kit": "~2.1",
         "symfony/console": "~2.1",
         "symfony/framework-bundle": "~2.1",
         "symfony/yaml": "~2.1",
         "symfony/validator": "~2.1",
-        "symfony/finder": "^2.7",
         "theofidry/psysh-bundle": "@beta",
         "symfony/expression-language": "^2.7"
     },
@@ -38,6 +36,6 @@
         "psr-4": { "Hautelook\\AliceBundle\\": "" }
     },
     "autoload-dev": {
-        "psr-4": { "Hautelook\\AliceBundle\\Tests\\": "Tests" }
+      "psr-4": { "Hautelook\\AliceBundle\\Tests\\": "Tests" }
     }
 }

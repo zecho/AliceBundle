@@ -45,11 +45,7 @@ class DoctrineFixtureTest extends KernelTestCase
 
         $this->assertContains('> purging database', $display);
         $this->assertContains(
-            '> loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\BrandFixtureLoader',
-            $display
-        );
-        $this->assertContains(
-            '> loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\ProductFixtureLoader',
+            '> loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader',
             $display
         );
 

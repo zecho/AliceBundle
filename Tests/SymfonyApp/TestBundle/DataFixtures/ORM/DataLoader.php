@@ -2,10 +2,9 @@
 
 namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
-class BrandFixtureLoader extends AbstractLoader
+class DataLoader extends AbstractLoader
 {
     /**
      * {@inheritdoc}

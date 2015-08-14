@@ -6,7 +6,9 @@ framework:
     router:
         resource: %kernel.root_dir%/config/routing.yml
     form: ~
-    validation: ~
+    validation:
+        enabled: true
+        enable_annotations: true
     session: ~
     test: ~
 
@@ -19,8 +21,6 @@ doctrine:
                 mappings:
                     TestBundle: ~
     dbal:
-        default_connection: default
-        connections:
-            default:
-                driver: pdo_sqlite
-                memory: true
+        driver: pdo_sqlite
+        path: %kernel.cache_dir%/db.sqlite
+        charset: UTF8

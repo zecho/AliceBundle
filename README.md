@@ -76,7 +76,7 @@ namespace AppBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
 
-class BrandFixtureLoader extends AbstractLoader implements FixtureInterface
+class DataLoader extends AbstractLoader implements FixtureInterface
 {
     /**
      * {@inheritdoc}
