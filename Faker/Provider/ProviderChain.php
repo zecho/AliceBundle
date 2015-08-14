@@ -10,14 +10,14 @@ class ProviderChain
     /**
      * @var array
      */
-    private $providers = [];
+    private $providers;
 
     /**
-     * @param $provider
+     * @param array $providers
      */
-    public function addProvider($provider)
+    public function __construct(array $providers)
     {
-        $this->providers[] = $provider;
+        $this->providers = $providers;
     }
 
     /**

@@ -12,14 +12,22 @@ class ProcessorChain
     /**
      * @var ProcessorInterface[]
      */
-    private $processors = [];
+    private $processors;
 
     /**
-     * @param ProcessorInterface $processor
+     * @param ProcessorInterface[] $processors
+     *
+     * @throws \InvalidArgumentException
      */
-    public function addProcessor(ProcessorInterface $processor)
+    public function __construct(array $processors)
     {
-        $this->processors[] = $processor;
+        foreach ($processors as $processor) {
+            if (false === $processor instanceof ProcessorInterface) {
+                throw new \InvalidArgumentException('Expected a Nelmio\Alice\ProcessorInterface instance');
+            }
+        }
+
+        $this->processors = $processors;
     }
 
     /**

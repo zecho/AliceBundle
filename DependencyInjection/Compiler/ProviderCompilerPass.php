@@ -16,15 +16,18 @@ final class ProviderCompilerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $definitions = [];
-        $definitions[] = $container->findDefinition('hautelook_alice.faker');
-        $definitions[] = $container->findDefinition('hautelook_alice.faker.provider_chain');
+        $fakerDefinition = $container->findDefinition('hautelook_alice.faker');
+        $providerChainDefinition = $container->findDefinition('hautelook_alice.faker.provider_chain');
 
-        $taggedServices = $container->findTaggedServiceIds('hautelook_alice.faker.provider');
-        foreach ($taggedServices as $serviceId => $tags) {
-            foreach ($definitions as $definition) {
-                $definition->addMethodCall('addProvider', [new Reference($serviceId)]);
-            }
+        $providersIds = $container->findTaggedServiceIds('hautelook_alice.faker.provider');
+        $providers = [];
+        foreach ($providersIds as $providerId => $tags) {
+            $provider = new Reference($providerId);
+
+            $fakerDefinition->addMethodCall('addProvider', [$provider]);
+            $providers[] = $provider;
         }
+
+        $providerChainDefinition->addArgument($providers);
     }
 }
