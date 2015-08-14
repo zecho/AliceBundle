@@ -1,9 +1,12 @@
 <?php
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
+use Composer\Autoload\ClassLoader;
 
-$loader = require __DIR__.'/../vendor/autoload.php';
-$loader->loadClass('Hautelook\AliceBundle\Tests\SymfonyApp\AppKernel');
+/**
+* @var ClassLoader $loader
+*/
+$loader = require __DIR__.'/../../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader(array($loader, 'loadClass'));
 

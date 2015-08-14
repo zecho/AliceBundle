@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-abstract class AbstractDataFixtureLoader implements ContainerAwareInterface
+abstract class AbstractLoader implements ContainerAwareInterface
 {
     /**
      * @var ProcessorInterface[]
