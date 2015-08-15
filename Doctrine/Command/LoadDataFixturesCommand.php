@@ -2,7 +2,6 @@
 
 namespace Hautelook\AliceBundle\Doctrine\Command;
 
-use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
@@ -16,9 +15,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * @author Théo FIDRY <theo.fidry@gmail.com>
@@ -85,7 +81,7 @@ class LoadDataFixturesCommand extends Command
                 InputOption::VALUE_NONE,
                 'Purge data by using a database-level TRUNCATE statement'
             )
-            ;
+        ;
         //TODO: set help
     }
 
