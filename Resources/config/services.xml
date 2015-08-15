@@ -29,11 +29,16 @@
             <argument type="service" id="logger" on-invalid="ignore" />
         </service>
 
-        <service id="hautelook_alice.command.load_command"
+        <service id="hautelook_alice.doctrine.finder"
+                 class="Hautelook\AliceBundle\Doctrine\Finder\Finder"
+                 public="false" />
+
+        <service id="hautelook_alice.doctrine.command.load_command"
                  class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
                  lazy="true">
             <argument type="service" id="doctrine" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />
+            <argument type="service" id="hautelook_alice.doctrine.finder" />
             <tag name="console.command" />
         </service>
     </services>

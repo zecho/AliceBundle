@@ -2,7 +2,6 @@
 
 namespace Hautelook\AliceBundle\Doctrine\DataFixtures;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
@@ -23,11 +22,4 @@ abstract class AbstractLoader extends ContainerAware implements FixtureInterface
     {
         return $this->container->get('hautelook_alice.fixtures.loaderook')->load($objectManager, $this->getFixtures());
     }
-
-    /**
-     * Returns an array of file paths to fixtures.
-     *
-     * @return string[]
-     */
-    abstract protected function getFixtures();
 }
