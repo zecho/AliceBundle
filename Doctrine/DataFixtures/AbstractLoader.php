@@ -20,6 +20,6 @@ abstract class AbstractLoader extends ContainerAware implements FixtureInterface
      */
     public function load(ObjectManager $objectManager)
     {
-        return $this->container->get('hautelook_alice.fixtures.loaderook')->load($objectManager, $this->getFixtures());
+        return $this->container->get('hautelook_alice.fixtures.loader')->load($objectManager, $this->getFixtures());
     }
 }

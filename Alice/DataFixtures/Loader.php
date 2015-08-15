@@ -15,14 +15,14 @@ use Psr\Log\LoggerInterface;
 class Loader implements LoaderInterface
 {
     /**
-     * @var ProcessorInterface[]
-     */
-    protected $processors;
-
-    /**
      * @var array
      */
     protected $options;
+
+    /**
+     * @var ProcessorInterface[]
+     */
+    protected $processors;
 
     /**
      * @param ProcessorChain  $processorChain
@@ -64,5 +64,21 @@ class Loader implements LoaderInterface
             $this->options,
             $this->processors
         );
+    }
+
+    /**
+     * @return array
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @return array|ProcessorInterface[]
+     */
+    public function getProcessors()
+    {
+        return $this->processors;
     }
 }

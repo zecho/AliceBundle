@@ -27,6 +27,13 @@ class Brand
     protected $name;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    public $canonicalName;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="brand")

@@ -2,11 +2,9 @@
 
 namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
-use Doctrine\Common\DataFixtures\Executor\AbstractExecutor;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor as DoctrineORMExecutor;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\DataFixtures\Event\Listener\ORMReferenceListener;
-use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 
 /**
@@ -15,7 +13,7 @@ use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
  * @author Jonathan H. Wage <jonwage@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class ORMExecutor extends AbstractExecutor
+class ORMExecutor extends DoctrineORMExecutor
 {
     /**
      * @var LoaderInterface
@@ -26,47 +24,19 @@ class ORMExecutor extends AbstractExecutor
      * Construct new fixtures loader instance.
      *
      * @param EntityManagerInterface $manager EntityManagerInterface instance used for persistence.
+     * @param LoaderInterface        $loader
      * @param ORMPurger              $purger
      */
     public function __construct(EntityManagerInterface $manager, LoaderInterface $loader, ORMPurger $purger = null)
     {
-        $this->em = $manager;
-        if (null !== $purger) {
-            $this->purger = $purger;
-            $this->purger->setEntityManager($manager);
-        }
+        parent::__construct($manager, $purger);
 
-        parent::__construct($manager);
-
-        $this->listener = new ORMReferenceListener($this->referenceRepository);
-        $manager->getEventManager()->addEventSubscriber($this->listener);
         $this->loader = $loader;
     }
 
     /**
-     * Retrieve the EntityManagerInterface instance this executor instance is using.
-     *
-     * @return \Doctrine\ORM\EntityManagerInterface
+     * {@inheritdoc}
      */
-    public function getObjectManager()
-    {
-        return $this->em;
-    }
-
-    /** @inheritDoc */
-    public function setReferenceRepository(ReferenceRepository $referenceRepository)
-    {
-        $this->em->getEventManager()->removeEventListener(
-            $this->listener->getSubscribedEvents(),
-            $this->listener
-        );
-
-        $this->referenceRepository = $referenceRepository;
-        $this->listener = new ORMReferenceListener($this->referenceRepository);
-        $this->em->getEventManager()->addEventSubscriber($this->listener);
-    }
-
-    /** @inheritDoc */
     public function execute(array $fixtures, $append = false)
     {
         $executor = $this;

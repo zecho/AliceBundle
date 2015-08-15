@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class GeneratorServiceTest extends KernelTestCase
+class FakerGeneratorTest extends KernelTestCase
 {
     /**
      * @var Application

@@ -14,14 +14,13 @@ use Symfony\Component\HttpKernel\KernelInterface;
 class Finder
 {
     /**
-     * Look at all the bundles registered in the application to return them. An exception is thrown if a bundle has
-     * not been found.
+     * Looks at all the bundles registered in the application to return the bundles requested. An exception is thrown
+     * if a bundle has not been found.
      *
-     * @param Application $application Application in which bundles will be looked in
-     * @param string[]    $names       Bundle names
+     * @param Application $application Application in which bundles will be looked in.
+     * @param string[]    $names       Bundle names.
      *
-     * @return BundleInterface[]
-     *
+     * @return BundleInterface[] Bundles requested.
      * @throws \RuntimeException A bundle could not be resolved.
      */
     public function resolveBundles(Application $application, array $names)
@@ -45,7 +44,7 @@ class Finder
     }
 
     /**
-     * Get all fixtures.
+     * Gets all fixtures.
      *
      * For first get all the path for where to look for fixtures.
      * For each path, will try to get fixtures from data loaders. If no data loader is found, will take all the
@@ -83,7 +82,7 @@ class Finder
     }
 
     /**
-     * Get the real path of each fixtures.
+     * Gets the real path of each fixtures.
      *
      * @param KernelInterface $kernel
      * @param array           $fixtures
@@ -132,7 +131,7 @@ class Finder
     }
 
     /**
-     * Get paths to loaders.
+     * Gets paths to loaders.
      *
      * @param BundleInterface[] $bundles
      * @param string            $environment
