@@ -16,6 +16,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -59,12 +60,6 @@ class LoadDataFixturesCommand extends Command
                 'b',
                 InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
                 'Bundles where fixtures should be loaded'
-            )
-            ->addOption(
-                'environment',
-                'env',
-                InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
-                'Load fixtures which belongs to the environment'
             )
             ->addOption(
                 'manager',
@@ -125,7 +120,7 @@ class LoadDataFixturesCommand extends Command
         }
 
         // Get fixtures
-        $fixtures = $this->getFixtures($application->getKernel(), $bundles);
+        $fixtures = $this->getFixtures($application->getKernel(), $bundles, ucfirst($input->getOption('env')));
         $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures found:'));
         foreach ($fixtures as $fixture) {
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));
@@ -155,7 +150,7 @@ class LoadDataFixturesCommand extends Command
      * @param Application $application Application in which bundles will be looked in
      * @param string[]    $names       Bundle names
      *
-     * @return \Symfony\Component\HttpKernel\Bundle\BundleInterface[]
+     * @return BundleInterface[]
      *
      * @throws \RuntimeException A bundle could not be resolved.
      */
@@ -184,26 +179,38 @@ class LoadDataFixturesCommand extends Command
      *
      * @param KernelInterface   $kernel
      * @param BundleInterface[] $bundles
+     * @param array             $envionments
      *
      * @return \string[]
      */
-    private function getFixtures(KernelInterface $kernel, array $bundles)
+    private function getFixtures(KernelInterface $kernel, array $bundles, $envionments)
     {
-        $loadersPaths = $this->getLoadersPaths($bundles);
-        $loader = new Loader();
+        $finder = Finder::create();
+        $loadersPaths = $this->getLoadersPaths($bundles, $envionments);
 
         // Add all fixtures to the new Doctrine loader
+        $fixtures = [];
         foreach ($loadersPaths as $path) {
             if (true === is_dir($path)) {
+                $loader = new Loader();
                 $loader->loadFromDirectory($path);
-            }
-        }
 
-        // Get all registered fixtures
-        $fixtures = [];
-        foreach ($loader->getFixtures() as $loader) {
-            /** @var Loader $loader */
-            $fixtures = array_merge($fixtures, $loader->getFixtures());
+                // $_loader has either found a data loader or has no fixtures
+                // If a data loader is found, takes the data loader fixtures
+                // Otherwise takes all fixtures
+                if (0 !== count($loader->getFixtures())) {
+                    foreach ($loader->getFixtures() as $_loader) {
+                        /** @var Loader $loader */
+                        $fixtures = array_merge($fixtures, $_loader->getFixtures());
+                    }
+                } else {
+                    $finder->in($path)->files()->name('*.yml');
+                    foreach ($finder as $file) {
+                        /** @var SplFileInfo $file */
+                        $fixtures[] = $file->getRealPath();
+                    }
+                }
+            }
         }
 
         if (0 === count($fixtures)) {
@@ -218,7 +225,7 @@ class LoadDataFixturesCommand extends Command
                 $fixtures[$index] = $kernel->locateResource($fixture);
             } else {
                 $realPath = realpath($fixture);
-                if (false === $realPath) {
+                if (false === $realPath || false === file_exists($realPath)) {
                     throw new \InvalidArgumentException(sprintf('The file "%s" was not found', $fixture));
                 }
                 $fixtures[$index] = realpath($fixture);
@@ -231,18 +238,30 @@ class LoadDataFixturesCommand extends Command
     /**
      * Get paths to loaders.
      *
-     * @param \Symfony\Component\HttpKernel\Bundle\BundleInterface[] $bundles
+     * @param BundleInterface[] $bundles
+     * @param string            $envionment
      *
      * @return array
      */
-    private function getLoadersPaths(array $bundles)
+    private function getLoadersPaths(array $bundles, $envionment)
     {
+        $finder = Finder::create();
+
         $paths = [];
         foreach ($bundles as $bundle) {
             $paths[] = $bundle->getPath().'/DataFixtures/ORM';
+            try {
+                $files = $finder->directories()->in($bundle->getPath().'/DataFixtures/ORM');
+                foreach ($files as $file) {
+                    /** @var SplFileInfo $file */
+                    if ($envionment === $file->getRelativePathname()) {
+                        $paths[] = $file->getRealPath();
+                    }
+                }
+            } catch (\InvalidArgumentException $exception) {}
         }
 
-        return $paths;
+        return array_unique($paths);
     }
 
     /**
