@@ -16,6 +16,8 @@ use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
 
 /**
+ * Extends its parent class to take into account doctrine data loaders.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class Finder extends \Hautelook\AliceBundle\Finder\Finder

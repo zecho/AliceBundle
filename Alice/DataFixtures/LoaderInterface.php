@@ -12,6 +12,8 @@
 namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
 /**
+ * The loader is class responsible for loading the fixtures.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 interface LoaderInterface

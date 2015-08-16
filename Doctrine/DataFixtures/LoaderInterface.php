@@ -14,7 +14,7 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures;
 use Doctrine\Common\DataFixtures\FixtureInterface as DoctrineFixtureInterface;
 
 /**
- * Interface LoaderInterface.
+ * Doctrine data loader interface.
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */

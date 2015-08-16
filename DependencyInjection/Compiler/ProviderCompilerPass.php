@@ -16,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
+ * Add registered Faker providers instances to the {@see Hautelook\AliceBundle\Faker\ProvidersChain}.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 final class ProviderCompilerPass implements CompilerPassInterface

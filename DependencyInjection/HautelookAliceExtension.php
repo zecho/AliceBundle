@@ -16,6 +16,11 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
+/**
+ * The extension of this bundle.
+ *
+ * @author Baldur Rensch <brensch@gmail.com>
+ */
 class HautelookAliceExtension extends Extension
 {
     /**

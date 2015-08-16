@@ -14,6 +14,10 @@ namespace Hautelook\AliceBundle\Alice;
 use Nelmio\Alice\ProcessorInterface;
 
 /**
+ * Calls multiple {@see Nelmio\Alice\ProcessorInterface} instances in a chain.
+ *
+ * This class accepts multiple instances of ProcessorInterface to be passed to the constructor.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class ProcessorChain

@@ -18,6 +18,8 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
+ * Class responsible retrieving the fixtures path to load.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class Finder

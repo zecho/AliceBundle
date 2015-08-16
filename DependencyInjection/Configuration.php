@@ -14,6 +14,11 @@ namespace Hautelook\AliceBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * The configuration of the bundle.
+ *
+ * @author Baldur Rensch <brensch@gmail.com>
+ */
 class Configuration implements ConfigurationInterface
 {
     /**

@@ -16,6 +16,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
+ * Add registered {@see Nelmio\Alice\ProcessorInterface} instances to the {@see
+ * Hautelook\AliceBundle\Alice\ProcessorChain}.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 final class ProcessorCompilerPass implements CompilerPassInterface

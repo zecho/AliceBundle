@@ -17,6 +17,10 @@ use Hautelook\AliceBundle\Tests\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
+/**
+ * @author Baldur Rensch <brensch@gmail.com>
+ * @author Théo FIDRY <theo.fidry@gmail.com>
+ */
 class DoctrineFixtureTest extends KernelTestCase
 {
     /**

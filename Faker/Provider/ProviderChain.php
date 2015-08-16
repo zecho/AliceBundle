@@ -12,6 +12,10 @@
 namespace Hautelook\AliceBundle\Faker\Provider;
 
 /**
+ * Calls multiple Faker providers instances in a chain.
+ *
+ * This class accepts multiple instances of Faker providers to be passed to the constructor.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class ProviderChain

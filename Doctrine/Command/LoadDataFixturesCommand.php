@@ -26,6 +26,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
 
 /**
+ * Command used to load the fixtures.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class LoadDataFixturesCommand extends Command
