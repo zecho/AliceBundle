@@ -5,11 +5,11 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures;
 use Doctrine\Common\DataFixtures\FixtureInterface as DoctrineFixtureInterface;
 
 /**
- * Interface FixtureInterface.
+ * Interface LoaderInterface.
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-interface FixtureInterface extends DoctrineFixtureInterface
+interface LoaderInterface extends DoctrineFixtureInterface
 {
     /**
      * Returns an array of file paths to fixtures.

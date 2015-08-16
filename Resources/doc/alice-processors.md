@@ -14,4 +14,4 @@ services:
 ```
 
 Next chapter: [Doctrine support](doctrine.md)<br />
-Previous chapter: [Custom Faker providers](faker-provider.md)
+Previous chapter: [Custom Faker providers](faker-providers.md)

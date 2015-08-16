@@ -1,7 +1,7 @@
 AliceBundle
 ===========
 
-A [Symfony](symfony.com) bundle manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
+A [Symfony](symfony.com) bundle to manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
 [fzaninotto/Faker](https://github.com/fzaninotto/Faker).
 
 [![Build Status](https://travis-ci.org/hautelook/AliceBundle.png?branch=master)](https://travis-ci.org/hautelook/AliceBundle)
@@ -13,9 +13,10 @@ A [Symfony](symfony.com) bundle manage fixtures with [nelmio/alice](https://gith
 
 1. [Install](#install)
 2. [Basic usage](#basic-usage)
-3. [Custom Faker Provider](Resources/doc/faker-provider.md)
-4. [Custom Processors](Resources/doc/processors.md)
-5. [Doctrine support](Resources/doc/doctrine.md)
+3. [Advanced usage](Resources/doc/advanced-usage.md)
+4. [Custom Faker Providers](Resources/doc/faker-providers.md)
+5. [Custom Processors](Resources/doc/alice-processors.md)
+6. [Doctrine support](Resources/doc/doctrine.md)
 
 Other references:
 * [Knp University screencast](https://knpuniversity.com/screencast/alice-fixtures)
@@ -54,7 +55,6 @@ Configure the bundle to your needs:
 hautelook_alice:
     locale: en_US   # Locale to use with faker; must be a valid Faker locale otherwise will fallback to en_EN
     seed: 1         # A seed to make sure faker generates data consistently across runs, set to null to disable
-    logger: logger  # ID of a service implementing the Psr\Log\LoggerInterface
 ```
 
 Fore more information regarding the locale, refer to
@@ -63,36 +63,20 @@ Fore more information regarding the locale, refer to
 ## Basic usage
 
 Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), install
-the `doctrine/doctrine-bundle` and `doctrine/doctrine-fixtures-bundle` packages and registered both bundles, create a
-`DataFixtureLoader` which extends [Loader](Doctrine/DataFixtures/Loader.php)
-and implements the[FixtureInterface](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/FixtureInterface.php)
-interface:
+the `doctrine/doctrine-bundle` and `doctrine/data-fixtures` packages and register both bundles.
+Then create a fixture file in `AppBundle/DataFixtures/ORM`:
 
-```php
-<?php
-
-namespace AppBundle\DataFixtures\ORM;
-
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Loader;
-
-class DataLoader extends Loader implements FixtureInterface
-{
-    /**
-     * {@inheritdoc}
-     */
-    protected function getFixtures()
-    {
-        return array(
-            __DIR__ . '/brand.yml',
-        );
-    }
-}
+```yaml
+AppBundle\Entity\Dummy:
+    dummy_{1..10}:
+        name: <name()>
 ```
 
-Then simply load your fixtures with the doctrine command `php app/console doctrine:fixtures:load` as you normally would.
+Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:fixtures:load` (or `php app/console h:f:l`).
 
-[See more](#documentation).
+[See more](#documentation).<br />
+Next chapter: [Advanced usage](Resources/doc/advanced-usage.md)
+
 
 ## Credits
 
