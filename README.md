@@ -16,7 +16,7 @@ A [Symfony](symfony.com) bundle to manage fixtures with [nelmio/alice](https://g
 3. [Advanced usage](Resources/doc/advanced-usage.md)
 4. [Custom Faker Providers](Resources/doc/faker-providers.md)
 5. [Custom Processors](Resources/doc/alice-processors.md)
-6. [Doctrine support](Resources/doc/doctrine.md)
+6. [DoctrineFixturesBundle support](Resources/doc/doctrine-fixtures-bundle.md)
 
 Other references:
 * [Knp University screencast](https://knpuniversity.com/screencast/alice-fixtures)
@@ -74,9 +74,17 @@ AppBundle\Entity\Dummy:
 
 Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:fixtures:load` (or `php app/console h:f:l`).
 
+If you want to load the fixtures of a bundle only, do `php app/console h:f:l -b MyFirstBundle, MySecondBundle`.
+
 [See more](#documentation).<br />
 Next chapter: [Advanced usage](Resources/doc/advanced-usage.md)
 
+
+## Resources
+
+* [Upgrade guide](UPGRADE.md)
+  * [Upgrade from 0.X to 1.X](UPGRADE.md#upgrade-from-0.X-to-1.X)
+* [Changelog](CHANGELOG.md)
 
 ## Credits
 
