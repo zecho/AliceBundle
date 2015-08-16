@@ -29,9 +29,7 @@
             <argument type="service" id="logger" on-invalid="ignore" />
         </service>
 
-        <service id="hautelook_alice.doctrine.finder"
-                 class="Hautelook\AliceBundle\Doctrine\Finder\Finder"
-                 public="false" />
+        <service id="hautelook_alice.doctrine.finder" class="Hautelook\AliceBundle\Doctrine\Finder\Finder" />
 
         <service id="hautelook_alice.doctrine.command.load_command"
                  class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
