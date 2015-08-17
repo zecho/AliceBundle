@@ -8,11 +8,16 @@
         {
             "name": "Baldur Rensch",
             "email": "brensch@gmail.com"
+        },
+        {
+            "name": "Théo FIDRY",
+            "email": "theo.fidry@gmail.com",
+            "homepage": "https://github.com/theofidry"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "nelmio/alice": "2.0.x-dev",
+        "nelmio/alice": "~2.0",
         "symfony/finder": "^2.7"
     },
   "require-dev": {
@@ -25,7 +30,7 @@
         "symfony/framework-bundle": "~2.1",
         "symfony/yaml": "~2.1",
         "symfony/validator": "~2.1",
-        "theofidry/psysh-bundle": "@beta",
+        "theofidry/psysh-bundle": "~1.1",
         "symfony/expression-language": "^2.7"
     },
     "suggest": {
