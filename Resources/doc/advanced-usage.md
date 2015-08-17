@@ -10,15 +10,16 @@ If you were using [DoctrineFixturesBundle](https://github.com/doctrine/DoctrineF
 If you wish to use different fixtures depending of the environment, you can easily organise your fixtures the following way:
 
 ```
-DataFixtures/ORM
-	environmentless-fixture1.yml
-	...
-	Inte
-		prod-fixture1.yml
-		...
-	Dev
-		dev-fixture1.yml
-		...
+.
+└── DataFixtures/ORM
+    ├── environmentless-fixture1.yml
+    ├── ...
+    ├── Inte
+    |   ├── prod-fixture1.yml
+    |   ├── ...
+    └─── Dev
+            ├── dev-fixture1.yml
+            └── ...
 ```
 
 Then, when you're running the command `php app/console h:f:l --env=inte`, it will load all the fixtures matching the pattern `DataFixtures/ORM/*.yml` and `DataFixtures/ORM/Inte/*.yml`. Don't forget that if you're not specifying the environment, the default environment is used (usually `dev`).
@@ -26,7 +27,7 @@ Then, when you're running the command `php app/console h:f:l --env=inte`, it wil
 
 ## Using Data loaders
 
-Sometime, you will want to omit some fixtures or use fixtures from another bundle. This can be achieved by using the data loader, which is a class implementing the [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](Doctrine/DataFixtures/LoaderInterface.php) or extending [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader.php). You can then specify the fixtures you wish to use by giving an absolute or relative path or even with the `@BundlenameBundle` notation:
+Sometime, you will want to omit some fixtures or use fixtures from another bundle. This can be achieved by using a data loader, which is a class implementing the [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](../../Doctrine/DataFixtures/LoaderInterface.php) or extending [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](../../Doctrine/DataFixtures/AbstractLoader.php). You can then specify the fixtures you wish to use by giving an absolute or relative path or even with the `@Bundlename` notation:
 
 ```php
 <?php
@@ -52,5 +53,5 @@ class DataLoader extends AbstractLoader
 
 **Warning**: when you're putting a data loader in a fixture directory, only the fixtures specified by the data loader will be loaded. But you can use several data loaders in the same directory, they will all be loaded.
 
-Next chapter: [[Custom Faker Providers](faker-providers.md)<br />
-Previous chapter: [Basic usage](../../README.md#basic-usage)
+Previous chapter: [Basic usage](../../README.md#basic-usage)<br />
+Next chapter: [Custom Faker Providers](faker-providers.md)
