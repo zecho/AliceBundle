@@ -79,7 +79,7 @@ services:
         tags: [ { name: hautelook_alice.faker.provider } ]
 ```
 
-Next chapter: [Custom Processors](processors.md)<br />
+Next chapter: [Advanced usage](advanced-usage.md)<br />
 Previous chapter: [Basic usage](../../README.md#basic-usage)
 
 [1]: https://github.com/nelmio/alice#add-a-custom-faker-provider-class

@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\DependencyInjection\Compiler;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
@@ -7,6 +16,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
+ * Add registered Faker providers instances to the {@see Hautelook\AliceBundle\Faker\ProvidersChain}.
+ *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 final class ProviderCompilerPass implements CompilerPassInterface

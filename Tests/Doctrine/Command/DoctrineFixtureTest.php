@@ -1,14 +1,26 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
-use Doctrine\Bundle\DoctrineBundle\Command\Proxy\CreateSchemaDoctrineCommand;
-use Doctrine\Bundle\FixturesBundle\Command\LoadDataFixturesDoctrineCommand;
 use Doctrine\Common\Persistence\ObjectManager;
+use Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand;
 use Hautelook\AliceBundle\Tests\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
+/**
+ * @author Baldur Rensch <brensch@gmail.com>
+ * @author Théo FIDRY <theo.fidry@gmail.com>
+ */
 class DoctrineFixtureTest extends KernelTestCase
 {
     /**
@@ -27,41 +39,46 @@ class DoctrineFixtureTest extends KernelTestCase
         $this->application = new Application(self::$kernel);
 
         // Register doctrine bundles
-        $this->application->add(new LoadDataFixturesDoctrineCommand());
-        $this->application->add(new CreateSchemaDoctrineCommand());
+        $this->application->add(
+            new LoadDataFixturesCommand(
+                $this->application->getKernel()->getContainer()->get('doctrine'),
+                $this->application->getKernel()->getContainer()->get('hautelook_alice.fixtures.loader'),
+                $this->application->getKernel()->getContainer()->get('hautelook_alice.doctrine.finder')
+            )
+        );
 
         $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
-        $this->createDatabase();
+
+        $this->application->setAutoExit(false);
+        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
+        $this->runConsole("doctrine:schema:create");
     }
 
-    public function testFixture()
+    public function testFixturesLoading()
     {
-        $command = $this->application->find('doctrine:fixtures:load');
+        $command = $this->application->find('hautelook_alice:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array(), array('interactive' => false));
-
-        $display = $commandTester->getDisplay();
-
-        $this->assertContains('> purging database', $display);
-        $this->assertContains(
-            '> loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader',
-            $display
-        );
+        $commandTester->execute([], ['interactive' => false]);
 
         $this->verifyProducts();
         $this->verifyBrands();
     }
 
     /**
-     * Generate schema via the doctrine command.
+     * @dataProvider loadCommandProvider
+     *
+     * @param array  $inputs
+     * @param string $expected
      */
-    private function createDatabase()
+    public function testFixturesRegistering(array $inputs, $expected)
     {
-        $command = $this->application->find('doctrine:schema:create');
+        $command = $this->application->find('hautelook_alice:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute([]);
+        $commandTester->execute($inputs, ['interactive' => false]);
+
+        $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
     }
 
     private function verifyProducts()
@@ -91,5 +108,161 @@ class DoctrineFixtureTest extends KernelTestCase
                 $i
             );
         }
+    }
+
+    private function runConsole($command, array $options = [])
+    {
+        $options["-e"] = "test";
+        $options["-q"] = null;
+        $options = array_merge($options, ['command' => $command]);
+        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
+    }
+
+    public function loadCommandProvider()
+    {
+        $data = [];
+
+        $data[] = [
+            [],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev'
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'Prod'
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'prod'
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'    => 'dev',
+                '--bundle' => [
+                    'TestBundle'
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'    => 'dev',
+                '--bundle' => [
+                    'TestABundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'    => 'dev',
+                '--bundle' => [
+                    'TestBundle',
+                    'TestABundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'    => 'dev',
+                '--bundle' => [
+                    'TestCBundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        // Fix paths
+        foreach ($data as $index => $dataSet) {
+            $data[$index][1] = str_replace('/home/travis/build/theofidry/AliceBundle', getcwd(), $dataSet[1]);
+        }
+
+        return $data;
     }
 }

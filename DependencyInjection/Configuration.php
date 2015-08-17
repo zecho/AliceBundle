@@ -1,10 +1,24 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
+/**
+ * The configuration of the bundle.
+ *
+ * @author Baldur Rensch <brensch@gmail.com>
+ */
 class Configuration implements ConfigurationInterface
 {
     /**
@@ -24,10 +38,6 @@ class Configuration implements ConfigurationInterface
                 ->integerNode('seed')
                     ->defaultValue(1)
                     ->info('A seed to make sure faker generates data consistently across runs, set to null to disable')
-                ->end()
-                ->scalarNode('logger')
-                    ->defaultValue('logger')
-                    ->info('ID of a service implementing the Psr\Log\LoggerInterface')
                 ->end()
             ->end()
         ;

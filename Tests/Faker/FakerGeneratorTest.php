@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\Tests\Faker;
 
 use Faker\Generator;
@@ -11,7 +20,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class GeneratorServiceTest extends KernelTestCase
+class FakerGeneratorTest extends KernelTestCase
 {
     /**
      * @var Application
