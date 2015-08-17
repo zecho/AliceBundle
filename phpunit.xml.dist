@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit colors="true"
-         bootstrap="Tests/bootstrap.php"
+         bootstrap="Tests/SymfonyApp/autoload.php"
         >
+
+    <php>
+        <server name="KERNEL_DIR" value="Tests/SymfonyApp" />
+    </php>
+
+    <logging>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" />
+        <log type="coverage-clover" target="clover.xml" />
+    </logging>
 
     <testsuites>
         <testsuite name="AliceBundle Test Suite">

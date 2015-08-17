@@ -1,33 +1,42 @@
 {
     "name": "hautelook/alice-bundle",
-    "description": "Symfony2 Bundle that helps loading fixture data written with the Alice library",
-    "keywords": ["Symfony2", "Fixture", "ORM", "Alice"],
+    "description": "Symfony2 Bundle to manage fixtures with Alice and Faker.",
+    "keywords": ["Symfony", "Fixture", "ORM", "Alice", "Faker"],
     "type": "symfony-bundle",
     "license": "MIT",
     "authors": [
         {
             "name": "Baldur Rensch",
             "email": "brensch@gmail.com"
+        },
+        {
+            "name": "Théo FIDRY",
+            "email": "theo.fidry@gmail.com",
+            "homepage": "https://github.com/theofidry"
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "nelmio/alice": "~1.7",
-        "doctrine/doctrine-fixtures-bundle": "~2.2",
-        "doctrine/doctrine-bundle": "~1.2"
+        "php": ">=5.4.0",
+        "nelmio/alice": "~2.0",
+        "symfony/finder": "^2.7"
     },
-    "require-dev": {
-        "symfony/framework-bundle": "~2.1",
-        "symfony/console": "~2.1",
-        "symfony/yaml": "~2.1",
+  "require-dev": {
         "doctrine/orm": "~2.4",
-        "symfony/browser-kit": "~2.1",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "fabpot/php-cs-fixer": "^1.9",
+        "phpunit/phpunit": "^4.7",
+        "symfony/console": "~2.1",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/yaml": "~2.1",
         "symfony/validator": "~2.1",
-        "solarium/solarium": "~3.1",
-        "hautelook/solarium-fixtures": "~1.0"
+        "theofidry/psysh-bundle": "~1.1",
+        "symfony/expression-language": "^2.7"
     },
     "suggest": {
-        "hautelook/solarium-fixtures": "To add Solarium fixtures"
+        "doctrine/orm": "To use Doctrine ORM",
+        "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
+        "doctrine/doctrine/data-fixtures": "To use Doctrine fixtures loader"
     },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }

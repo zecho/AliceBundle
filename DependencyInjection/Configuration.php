@@ -1,14 +1,23 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
- * This is the class that validates and merges configuration from your app/config files
+ * The configuration of the bundle.
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html#cookbook-bundles-extension-config-class}
+ * @author Baldur Rensch <brensch@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {
@@ -24,11 +33,14 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('locale')
                     ->defaultValue('en_US')
+                    ->info('Locale to use with faker')
                 ->end()
-                ->scalarNode('seed')
+                ->integerNode('seed')
                     ->defaultValue(1)
+                    ->info('A seed to make sure faker generates data consistently across runs, set to null to disable')
                 ->end()
-            ->end();
+            ->end()
+        ;
 
         return $treeBuilder;
     }
