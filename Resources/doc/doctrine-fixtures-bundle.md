@@ -2,7 +2,7 @@
 
 This bundle is fully compatible with [DoctrineFixturesBundle][1]. However, it does not make much sense to use both of them together and using data loaders that implement one of the following interface:
 
-* [`LoaderInterface`](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/LoaderInterface.php
+* [`LoaderInterface`](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/LoaderInterface.php)
 * [`SharedFixtureInterface`](https://github.com/doctrine/data-fixtures/blob/master/lib/Doctrine/Common/DataFixtures/SharedFixtureInterface.php)
 * [`OrderedFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface)
 * [`DependentFixtureInterface`](https://github.com/doctrine/data-fixtures#orderedfixtureinterface)
