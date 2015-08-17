@@ -179,6 +179,6 @@ class LoadDataFixturesCommand extends Command
         $questionHelper = $this->getHelperSet()->get('question');
         $question = new ConfirmationQuestion($question, $default);
 
-        return $questionHelper->ask($input, $output, $question);
+        return (boolean)$questionHelper->ask($input, $output, $question);
     }
 }

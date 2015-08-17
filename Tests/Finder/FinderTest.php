@@ -45,14 +45,14 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['ABundle' => 'ABundleInstance', 'BBundle' => 'BBundleInstance'], $bundles);
 
         try {
-            $bundles = $finder->resolveBundles($application->reveal(), ['UnknownBundle']);
+            $finder->resolveBundles($application->reveal(), ['UnknownBundle']);
             $this->fail('Expected exception to be thrown');
         } catch (\RuntimeException $exception) {
             // Expected result
         }
 
         try {
-            $bundles = $finder->resolveBundles($application->reveal(), ['ABundle', 'UnknownBundle']);
+            $finder->resolveBundles($application->reveal(), ['ABundle', 'UnknownBundle']);
             $this->fail('Expected exception to be thrown');
         } catch (\RuntimeException $exception) {
             // Expected result

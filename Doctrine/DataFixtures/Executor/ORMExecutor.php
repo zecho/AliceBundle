@@ -49,7 +49,7 @@ class ORMExecutor extends DoctrineORMExecutor
     public function execute(array $fixtures, $append = false)
     {
         $executor = $this;
-        $this->em->transactional(function (EntityManagerInterface $manager) use ($executor, $fixtures, $append) {
+        $this->getObjectManager()->transactional(function (EntityManagerInterface $manager) use ($executor, $fixtures, $append) {
             if ($append === false) {
                 $executor->purge();
             }

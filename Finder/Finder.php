@@ -63,7 +63,7 @@ class Finder
      *
      * @param KernelInterface   $kernel
      * @param BundleInterface[] $bundles
-     * @param array             $environment
+     * @param string            $environment
      *
      * @return string[]
      */

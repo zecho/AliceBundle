@@ -21,13 +21,6 @@ use Prophecy\Argument;
  */
 class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
 {
-    private static $defaultConfig = [
-        'hautelook_alice' => [
-            'locale' => 'en_US',
-            'seed'   => 1,
-        ],
-    ];
-
     /**
      * @cover ::__construct
      */
