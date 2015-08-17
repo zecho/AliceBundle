@@ -7,7 +7,7 @@ If you were using [DoctrineFixturesBundle](https://github.com/doctrine/DoctrineF
 
 ## Environment specific fixtures
 
-If you wish to use different fixtures depending of the environment, you can easily organise you're fixtures the following way:
+If you wish to use different fixtures depending of the environment, you can easily organise your fixtures the following way:
 
 ```
 DataFixtures/ORM
@@ -26,7 +26,7 @@ Then, when you're running the command `php app/console h:f:l --env=inte`, it wil
 
 ## Using Data loaders
 
-Sometime, you will want to omit some fixtures or used fixtures from another bundle. This can be achieved by using the a data loader, which is a class implementing the [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](Doctrine/DataFixtures/LoaderInterface.php) or extending [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader.php). You can then specify the fixtures you wish to use by giving an absolute or relative path or even with the `@BundlenameBundle` notation:
+Sometime, you will want to omit some fixtures or use fixtures from another bundle. This can be achieved by using the data loader, which is a class implementing the [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](Doctrine/DataFixtures/LoaderInterface.php) or extending [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader.php). You can then specify the fixtures you wish to use by giving an absolute or relative path or even with the `@BundlenameBundle` notation:
 
 ```php
 <?php
