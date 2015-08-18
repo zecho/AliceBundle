@@ -4,7 +4,7 @@
 
 ### Upgrading the data loaders
 
-1. You data loader should now either extend [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader.php) or implement [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](Doctrine/DataFixtures/LoaderInterface.php).
+1. You data loader should now either extend [`Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader`](Doctrine/DataFixtures/AbstractLoader.php) or implement [`Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface`](Doctrine/DataFixtures/LoaderInterface.php).
 
 2. If you were overriding the `::load()` function of the data loader, you should not need it anymore now:
   * Custom Faker providers can now be registered, cf [Custom Faker Providers](Resources/doc/faker-providers.md).
