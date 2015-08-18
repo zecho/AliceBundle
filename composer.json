@@ -36,7 +36,7 @@
     "suggest": {
         "doctrine/orm": "To use Doctrine ORM",
         "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
-        "doctrine/doctrine/data-fixtures": "To use Doctrine fixtures loader"
+        "doctrine/data-fixtures": "To use Doctrine fixtures loader"
     },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }
