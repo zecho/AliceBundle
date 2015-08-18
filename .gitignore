@@ -2,4 +2,4 @@ vendor/*
 composer.lock
 Tests/SymfonyApp/cache
 Tests/SymfonyApp/logs
-clover.xml
+coverage.xml
