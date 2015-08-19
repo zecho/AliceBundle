@@ -24,6 +24,8 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class Finder
 {
+    const BUNDLE_FIXTURES_PATH = 'DataFixtures/ORM';
+
     /**
      * Looks at all the bundles registered in the application to return the bundles requested. An exception is thrown
      * if a bundle has not been found.
@@ -55,7 +57,7 @@ class Finder
     }
 
     /**
-     * Gets all fixtures.
+     * Gets all fixtures files path.
      *
      * For first get all the path for where to look for fixtures.
      * For each path, will try to get fixtures from data loaders. If no data loader is found, will take all the
@@ -65,11 +67,10 @@ class Finder
      * @param BundleInterface[] $bundles
      * @param string            $environment
      *
-     * @return string[]
+     * @return string[] Fixtures files real paths.
      */
     public function getFixtures(KernelInterface $kernel, array $bundles, $environment)
     {
-        $finder = SymfonyFinder::create();
         $loadersPaths = $this->getLoadersPaths($bundles, $environment);
 
         // Add all fixtures to the new Doctrine loader
@@ -79,7 +80,7 @@ class Finder
                 throw new \InvalidArgumentException(sprintf('Expected "%s" to be a directory.', $path));
             }
 
-            $fixtures= array_merge($fixtures, $this->getFixturesFromDirectory($finder, $path));
+            $fixtures = array_merge($fixtures, $this->getFixturesFromDirectory($path));
         }
 
         if (0 === count($fixtures)) {
@@ -95,82 +96,112 @@ class Finder
     /**
      * Gets the real path of each fixtures.
      *
-     * @param KernelInterface $kernel
-     * @param array           $fixtures
+     * @param KernelInterface         $kernel
+     * @param string[]|\SplFileInfo[] $fixtures
      *
-     * @return array
+     * @return string[] Fixtures real path
      * @throws \InvalidArgumentException File not found.
      */
     protected function resolveFixtures(KernelInterface $kernel, array $fixtures)
     {
+        $resolvedFixtures = [];
+
         // Get real fixtures path
         foreach ($fixtures as $index => $fixture) {
-            if ('@' === $fixture[0]) {
-                $fixtures[$index] = $kernel->locateResource($fixture);
-            } else {
-                $realPath = realpath($fixture);
-                if (false === $realPath || false === file_exists($realPath)) {
-                    throw new \InvalidArgumentException(sprintf('The file "%s" was not found', $fixture));
+            if ($fixture instanceof \SplFileInfo) {
+                $filePath = $fixture->getRealPath();
+
+                if (false === $filePath) {
+                    throw new \InvalidArgumentException(
+                        sprintf(
+                            'The file %s pointed by a %s instance was not found.',
+                            (string)$fixture,
+                            get_class($fixture)
+                        )
+                    );
                 }
-                $fixtures[$index] = realpath($fixture);
+                $resolvedFixtures[$filePath] = true;
+
+                continue;
             }
+
+            if (false === is_string($fixture)) {
+                throw new \InvalidArgumentException(
+                    'Expected fixtures passed to be either strings or a SplFileInfo instances.'
+                );
+            }
+
+            if ('@' === $fixture[0]) {
+                // If $kernel fails to resolve the resource, will throw a \InvalidArgumentException exception
+                $resolvedFixtures[$kernel->locateResource($fixture, null, true)] = true;
+
+                continue;
+            }
+
+            $realPath = realpath($fixture);
+            if (false === $realPath || false === file_exists($realPath)) {
+                throw new \InvalidArgumentException(sprintf('The file "%s" was not found', $fixture));
+            }
+            $resolvedFixtures[$realPath] = true;
         }
 
-        return array_unique($fixtures);
+        return array_keys($resolvedFixtures);
     }
 
     /**
      * Get the fixtures path for a given directory. It is recommended not to take into account sub directories as
      * this function will be called for them later on.
      *
-     * @param SymfonyFinder $finder
-     * @param string        $path Directory path
+     * @param string $path Directory path
      *
-     * @return string[]
+     * @return string[]|SplFileInfo[] Fixtures paths
      */
-    protected function getFixturesFromDirectory(SymfonyFinder $finder, $path)
+    protected function getFixturesFromDirectory($path)
     {
         $fixtures = [];
 
-        $finder->in($path)->files()->name('*.yml');
+        $finder = SymfonyFinder::create()->in($path)->depth(0)->files()->name('*.yml');
         foreach ($finder as $file) {
             /** @var SplFileInfo $file */
-            $fixtures[] = $file->getRealPath();
+            $fixtures[$file->getRealPath()] = true;
         }
 
-        return $fixtures;
+        return array_keys($fixtures);
     }
 
     /**
-     * Gets paths to loaders.
+     * Gets paths to directories containing loaders and fixtures files.
      *
      * @param BundleInterface[] $bundles
      * @param string            $environment
      *
      * @return string[] Real paths to loaders.
      */
-    private function getLoadersPaths(array $bundles, $environment)
+    protected function getLoadersPaths(array $bundles, $environment)
     {
-        $finder = SymfonyFinder::create();
+        $environments = [
+            lcfirst($environment) => true,
+            ucfirst($environment) => true,
+        ];
 
         $paths = [];
         foreach ($bundles as $bundle) {
-            $path = $bundle->getPath().'/DataFixtures/ORM';
+            $path = sprintf('%s/%s', $bundle->getPath(), self::BUNDLE_FIXTURES_PATH);
             if (true === file_exists($path)) {
-                $paths[] = $path;
+                $paths[$path] = true;
                 try {
-                    $files = $finder->directories()->in($path);
+                    $files = SymfonyFinder::create()->directories()->in($path);
                     foreach ($files as $file) {
                         /** @var SplFileInfo $file */
-                        if ($environment === $file->getRelativePathname()) {
-                            $paths[] = $file->getRealPath();
+                        if (true === isset($environments[$file->getRelativePathname()])) {
+                            $paths[$file->getRealPath()] = true;
                         }
                     }
                 } catch (\InvalidArgumentException $exception) {
                 }
             }
         }
-
-        return array_unique($paths);
+        
+        return array_keys($paths);
     }
 }
