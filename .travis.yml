@@ -22,14 +22,14 @@ before_install:
   - composer self-update
 
 install:
-  - wget https://scrutinizer-ci.com/ocular.phar
+  - bash -c 'if ([ "hhvm" != "$TRAVIS_PHP_VERSION" ] && [ "nightly" != "$TRAVIS_PHP_VERSION" ]); then wget https://scrutinizer-ci.com/ocular.phar; fi;'
   - composer install --prefer-source --no-interaction
 
 script:
-  - vendor/bin/phpunit --coverage-clover=coverage.clover
+  - vendor/bin/phpunit -c phpunit.xml.dist
 
 after_script:
-  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+  - bash -c 'if ([ "hhvm" != "$TRAVIS_PHP_VERSION" ] && [ "nightly" != "$TRAVIS_PHP_VERSION" ]); then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi;'
 
 notifications:
     email: false
