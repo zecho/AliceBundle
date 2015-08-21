@@ -21,9 +21,10 @@ use Doctrine\Common\DataFixtures\FixtureInterface as DoctrineFixtureInterface;
 interface LoaderInterface extends DoctrineFixtureInterface
 {
     /**
-     * Returns an array of file paths to fixtures.
+     * Returns an array of file paths to fixtures. File paths can be relatives, specified with the `@Bundlename`
+     * notation or being SplFileInfo instances.
      *
-     * @return string[]
+     * @return string[]|\SplFileInfo[]
      */
     public function getFixtures();
 }

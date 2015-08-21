@@ -9,9 +9,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Hautelook\AliceBundle\Tests\Finder;
+namespace Hautelook\AliceBundle\Tests\Doctrine\Finder;
 
-use Hautelook\AliceBundle\Finder\Finder;
+use Hautelook\AliceBundle\Doctrine\Finder\Finder;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\ABundle\TestABundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\BBundle\TestBBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\TestCBundle;
@@ -20,7 +20,7 @@ use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\TestBundle;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
- * @coversDefaultClass Hautelook\AliceBundle\Finder\Finder
+ * @coversDefaultClass Hautelook\AliceBundle\Doctrine\Finder\Finder
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
@@ -80,12 +80,27 @@ class FinderTest extends \PHPUnit_Framework_TestCase
     {
         $finder = new Finder();
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
+        $kernel->locateResource('@TestABundle/DataFixtures/ORM/aentity.yml', null, true)->willReturn(
+            str_replace(
+                '/home/travis/build/theofidry/AliceBundle',
+                getcwd(),
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
+            )
+        );
+        $kernel->locateResource('@TestBBundle/DataFixtures/ORM/bentity.yml', null, true)->willReturn(
+            str_replace(
+                '/home/travis/build/theofidry/AliceBundle',
+                getcwd(),
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml'
+            )
+        );
 
         try {
             $fixtures = $finder->getFixtures($kernel->reveal(), $bundles, $environment);
 
             sort($expected);
             sort($fixtures);
+
             $this->assertEquals($expected, $fixtures);
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
@@ -122,7 +137,6 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
@@ -135,7 +149,6 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
@@ -147,7 +160,6 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             'inte',
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
@@ -160,7 +172,6 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             'prod',
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
@@ -191,17 +202,73 @@ class FinderTest extends \PHPUnit_Framework_TestCase
                 new TestCBundle(),
             ],
             'dev',
-            []
+            [
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+            ]
         ];
 
         $return[] = [
             [
-                new TestABundle(),
                 new TestCBundle(),
             ],
-            'dev',
+            'CEnv',
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestCBundle(),
+            ],
+            'DEnv',
+            [
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product1.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product2.yml',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestCBundle(),
+            ],
+            'CEnv',
+            [
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestBundle(),
+                new TestCBundle(),
+            ],
+            'CEnv',
+            [
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestCBundle(),
+            ],
+            'EEnv',
+            [
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/EEnv/empty.yml',
             ]
         ];
 

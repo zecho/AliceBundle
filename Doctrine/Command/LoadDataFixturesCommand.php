@@ -134,7 +134,7 @@ class LoadDataFixturesCommand extends Command
         }
 
         // Get fixtures
-        $fixtures = $this->finder->getFixtures($application->getKernel(), $bundles, ucfirst($input->getOption('env')));
+        $fixtures = $this->finder->getFixtures($application->getKernel(), $bundles, $input->getOption('env'));
         $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures found:'));
         foreach ($fixtures as $fixture) {
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));

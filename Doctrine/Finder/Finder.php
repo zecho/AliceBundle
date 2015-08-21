@@ -11,7 +11,7 @@
 
 namespace Hautelook\AliceBundle\Doctrine\Finder;
 
-use Doctrine\Common\DataFixtures\Loader;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
 
@@ -23,37 +23,61 @@ use Symfony\Component\Finder\SplFileInfo;
 class Finder extends \Hautelook\AliceBundle\Finder\Finder
 {
     /**
-     * Get the fixtures path for a given directory. It is recommended not to take into account sub directories as
-     * this function will be called for them later on.
+     * {@inheritdoc}
      *
-     * @param SymfonyFinder $finder
-     * @param string        $path Directory path
-     *
-     * @return string[]
+     * Extended to look for data loaders. If a data loader is found, will take the fixtures from it instead of taking
+     * all the fixtures files.
      */
-    protected function getFixturesFromDirectory(SymfonyFinder $finder, $path)
+    protected function getFixturesFromDirectory($path)
     {
         $fixtures = [];
 
-        $loader = new Loader();
-        $loader->loadFromDirectory($path);
+        $loaders = $this->getDataLoaders($path);
+        foreach ($loaders as $loader) {
+            $fixtures = array_merge($fixtures, $loader->getFixtures());
+        }
+        
+        // If no data loader is found, takes all fixtures files
+        if (0 === count($fixtures)) {
 
-        // $_loader has either found a data loader or has no fixtures
-        // If a data loader is found, takes the data loader fixtures
-        // Otherwise takes all fixtures
-        if (0 !== count($loader->getFixtures())) {
-            foreach ($loader->getFixtures() as $_loader) {
-                /** @var Loader $_loader */
-                $fixtures = array_merge($fixtures, $_loader->getFixtures());
-            }
-        } else {
-            $finder->in($path)->files()->name('*.yml');
-            foreach ($finder as $file) {
-                /** @var SplFileInfo $file */
-                $fixtures[] = $file->getRealPath();
-            }
+            return parent::getFixturesFromDirectory($path);
         }
 
         return $fixtures;
+    }
+
+    /**
+     * Get data loaders inside the given directory.
+     *
+     * @param string        $path Directory path
+     *
+     * @return LoaderInterface[]
+     */
+    private function getDataLoaders($path)
+    {
+        $loaders = [];
+
+        // Get all PHP classes in given folder
+        $phpClasses = [];
+        $finder = SymfonyFinder::create()->depth(0)->in($path)->files()->name('*.php');
+        foreach ($finder as $file) {
+            /** @var SplFileInfo $file */
+            $phpClasses[$file->getRealPath()] = true;
+            require_once $file->getRealPath();
+        }
+
+        // Check if PHP classes are data loaders or not
+        foreach (get_declared_classes() as $className) {
+            $reflectionClass = new \ReflectionClass($className);
+            $sourceFile = $reflectionClass->getFileName();
+
+            if (true === isset($phpClasses[$sourceFile])) {
+                if ($reflectionClass->implementsInterface('Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface')) {
+                    $loaders[] = new $className;
+                }
+            }
+        }
+
+        return $loaders;
     }
 }
