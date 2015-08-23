@@ -28,7 +28,7 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
      * Extended to look for data loaders. If a data loader is found, will take the fixtures from it instead of taking
      * all the fixtures files.
      */
-    protected function getFixturesFromDirectory($path)
+    public function getFixturesFromDirectory($path)
     {
         $fixtures = [];
 
