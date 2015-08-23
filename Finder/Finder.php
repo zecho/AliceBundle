@@ -102,7 +102,7 @@ class Finder
      * @return string[] Fixtures real path
      * @throws \InvalidArgumentException File not found.
      */
-    protected function resolveFixtures(KernelInterface $kernel, array $fixtures)
+    public function resolveFixtures(KernelInterface $kernel, array $fixtures)
     {
         $resolvedFixtures = [];
 
@@ -156,7 +156,7 @@ class Finder
      *
      * @return string[]|SplFileInfo[] Fixtures paths
      */
-    protected function getFixturesFromDirectory($path)
+    public function getFixturesFromDirectory($path)
     {
         $fixtures = [];
 
