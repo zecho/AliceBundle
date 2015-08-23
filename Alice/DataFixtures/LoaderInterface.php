@@ -11,6 +11,8 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
+use Nelmio\Alice\PersisterInterface;
+
 /**
  * The loader is class responsible for loading the fixtures.
  *
@@ -21,8 +23,8 @@ interface LoaderInterface
     /**
      * Loads the fixtures files.
      *
-     * @param object $persister
-     * @param array  $fixtures
+     * @param PersisterInterface $persister Class used to persist fixtures.
+     * @param string[]           $fixtures  Path to the fixtures files to loads.
      *
      * @return \object[] Persisted objects
      */
