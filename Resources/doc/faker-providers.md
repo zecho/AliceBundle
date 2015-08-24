@@ -34,7 +34,7 @@ services:
 That's it! You can now use it in your fixtures:
 
 ```yaml
-# src/AppBundle/DataFixtures/ORM
+# src/AppBundle/DataFixtures/ORM/dummy.yml
 
 AppBundle\Entity\Dummy:
     brand{1..10}:
