@@ -71,6 +71,8 @@ the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and
 Then create a fixture file in `AppBundle/DataFixtures/ORM`:
 
 ```yaml
+# AppBundle/DataFixtures/ORM/dummy.yml
+
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
         name: <name()>
