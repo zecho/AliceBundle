@@ -258,6 +258,41 @@ EOF
 EOF
         ];
 
+        $data[] = [
+            [
+                '--env'    => 'ignored',
+                '--bundle' => [
+                    'TestBundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'    => 'ignored2',
+                '--bundle' => [
+                    'TestBundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Ignored2/notIgnored.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
         // Fix paths
         foreach ($data as $index => $dataSet) {
             $data[$index][1] = str_replace('/home/travis/build/theofidry/AliceBundle', getcwd(), $dataSet[1]);

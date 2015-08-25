@@ -38,7 +38,7 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
         }
         
         // If no data loader is found, takes all fixtures files
-        if (0 === count($fixtures)) {
+        if (0 === count($loaders)) {
 
             return parent::getFixturesFromDirectory($path);
         }
