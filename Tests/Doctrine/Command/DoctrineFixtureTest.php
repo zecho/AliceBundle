@@ -293,6 +293,24 @@ EOF
 EOF
         ];
 
+        $data[] = [
+            [
+                '--env'    => 'provider',
+                '--bundle' => [
+                    'TestBundle',
+                ]
+            ],
+            <<<EOF
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Provider/testFormatter.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
         // Fix paths
         foreach ($data as $index => $dataSet) {
             $data[$index][1] = str_replace('/home/travis/build/theofidry/AliceBundle', getcwd(), $dataSet[1]);

@@ -76,7 +76,7 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @return array
+     * {@inheritdoc}
      */
     public function getOptions()
     {
@@ -84,7 +84,7 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @return array|ProcessorInterface[]
+     * {@inheritdoc}
      */
     public function getProcessors()
     {
