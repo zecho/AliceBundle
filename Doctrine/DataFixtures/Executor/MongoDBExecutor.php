@@ -11,9 +11,9 @@
 
 namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
-use Doctrine\Common\DataFixtures\Executor\ORMExecutor as DoctrineORMExecutor;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor as DoctrineMongoDBExecutor;
+use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 
 /**
@@ -22,7 +22,7 @@ use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
  * @author Jonathan H. Wage <jonwage@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
+class MongoDBExecutor extends DoctrineMongoDBExecutor implements ExecutorInterface
 {
     /**
      * @var LoaderInterface
@@ -32,11 +32,11 @@ class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
     /**
      * Construct new fixtures loader instance.
      *
-     * @param EntityManagerInterface $manager EntityManagerInterface instance used for persistence.
-     * @param LoaderInterface        $loader
-     * @param ORMPurger              $purger
+     * @param DocumentManager $manager DocumentManager instance used for persistence.
+     * @param LoaderInterface $loader
+     * @param MongoDBPurger   $purger
      */
-    public function __construct(EntityManagerInterface $manager, LoaderInterface $loader, ORMPurger $purger = null)
+    public function __construct(DocumentManager $manager, LoaderInterface $loader, MongoDBPurger $purger = null)
     {
         parent::__construct($manager, $purger);
 
@@ -48,12 +48,9 @@ class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
      */
     public function execute(array $fixtures, $append = false)
     {
-        $executor = $this;
-        $this->getObjectManager()->transactional(function (EntityManagerInterface $manager) use ($executor, $fixtures, $append) {
-            if (false === $append) {
-                $executor->purge();
-            }
-            $this->loader->load($manager, $fixtures);
-        });
+        if (false === $append) {
+            $this->purge();
+        }
+        $this->loader->load($this->getObjectManager(), $fixtures);
     }
 }

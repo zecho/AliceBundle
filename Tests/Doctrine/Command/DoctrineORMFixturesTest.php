@@ -12,7 +12,6 @@
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand;
 use Hautelook\AliceBundle\Tests\KernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -21,7 +20,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrineFixtureTest extends KernelTestCase
+class DoctrineORMFixturesTest extends KernelTestCase
 {
     /**
      * @var Application
@@ -40,11 +39,7 @@ class DoctrineFixtureTest extends KernelTestCase
 
         // Register doctrine bundles
         $this->application->add(
-            new LoadDataFixturesCommand(
-                $this->application->getKernel()->getContainer()->get('doctrine'),
-                $this->application->getKernel()->getContainer()->get('hautelook_alice.fixtures.loader'),
-                $this->application->getKernel()->getContainer()->get('hautelook_alice.doctrine.finder')
-            )
+            self::$kernel->getContainer()->get('hautelook_alice.doctrine.command.load_command')
         );
 
         $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
@@ -54,9 +49,12 @@ class DoctrineFixtureTest extends KernelTestCase
         $this->runConsole("doctrine:schema:create");
     }
 
+    /**
+     * @covers \Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader
+     */
     public function testFixturesLoading()
     {
-        $command = $this->application->find('hautelook_alice:fixtures:load');
+        $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([], ['interactive' => false]);
@@ -73,7 +71,7 @@ class DoctrineFixtureTest extends KernelTestCase
      */
     public function testFixturesRegistering(array $inputs, $expected)
     {
-        $command = $this->application->find('hautelook_alice:fixtures:load');
+        $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute($inputs, ['interactive' => false]);

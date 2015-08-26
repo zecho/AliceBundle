@@ -21,6 +21,10 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
+    const ORM_DRIVER = 'orm';
+    const MONGODB_DRIVER = 'mongodb';
+    const PHPCR_DRIVER = 'phpcr';
+
     /**
      * {@inheritDoc}
      */
@@ -31,6 +35,22 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+                ->arrayNode('db_drivers')
+                    ->info('The list of enabled drivers.')
+                    ->addDefaultsIfNotSet()
+                    ->cannotBeOverwritten()
+                    ->children()
+                        ->booleanNode(self::ORM_DRIVER)
+                            ->defaultValue(null)
+                        ->end()
+                        ->booleanNode(self::MONGODB_DRIVER)
+                            ->defaultValue(null)
+                        ->end()
+                        ->booleanNode(self::PHPCR_DRIVER)
+                            ->defaultValue(null)
+                        ->end()
+                    ->end()
+                ->end()
                 ->scalarNode('locale')
                     ->defaultValue('en_US')
                     ->info('Locale to use with faker')

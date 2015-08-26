@@ -15,14 +15,13 @@ use Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Extends its parent class to take into account doctrine data loaders.
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class Finder extends \Hautelook\AliceBundle\Finder\Finder
+class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
 {
     /**
      * {@inheritdoc}
@@ -41,7 +40,6 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
         
         // If no data loader is found, takes all fixtures files
         if (0 === count($loaders)) {
-
             return parent::getFixturesFromDirectory($path);
         }
 
@@ -65,10 +63,6 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
         // Add all fixtures to the new Doctrine loader
         $loaders = [];
         foreach ($loadersPaths as $path) {
-            if (false === is_dir($path)) {
-                throw new \InvalidArgumentException(sprintf('Expected "%s" to be a directory.', $path));
-            }
-
             $loaders = array_merge($loaders, $this->getDataLoadersFromDirectory($path));
         }
 

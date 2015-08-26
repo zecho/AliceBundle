@@ -13,13 +13,18 @@ php:
   - nightly
   - hhvm
 
+services:
+  - mongodb
+
 matrix:
   allow_failures:
+    - php: nightly
     - php: hhvm
   fast_finish: true
 
 before_install:
   - composer self-update
+  - bash -c 'echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini'
 
 install:
   - bash -c 'if ([ "hhvm" != "$TRAVIS_PHP_VERSION" ] && [ "nightly" != "$TRAVIS_PHP_VERSION" ]); then wget https://scrutinizer-ci.com/ocular.phar; fi;'
