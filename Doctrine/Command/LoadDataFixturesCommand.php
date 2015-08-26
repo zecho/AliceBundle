@@ -13,9 +13,12 @@ namespace Hautelook\AliceBundle\Doctrine\Command;
 
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
+use Hautelook\AliceBundle\Alice\ProcessorChain;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ORMExecutor;
 use Hautelook\AliceBundle\Doctrine\Finder\Finder;
+use Hautelook\AliceBundle\Faker\Provider\ProviderChain;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
@@ -109,6 +112,7 @@ class LoadDataFixturesCommand extends Command
             throw new \RuntimeException('Expected Symfony\Bundle\FrameworkBundle\Console\Application application.');
         }
 
+        $environment = $input->getOption('env');
         $manager = $this->doctrine->getManager($input->getOption('manager'));
 
         // Warn the user that the database will be purged
@@ -134,11 +138,23 @@ class LoadDataFixturesCommand extends Command
         }
 
         // Get fixtures
-        $fixtures = $this->finder->getFixtures($application->getKernel(), $bundles, $input->getOption('env'));
+        $fixtures = $this->finder->getFixtures($application->getKernel(), $bundles, $environment);
         $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures found:'));
         foreach ($fixtures as $fixture) {
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));
         }
+
+        // Get data loaders to generate the new loader
+        // Have to create a new one to add each data loader as a provider
+        $loaders = $this->finder->getDataLoaders($bundles, $environment);
+
+        $newLoader = new Loader(
+            new ProcessorChain($this->loader->getProcessors()),
+            new ProviderChain(array_merge($this->loader->getOptions()['providers'], $loaders)),
+            $this->loader->getOptions()['locale'],
+            $this->loader->getOptions()['seed'],
+            (true === isset($this->loader->getOptions()['logger']))? $this->loader->getOptions()['logger']: null
+        );
 
         // Get executor
         $purger = new ORMPurger($manager);
@@ -147,7 +163,7 @@ class LoadDataFixturesCommand extends Command
                 ? ORMPurger::PURGE_MODE_TRUNCATE
                 : ORMPurger::PURGE_MODE_DELETE
         );
-        $executor = new ORMExecutor($manager, $this->loader, $purger);
+        $executor = new ORMExecutor($manager, $newLoader, $purger);
         $executor->setLogger(function ($message) use ($output) {
             $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
         });

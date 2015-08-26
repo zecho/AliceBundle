@@ -125,6 +125,31 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @cover ::getDataLoaders
+     * @dataProvider dataLoadersProvider
+     */
+    public function testGetDataLoaders($bundles, $environment, $expected)
+    {
+        $finder = new Finder();
+
+        $loaders = $finder->getDataLoaders($bundles, $environment);
+
+        try {
+            foreach ($loaders as $index => $loader) {
+                $loaders[$index] = get_class($loader);
+            }
+            sort($expected);
+            sort($loaders);
+
+            $this->assertEquals($expected, $loaders);
+        } catch (\InvalidArgumentException $exception) {
+            if (0 !== count($expected)) {
+                throw $exception;
+            }
+        }
+    }
+
     public function fixturesProvider()
     {
         $return = [];
@@ -282,6 +307,42 @@ class FinderTest extends \PHPUnit_Framework_TestCase
                 );
             }
         }
+
+        return $return;
+    }
+
+    public function dataLoadersProvider()
+    {
+        $return = [];
+
+        $return[] = [
+            [
+                new TestBundle(),
+            ],
+            'dev',
+            [
+                'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestBundle(),
+            ],
+            'ignored',
+            [
+                'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader',
+                'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored\DataLoader',
+            ]
+        ];
+
+        $return[] = [
+            [
+                new TestABundle(),
+            ],
+            'dev',
+            []
+        ];
 
         return $return;
     }

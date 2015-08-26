@@ -14,6 +14,8 @@ namespace Hautelook\AliceBundle\Doctrine\Finder;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
+use Symfony\Component\HttpKernel\Bundle\BundleInterface;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Extends its parent class to take into account doctrine data loaders.
@@ -32,7 +34,7 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
     {
         $fixtures = [];
 
-        $loaders = $this->getDataLoaders($path);
+        $loaders = $this->getDataLoadersFromDirectory($path);
         foreach ($loaders as $loader) {
             $fixtures = array_merge($fixtures, $loader->getFixtures());
         }
@@ -47,13 +49,40 @@ class Finder extends \Hautelook\AliceBundle\Finder\Finder
     }
 
     /**
+     * Gets all data loaders instances.
+     *
+     * For first get all the path for where to look for data loaders.
+     *
+     * @param BundleInterface[] $bundles
+     * @param string            $environment
+     *
+     * @return LoaderInterface[] Fixtures files real paths.
+     */
+    public function getDataLoaders(array $bundles, $environment)
+    {
+        $loadersPaths = $this->getLoadersPaths($bundles, $environment);
+
+        // Add all fixtures to the new Doctrine loader
+        $loaders = [];
+        foreach ($loadersPaths as $path) {
+            if (false === is_dir($path)) {
+                throw new \InvalidArgumentException(sprintf('Expected "%s" to be a directory.', $path));
+            }
+
+            $loaders = array_merge($loaders, $this->getDataLoadersFromDirectory($path));
+        }
+
+        return $loaders;
+    }
+
+    /**
      * Get data loaders inside the given directory.
      *
-     * @param string        $path Directory path
+     * @param string $path Directory path
      *
      * @return LoaderInterface[]
      */
-    private function getDataLoaders($path)
+    private function getDataLoadersFromDirectory($path)
     {
         $loaders = [];
 

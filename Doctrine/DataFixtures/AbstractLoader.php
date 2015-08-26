@@ -31,6 +31,6 @@ abstract class AbstractLoader extends ContainerAware implements LoaderInterface
      */
     public function load(ObjectManager $objectManager)
     {
-        return $this->container->get('hautelook_alice.fixtures.loader')->load($objectManager, $this->getFixtures());
+        throw new \RuntimeException('This method was not expected to be called.');
     }
 }
