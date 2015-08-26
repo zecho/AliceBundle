@@ -39,6 +39,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(1)
                     ->info('A seed to make sure faker generates data consistently across runs, set to null to disable')
                 ->end()
+                ->booleanNode('persist_once')
+                    ->defaultValue(false)
+                    ->info('Only persist objects once if multiple files are passed')
+                ->end()
             ->end()
         ;
 

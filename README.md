@@ -57,8 +57,9 @@ Configure the bundle to your needs:
 # app/config/config.yml
 
 hautelook_alice:
-    locale: en_US   # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_EN
-    seed: 1         # A seed to make sure faker generates data consistently across runs, set to null to disable
+    locale: en_US       # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_EN
+    seed: 1             # A seed to make sure faker generates data consistently across runs, set to null to disable
+    persist_once: false # Only persist objects once if multiple files are passed
 ```
 
 Fore more information regarding the locale, refer to

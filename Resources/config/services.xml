@@ -26,6 +26,7 @@
             <argument type="service" id="hautelook_alice.faker.provider_chain" />
             <argument>%hautelook_alice.locale%</argument>
             <argument>%hautelook_alice.seed%</argument>
+            <argument>%hautelook_alice.persist_once%</argument>
             <argument type="service" id="logger" on-invalid="ignore" />
         </service>
 

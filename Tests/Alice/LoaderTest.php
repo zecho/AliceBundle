@@ -31,7 +31,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $providerChain = $this->prophesize('Hautelook\AliceBundle\Faker\Provider\ProviderChain');
         $providerChain->getProviders()->willReturn(['dummyProvider']);
 
-        $loader = new Loader($processorChain->reveal(), $providerChain->reveal(), 'en', 10);
+        $loader = new Loader($processorChain->reveal(), $providerChain->reveal(), 'en', 10, false);
 
         $this->assertEquals(['dummyProcessor'], $loader->getProcessors());
         $this->assertEquals(
@@ -52,7 +52,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $logger = $this->prophesize('Psr\Log\LoggerInterface')->reveal();
 
-        $loader = new Loader($processorChain->reveal(), $providerChain->reveal(), 'en', 10, $logger);
+        $loader = new Loader($processorChain->reveal(), $providerChain->reveal(), 'en', 10, false, $logger);
 
         $this->assertEquals(['dummyProcessor'], $loader->getProcessors());
         $this->assertEquals(
