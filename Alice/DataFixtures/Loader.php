@@ -38,6 +38,7 @@ class Loader implements LoaderInterface
      * @param ProviderChain   $providerChain
      * @param string          $locale
      * @param int             $seed
+     * @param bool            $persistOnce
      * @param LoggerInterface $logger
      */
     public function __construct(
@@ -45,6 +46,7 @@ class Loader implements LoaderInterface
         ProviderChain $providerChain,
         $locale,
         $seed,
+        $persistOnce,
         LoggerInterface $logger = null
     ) {
         $this->processors = $processorChain->getProcessors();
@@ -53,7 +55,7 @@ class Loader implements LoaderInterface
         $options['providers'] = $providerChain->getProviders();
         $options['locale'] = $locale;
         $options['seed'] = $seed;
-        $options['persist_once'] = false;
+        $options['persist_once'] = $persistOnce;
 
         if (null !== $logger) {
             $options['logger'] = $logger;

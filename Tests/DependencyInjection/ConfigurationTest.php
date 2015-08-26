@@ -22,8 +22,9 @@ use Symfony\Component\Config\Definition\Processor;
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     private static $defaultConfig = [
-        'locale' => 'en_US',
-        'seed'   => 1,
+        'locale'       => 'en_US',
+        'seed'         => 1,
+        'persist_once' => false,
     ];
 
     /**

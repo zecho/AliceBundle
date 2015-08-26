@@ -153,6 +153,7 @@ class LoadDataFixturesCommand extends Command
             new ProviderChain(array_merge($this->loader->getOptions()['providers'], $loaders)),
             $this->loader->getOptions()['locale'],
             $this->loader->getOptions()['seed'],
+            $this->loader->getOptions()['persist_once'],
             (true === isset($this->loader->getOptions()['logger']))? $this->loader->getOptions()['logger']: null
         );
 
