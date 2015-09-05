@@ -13,6 +13,7 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
 use Doctrine\Common\DataFixtures\Executor\PHPCRExecutor as DoctrinePHPCRExecutor;
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Nelmio\Alice\Persister\Doctrine;
@@ -26,6 +27,8 @@ use Nelmio\Alice\Persister\Doctrine;
  */
 class PHPCRExecutor extends DoctrinePHPCRExecutor implements ExecutorInterface
 {
+    use ExecutorTrait;
+
     /**
      * @var LoaderInterface
      */
@@ -46,21 +49,7 @@ class PHPCRExecutor extends DoctrinePHPCRExecutor implements ExecutorInterface
     /** @inheritDoc */
     public function execute(array $fixtures, $append = false)
     {
-        $that = $this;
-
-        $function = function ($manager) use ($append, $that, $fixtures) {
-            if ($append === false) {
-                $that->purge();
-            }
-
-            $this->loader->load(new Doctrine($manager), $fixtures);
-        };
-
-        if (method_exists($this->getObjectManager(), 'transactional')) {
-            $this->getObjectManager()->transactional($function);
-        } else {
-            $function($this->getObjectManager());
-        }
+        $this->executeExecutor($this, $this->getObjectManager(), $this->loader, $fixtures, $append);
     }
 }
 

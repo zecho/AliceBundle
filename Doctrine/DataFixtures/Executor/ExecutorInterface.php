@@ -11,6 +11,8 @@
 
 namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
+use Doctrine\Common\Persistence\ObjectManager;
+
 /**
  * Interface ExecutorInterface.
  *
@@ -18,6 +20,18 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
  */
 interface ExecutorInterface
 {
+    /**
+     * Retrieve the ObjectManager instance this executor instance is using.
+     *
+     * @return ObjectManager
+     */
+    public function getObjectManager();
+
+    /**
+     * Purges the database before loading.
+     */
+    public function purge();
+
     /**
      * Executes the given array of data fixtures.
      *
