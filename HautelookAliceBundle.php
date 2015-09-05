@@ -11,10 +11,8 @@
 
 namespace Hautelook\AliceBundle;
 
-use Hautelook\AliceBundle\DependencyInjection\Compiler\CommandCompilerPass;
 use Hautelook\AliceBundle\DependencyInjection\Compiler\ProcessorCompilerPass;
 use Hautelook\AliceBundle\DependencyInjection\Compiler\ProviderCompilerPass;
-use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

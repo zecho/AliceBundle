@@ -12,9 +12,7 @@
 namespace Hautelook\AliceBundle\Resolver;
 
 use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * The BundlesResolver is the class responsible for retrieving the bundles registered to an application from their names.

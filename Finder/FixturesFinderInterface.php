@@ -11,7 +11,6 @@
 
 namespace Hautelook\AliceBundle\Finder;
 
-use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -55,7 +54,7 @@ interface FixturesFinderInterface
      *
      * @param string $path Directory path
      *
-     * @return string[]|SplFileInfo[] Fixtures paths
+     * @return string[]|\SplFileInfo[] Fixtures paths
      */
     public function getFixturesFromDirectory($path);
 }
