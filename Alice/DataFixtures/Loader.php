@@ -11,78 +11,73 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
-use Hautelook\AliceBundle\Alice\ProcessorChain;
-use Hautelook\AliceBundle\Faker\Provider\ProviderChain;
-use Nelmio\Alice\Fixtures;
+use Nelmio\Alice\Fixtures\Loader as AliceLoader;
+use Nelmio\Alice\PersisterInterface;
 use Nelmio\Alice\ProcessorInterface;
-use Psr\Log\LoggerInterface;
 
 /**
+ * Bootstraps the given loader to persist the objects retrieved by the loader.
+ *
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class Loader implements LoaderInterface
 {
     /**
-     * @var array
+     * @var AliceLoader
      */
-    protected $options;
+    private $aliceLoader;
 
     /**
-     * @var ProcessorInterface[]
+     * @var array|ProcessorInterface[]
      */
-    protected $processors;
+    private $processors;
 
     /**
-     * @param ProcessorChain  $processorChain
-     * @param ProviderChain   $providerChain
-     * @param string          $locale
-     * @param int             $seed
-     * @param bool            $persistOnce
-     * @param LoggerInterface $logger
+     * @var bool
+     */
+    private $persistOnce;
+
+    /**
+     * @param AliceLoader          $aliceLoader
+     * @param ProcessorInterface[] $processors
+     * @param bool                 $persistOnce
      */
     public function __construct(
-        ProcessorChain $processorChain,
-        ProviderChain $providerChain,
-        $locale,
-        $seed,
-        $persistOnce,
-        LoggerInterface $logger = null
+        AliceLoader $aliceLoader,
+        array $processors,
+        $persistOnce
     ) {
-        $this->processors = $processorChain->getProcessors();
+        $this->aliceLoader = $aliceLoader;
+        $this->processors = $processors;
+        $this->persistOnce = $persistOnce;
+    }
 
-        $options = [];
-        $options['providers'] = $providerChain->getProviders();
-        $options['locale'] = $locale;
-        $options['seed'] = $seed;
-        $options['persist_once'] = $persistOnce;
-
-        if (null !== $logger) {
-            $options['logger'] = $logger;
+    /**
+     * {@inheritdoc}
+     */
+    public function load(PersisterInterface $persister, array $fixtures)
+    {
+        if (0 === count($fixtures)) {
+            return [];
         }
 
-        $this->options = $options;
-    }
+        $objects = [];
+        foreach ($fixtures as $file) {
+            $dataSet = $this->aliceLoader->load($file);
 
-    /**
-     * {@inheritdoc}
-     */
-    public function load($persister, array $fixtures)
-    {
-        return Fixtures::load(
-            $fixtures,
-            $persister,
-            $this->options,
-            $this->processors
-        );
-    }
+            if (false === $this->persistOnce) {
+                $this->persist($persister, $dataSet);
+            }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getOptions()
-    {
-        return $this->options;
+            $objects = array_merge($objects, $dataSet);
+        }
+
+        if (true === $this->persistOnce) {
+            $this->persist($persister, $objects);
+        }
+
+        return $objects;
     }
 
     /**
@@ -91,5 +86,36 @@ class Loader implements LoaderInterface
     public function getProcessors()
     {
         return $this->processors;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPersistOnce()
+    {
+        return $this->persistOnce;
+    }
+
+    /**
+     * Uses the Fixture persister to persist objects and calling the processors.
+     *
+     * @param PersisterInterface $persister
+     * @param object[]           $objects
+     */
+    private function persist(PersisterInterface $persister, array $objects)
+    {
+        foreach ($this->processors as $processor) {
+            foreach ($objects as $object) {
+                $processor->preProcess($object);
+            }
+        }
+
+        $persister->persist($objects);
+
+        foreach ($this->processors as $processor) {
+            foreach ($objects as $object) {
+                $processor->postProcess($object);
+            }
+        }
     }
 }

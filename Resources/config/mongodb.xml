@@ -17,6 +17,7 @@
             <argument type="string">hautelook_alice:doctrine:mongodb:fixtures:load</argument>
             <argument type="service" id="doctrine_mongodb" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />
+            <argument type="service" id="hautelook_alice.alice.fixtures.loader" />
             <argument type="service" id="hautelook_alice.doctrine.mongodb.fixtures_finder" />
             <argument type="service" id="hautelook_alice.bundle_resolver" />
             <tag name="console.command" />
