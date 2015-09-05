@@ -8,7 +8,7 @@ Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.h
 
 [![Package version](http://img.shields.io/packagist/vpre/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
 [![Build Status](https://img.shields.io/travis/hautelook/AliceBundle.svg?branch=master&style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/1169e133-3d02-4ba8-a87e-f152c620f8b5.svg?style=flat-square)](https://insight.sensiolabs.com/projects/1169e133-3d02-4ba8-a87e-f152c620f8b5)
+[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d93a3fc4-3fe8-4be3-aa62-307f53898199.svg?style=flat-square)](https://insight.sensiolabs.com/projects/d93a3fc4-3fe8-4be3-aa62-307f53898199)
 [![Dependency Status](https://www.versioneye.com/user/projects/55d26478265ff6001a000084/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55d26478265ff6001a000084)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hautelook/AliceBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hautelook/AliceBundle.svg?b=master&style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
