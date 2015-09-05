@@ -15,6 +15,7 @@ use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor as DoctrineMongoDBExec
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
+use Nelmio\Alice\Persister\Doctrine;
 
 /**
  * Class responsible for executing data fixtures.
@@ -51,6 +52,6 @@ class MongoDBExecutor extends DoctrineMongoDBExecutor implements ExecutorInterfa
         if (false === $append) {
             $this->purge();
         }
-        $this->loader->load($this->getObjectManager(), $fixtures);
+        $this->loader->load(new Doctrine($this->getObjectManager()), $fixtures);
     }
 }

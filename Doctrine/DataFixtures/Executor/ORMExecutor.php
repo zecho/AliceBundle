@@ -15,6 +15,7 @@ use Doctrine\Common\DataFixtures\Executor\ORMExecutor as DoctrineORMExecutor;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
+use Nelmio\Alice\Persister\Doctrine;
 
 /**
  * Class responsible for executing data fixtures.
@@ -53,7 +54,7 @@ class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
             if (false === $append) {
                 $executor->purge();
             }
-            $this->loader->load($manager, $fixtures);
+            $this->loader->load(new Doctrine($manager), $fixtures);
         });
     }
 }

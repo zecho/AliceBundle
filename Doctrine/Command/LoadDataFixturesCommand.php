@@ -22,15 +22,14 @@ use Doctrine\ODM\PHPCR\DocumentManager as PHPCRDocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
-use Hautelook\AliceBundle\Alice\ProcessorChain;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ExecutorInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\MongoDBExecutor;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ORMExecutor;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\PHPCRExecutor;
 use Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder;
-use Hautelook\AliceBundle\Faker\Provider\ProviderChain;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
+use Nelmio\Alice\Fixtures\Loader as AliceLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
@@ -67,23 +66,30 @@ class LoadDataFixturesCommand extends Command
      * @var BundlesResolverInterface
      */
     private $bundlesResolver;
+    /**
+     * @var AliceLoader
+     */
+    private $aliceLoader;
 
     /**
-     * @param string                  $name Command name
-     * @param ManagerRegistry         $doctrine
-     * @param LoaderInterface         $loader
-     * @param FixturesFinderInterface $fixturesFinder
+     * @param string                   $name Command name
+     * @param ManagerRegistry          $doctrine
+     * @param LoaderInterface          $loader
+     * @param AliceLoader              $aliceLoader
+     * @param FixturesFinderInterface  $fixturesFinder
      * @param BundlesResolverInterface $bundlesResolver
      */
     public function __construct(
         $name,
         ManagerRegistry $doctrine,
         LoaderInterface $loader,
+        AliceLoader $aliceLoader,
         FixturesFinderInterface $fixturesFinder,
         BundlesResolverInterface $bundlesResolver
     ) {
         $this->doctrine = $doctrine;
         $this->loader = $loader;
+        $this->aliceLoader = $aliceLoader;
         $this->fixturesFinder = $fixturesFinder;
         $this->bundlesResolver = $bundlesResolver;
 
@@ -211,13 +217,13 @@ class LoadDataFixturesCommand extends Command
 
         $loaders = $this->fixturesFinder->getDataLoaders($bundles, $environment);
 
+        $newAliceLoader = clone $this->aliceLoader;
+        $newAliceLoader->addProvider($loaders);
+
         return new Loader(
-            new ProcessorChain($this->loader->getProcessors()),
-            new ProviderChain(array_merge($this->loader->getOptions()['providers'], $loaders)),
-            $this->loader->getOptions()['locale'],
-            $this->loader->getOptions()['seed'],
-            $this->loader->getOptions()['persist_once'],
-            (true === isset($this->loader->getOptions()['logger']))? $this->loader->getOptions()['logger']: null
+            $newAliceLoader,
+            $this->loader->getProcessors(),
+            $this->loader->getPersistOnce()
         );
     }
 

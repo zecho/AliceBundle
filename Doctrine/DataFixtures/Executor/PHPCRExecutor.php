@@ -15,6 +15,7 @@ use Doctrine\Common\DataFixtures\Executor\PHPCRExecutor as DoctrinePHPCRExecutor
 use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Doctrine\ODM\PHPCR\DocumentManager;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
+use Nelmio\Alice\Persister\Doctrine;
 
 /**
  * Class responsible for executing data fixtures.
@@ -52,7 +53,7 @@ class PHPCRExecutor extends DoctrinePHPCRExecutor implements ExecutorInterface
                 $that->purge();
             }
 
-            $this->loader->load($manager, $fixtures);
+            $this->loader->load(new Doctrine($manager), $fixtures);
         };
 
         if (method_exists($this->getObjectManager(), 'transactional')) {
