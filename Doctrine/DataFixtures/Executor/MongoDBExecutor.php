@@ -25,6 +25,8 @@ use Nelmio\Alice\Persister\Doctrine;
  */
 class MongoDBExecutor extends DoctrineMongoDBExecutor implements ExecutorInterface
 {
+    use ExecutorTrait;
+
     /**
      * @var LoaderInterface
      */
@@ -49,9 +51,6 @@ class MongoDBExecutor extends DoctrineMongoDBExecutor implements ExecutorInterfa
      */
     public function execute(array $fixtures, $append = false)
     {
-        if (false === $append) {
-            $this->purge();
-        }
-        $this->loader->load(new Doctrine($this->getObjectManager()), $fixtures);
+        $this->executeExecutor($this, $this->getObjectManager(), $this->loader, $fixtures, $append);
     }
 }

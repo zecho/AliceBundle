@@ -25,6 +25,8 @@ use Nelmio\Alice\Persister\Doctrine;
  */
 class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
 {
+    use ExecutorTrait;
+
     /**
      * @var LoaderInterface
      */
@@ -49,12 +51,6 @@ class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
      */
     public function execute(array $fixtures, $append = false)
     {
-        $executor = $this;
-        $this->getObjectManager()->transactional(function (EntityManagerInterface $manager) use ($executor, $fixtures, $append) {
-            if (false === $append) {
-                $executor->purge();
-            }
-            $this->loader->load(new Doctrine($manager), $fixtures);
-        });
+        $this->executeExecutor($this, $this->getObjectManager(), $this->loader, $fixtures, $append);
     }
 }
