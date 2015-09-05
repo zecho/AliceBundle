@@ -36,7 +36,9 @@ class Argument
                 return false;
             }
 
-            return $class === $args->getClass();
+            $service = (new \ReflectionClass($args->getClass()))->newInstanceWithoutConstructor();
+
+            return $service instanceof $class;
         });
     }
 

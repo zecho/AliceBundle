@@ -11,7 +11,7 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
-use Nelmio\Alice\Fixtures\Loader as AliceLoader;
+use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Nelmio\Alice\PersisterInterface;
 use Nelmio\Alice\ProcessorInterface;
 
@@ -24,9 +24,9 @@ use Nelmio\Alice\ProcessorInterface;
 class Loader implements LoaderInterface
 {
     /**
-     * @var AliceLoader
+     * @var FixturesLoaderInterface
      */
-    private $aliceLoader;
+    private $fixturesLoader;
 
     /**
      * @var array|ProcessorInterface[]
@@ -39,16 +39,16 @@ class Loader implements LoaderInterface
     private $persistOnce;
 
     /**
-     * @param AliceLoader          $aliceLoader
-     * @param ProcessorInterface[] $processors
-     * @param bool                 $persistOnce
+     * @param FixturesLoaderInterface $fixturesLoader
+     * @param ProcessorInterface[]    $processors
+     * @param bool                    $persistOnce
      */
     public function __construct(
-        AliceLoader $aliceLoader,
+        FixturesLoaderInterface $fixturesLoader,
         array $processors,
         $persistOnce
     ) {
-        $this->aliceLoader = $aliceLoader;
+        $this->fixturesLoader = $fixturesLoader;
         $this->processors = $processors;
         $this->persistOnce = $persistOnce;
     }
@@ -64,7 +64,7 @@ class Loader implements LoaderInterface
 
         $objects = [];
         foreach ($fixtures as $file) {
-            $dataSet = $this->aliceLoader->load($file);
+            $dataSet = $this->fixturesLoader->load($file);
 
             if (false === $this->persistOnce) {
                 $this->persist($persister, $dataSet);

@@ -416,7 +416,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
 
         $containerBuilderProphecy
-            ->setDefinition('hautelook_alice.alice.fixtures.loader', HautelookAliceBundleArgument::definition('Nelmio\Alice\Fixtures\Loader'))
+            ->setDefinition('hautelook_alice.alice.fixtures.loader', HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface'))
             ->shouldBeCalled()
         ;
         $containerBuilderProphecy
