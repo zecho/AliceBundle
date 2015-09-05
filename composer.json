@@ -21,10 +21,15 @@
         "symfony/finder": "^2.7"
     },
   "require-dev": {
-        "doctrine/orm": "~2.4",
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
+        "doctrine/mongodb-odm": "^1.0",
+        "doctrine/mongodb-odm-bundle": "^3.0",
+        "doctrine/orm": "~2.4",
+        "doctrine/phpcr-bundle": "^1.2",
+        "doctrine/phpcr-odm": "^1.2",
         "fabpot/php-cs-fixer": "^1.9",
+        "jackalope/jackalope-doctrine-dbal": "^1.2",
         "phpunit/phpunit": "^4.7",
         "symfony/console": "~2.1",
         "symfony/framework-bundle": "~2.1",
@@ -35,9 +40,14 @@
     },
     "suggest": {
         "theofidry/alice-fixtures-extension": "Behat extension for HautelookAliceBundle",
+        "doctrine/data-fixtures": "To use Doctrine fixtures loader",
         "doctrine/orm": "To use Doctrine ORM",
         "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
-        "doctrine/data-fixtures": "To use Doctrine fixtures loader"
+        "doctrine/mongodb-odm": "To use Doctrine MongoDB",
+        "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
+        "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
+        "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
+        "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony"
     },
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "" }

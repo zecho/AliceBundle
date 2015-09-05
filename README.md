@@ -4,6 +4,8 @@ AliceBundle
 A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
 [fzaninotto/Faker](https://github.com/fzaninotto/Faker).
 
+Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html), [Doctrine ODM](http://doctrine-mongodb-odm.readthedocs.org/en/latest/), [Doctrine PHPCR ODM](http://doctrine-phpcr-odm.readthedocs.org/en/latest/).
+
 [![Package version](http://img.shields.io/packagist/vpre/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
 [![Build Status](https://img.shields.io/travis/hautelook/AliceBundle.svg?branch=master&style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/1169e133-3d02-4ba8-a87e-f152c620f8b5.svg?style=flat-square)](https://insight.sensiolabs.com/projects/1169e133-3d02-4ba8-a87e-f152c620f8b5)
@@ -17,12 +19,19 @@ A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](ht
 1. [Install](#installation)
 2. [Basic usage](#basic-usage)
 3. [Advanced usage](Resources/doc/advanced-usage.md)
+    1. [Enabling databases](Resources/doc/advanced-usage.md#enabling-databases)
+	2. [Doctrine ORM](Resources/doc/advanced-usage.md#doctrine-orm)
+	3. [Doctrine ODM (MongoDB)](Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+	4. [Doctrine PHPCR ODM](Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
 4. [Custom Faker Providers](Resources/doc/faker-providers.md)
+	1. [Simple Provider](Resources/doc/faker-providers.md#simple-provider)
+	2. [Advanced Provider](Resources/doc/faker-providers.md#advanced-provider)
 5. [Custom Alice Processors](Resources/doc/alice-processors.md)
 6. [DoctrineFixturesBundle support](Resources/doc/doctrine-fixtures-bundle.md)
 7. [Resources](#resources)
 
 Other references:
+
 * [Knp University screencast](https://knpuniversity.com/screencast/alice-fixtures)
 
 ## Installation
@@ -51,12 +60,16 @@ public function registerBundles()
 }
 ```
 
-Configure the bundle to your needs:
+Configure the bundle to your needs (example with default values):
 
 ```yaml
 # app/config/config.yml
 
 hautelook_alice:
+    db_drivers:
+        orm: ~          # Enable Doctrine ORM if is registered
+        mongodb: ~      # Enable Doctrine ODM if is registered
+        phpcr: ~        # Enable Doctrine PHPCR ODM if is registered
     locale: en_US       # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_EN
     seed: 1             # A seed to make sure faker generates data consistently across runs, set to null to disable
     persist_once: false # Only persist objects once if multiple files are passed
@@ -79,9 +92,9 @@ AppBundle\Entity\Dummy:
         name: <name()>
 ```
 
-Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:fixtures:load` (or `php app/console h:f:l`).
+Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:doctrine:fixtures:load` (or `php app/console h:d:f:l`).
 
-If you want to load the fixtures of a bundle only, do `php app/console h:f:l -b MyFirstBundle -b MySecondBundle`.
+If you want to load the fixtures of a bundle only, do `php app/console h:d:f:l -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
 Next chapter: [Advanced usage](Resources/doc/advanced-usage.md)

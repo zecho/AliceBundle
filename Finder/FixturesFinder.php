@@ -11,63 +11,31 @@
 
 namespace Hautelook\AliceBundle\Finder;
 
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
- * Class responsible retrieving the fixtures path to load.
- *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class Finder
+class FixturesFinder implements FixturesFinderInterface
 {
-    const BUNDLE_FIXTURES_PATH = 'DataFixtures/ORM';
+    /**
+     * @var string
+     */
+    private $bundleFixturesPath;
 
     /**
-     * Looks at all the bundles registered in the application to return the bundles requested. An exception is thrown
-     * if a bundle has not been found.
-     *
-     * @param Application $application Application in which bundles will be looked in.
-     * @param string[]    $names       Bundle names.
-     *
-     * @return BundleInterface[] Bundles requested.
-     * @throws \RuntimeException A bundle could not be resolved.
+     * @param string $bundleFixturesPath Path in which fixtures files or loaders are expected to be found.
      */
-    public function resolveBundles(Application $application, array $names)
+    public function __construct($bundleFixturesPath)
     {
-        $bundles = $application->getKernel()->getBundles();
-
-        $result = [];
-        foreach ($names as $name) {
-            if (false === isset($bundles[$name])) {
-                throw new \RuntimeException(sprintf(
-                    'The bundle "%s" was not found. Bundles availables are: %s.',
-                    $name,
-                    implode('", "', array_keys($bundles))
-                ));
-            }
-
-            $result[$name] = $bundles[$name];
-        }
-
-        return $result;
+        $this->bundleFixturesPath = $bundleFixturesPath;
     }
 
     /**
-     * Gets all fixtures files path.
-     *
-     * For first get all the path for where to look for fixtures.
-     * For each path, will try to get fixtures from data loaders. If no data loader is found, will take all the
-     * fixtures.
-     *
-     * @param KernelInterface   $kernel
-     * @param BundleInterface[] $bundles
-     * @param string            $environment
-     *
-     * @return string[] Fixtures files real paths.
+     * {@inheritdoc}
      */
     public function getFixtures(KernelInterface $kernel, array $bundles, $environment)
     {
@@ -76,10 +44,6 @@ class Finder
         // Add all fixtures to the new Doctrine loader
         $fixtures = [];
         foreach ($loadersPaths as $path) {
-            if (false === is_dir($path)) {
-                throw new \InvalidArgumentException(sprintf('Expected "%s" to be a directory.', $path));
-            }
-
             $fixtures = array_merge($fixtures, $this->getFixturesFromDirectory($path));
         }
 
@@ -94,13 +58,7 @@ class Finder
     }
 
     /**
-     * Gets the real path of each fixtures.
-     *
-     * @param KernelInterface         $kernel
-     * @param string[]|\SplFileInfo[] $fixtures
-     *
-     * @return string[] Fixtures real path
-     * @throws \InvalidArgumentException File not found.
+     * {@inheritdoc}
      */
     public function resolveFixtures(KernelInterface $kernel, array $fixtures)
     {
@@ -112,7 +70,7 @@ class Finder
                 $filePath = $fixture->getRealPath();
 
                 if (false === $filePath) {
-                    throw new \InvalidArgumentException(
+                    throw new \RuntimeException(
                         sprintf(
                             'The file %s pointed by a %s instance was not found.',
                             (string)$fixture,
@@ -120,9 +78,7 @@ class Finder
                         )
                     );
                 }
-                $resolvedFixtures[$filePath] = true;
-
-                continue;
+                $fixture = $filePath;
             }
 
             if (false === is_string($fixture)) {
@@ -133,15 +89,21 @@ class Finder
 
             if ('@' === $fixture[0]) {
                 // If $kernel fails to resolve the resource, will throw a \InvalidArgumentException exception
-                $resolvedFixtures[$kernel->locateResource($fixture, null, true)] = true;
-
-                continue;
+                $realPath = $kernel->locateResource($fixture, null, true);
+            } else {
+                $realPath = realpath($fixture);
             }
 
-            $realPath = realpath($fixture);
             if (false === $realPath || false === file_exists($realPath)) {
                 throw new \InvalidArgumentException(sprintf('The file "%s" was not found', $fixture));
             }
+
+            if (false === is_file($realPath)) {
+                throw new \InvalidArgumentException(
+                    sprintf('Expected "%s to be a fixture file, got a directory instead.', $fixture)
+                );
+            }
+
             $resolvedFixtures[$realPath] = true;
         }
 
@@ -149,12 +111,7 @@ class Finder
     }
 
     /**
-     * Get the fixtures path for a given directory. It is recommended not to take into account sub directories as
-     * this function will be called for them later on.
-     *
-     * @param string $path Directory path
-     *
-     * @return string[]|SplFileInfo[] Fixtures paths
+     * {@inheritdoc}
      */
     public function getFixturesFromDirectory($path)
     {
@@ -186,7 +143,7 @@ class Finder
 
         $paths = [];
         foreach ($bundles as $bundle) {
-            $path = sprintf('%s/%s', $bundle->getPath(), self::BUNDLE_FIXTURES_PATH);
+            $path = sprintf('%s/%s', $bundle->getPath(), $this->bundleFixturesPath);
             if (true === file_exists($path)) {
                 $paths[$path] = true;
                 try {

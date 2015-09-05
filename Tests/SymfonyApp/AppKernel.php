@@ -13,6 +13,8 @@ namespace Hautelook\AliceBundle\Tests\SymfonyApp;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
+use Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle;
+use Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle;
 use Fidry\PsyshBundle\PsyshBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\ABundle\TestABundle;
@@ -30,6 +32,8 @@ class AppKernel extends Kernel
         return [
             new DoctrineBundle(),
             new DoctrineFixturesBundle(),
+            new DoctrineMongoDBBundle(),
+            new DoctrinePHPCRBundle(),
             new FrameworkBundle(),
             new HautelookAliceBundle(),
             new TestBundle(),

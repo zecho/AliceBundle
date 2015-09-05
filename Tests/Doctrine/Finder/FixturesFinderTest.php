@@ -11,7 +11,7 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine\Finder;
 
-use Hautelook\AliceBundle\Doctrine\Finder\Finder;
+use Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\ABundle\TestABundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\BBundle\TestBBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\TestCBundle;
@@ -20,51 +20,12 @@ use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\TestBundle;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
- * @coversDefaultClass Hautelook\AliceBundle\Doctrine\Finder\Finder
+ * @coversDefaultClass Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class FinderTest extends \PHPUnit_Framework_TestCase
+class FixturesFinderTest extends \PHPUnit_Framework_TestCase
 {
-    /**
-     * @cover ::resolveBundles
-     */
-    public function testResolveBundles()
-    {
-        $finder = new Finder();
-
-        $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
-        $kernel->getBundles()->willReturn(
-            [
-                'ABundle' => 'ABundleInstance',
-                'BBundle' => 'BBundleInstance',
-                'CBundle' => 'CBundleInstance',
-            ]
-        );
-        $application = $this->prophesize('Symfony\Bundle\FrameworkBundle\Console\Application');
-        $application->getKernel()->willReturn($kernel->reveal());
-
-        $bundles = $finder->resolveBundles($application->reveal(), ['ABundle']);
-        $this->assertEquals(['ABundle' => 'ABundleInstance'], $bundles);
-
-        $bundles = $finder->resolveBundles($application->reveal(), ['ABundle', 'BBundle']);
-        $this->assertEquals(['ABundle' => 'ABundleInstance', 'BBundle' => 'BBundleInstance'], $bundles);
-
-        try {
-            $finder->resolveBundles($application->reveal(), ['UnknownBundle']);
-            $this->fail('Expected exception to be thrown');
-        } catch (\RuntimeException $exception) {
-            // Expected result
-        }
-
-        try {
-            $finder->resolveBundles($application->reveal(), ['ABundle', 'UnknownBundle']);
-            $this->fail('Expected exception to be thrown');
-        } catch (\RuntimeException $exception) {
-            // Expected result
-        }
-    }
-
     /**
      * @cover ::getFixtures
      * @cover ::getLoadersPaths
@@ -78,21 +39,13 @@ class FinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFixtures(array $bundles, $environment, array $expected)
     {
-        $finder = new Finder();
+        $finder = new FixturesFinder('DataFixtures/ORM');
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
         $kernel->locateResource('@TestABundle/DataFixtures/ORM/aentity.yml', null, true)->willReturn(
-            str_replace(
-                '/home/travis/build/theofidry/AliceBundle',
-                getcwd(),
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
-            )
+            getcwd().'/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
         );
         $kernel->locateResource('@TestBBundle/DataFixtures/ORM/bentity.yml', null, true)->willReturn(
-            str_replace(
-                '/home/travis/build/theofidry/AliceBundle',
-                getcwd(),
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml'
-            )
+            getcwd().'/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml'
         );
 
         try {
@@ -114,7 +67,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFixturesWithInvalidPath()
     {
-        $finder = new Finder();
+        $finder = new FixturesFinder('DataFixutres/ORM');
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
 
         try {
@@ -131,7 +84,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDataLoaders($bundles, $environment, $expected)
     {
-        $finder = new Finder();
+        $finder = new FixturesFinder('DataFixtures/ORM');
 
         $loaders = $finder->getDataLoaders($bundles, $environment);
 
@@ -152,9 +105,9 @@ class FinderTest extends \PHPUnit_Framework_TestCase
 
     public function fixturesProvider()
     {
-        $return = [];
+        $data = [];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBundle(),
             ],
@@ -166,7 +119,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBundle(),
             ],
@@ -178,7 +131,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBundle(),
             ],
@@ -190,7 +143,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBundle(),
             ],
@@ -202,7 +155,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestABundle(),
             ],
@@ -212,7 +165,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBBundle(),
             ],
@@ -222,7 +175,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestCBundle(),
             ],
@@ -233,7 +186,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestCBundle(),
             ],
@@ -245,7 +198,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestCBundle(),
             ],
@@ -258,7 +211,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestCBundle(),
             ],
@@ -270,7 +223,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestBundle(),
                 new TestCBundle(),
@@ -285,7 +238,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $return[] = [
+        $data[] = [
             [
                 new TestCBundle(),
             ],
@@ -298,9 +251,9 @@ class FinderTest extends \PHPUnit_Framework_TestCase
         ];
 
         // Fix paths
-        foreach ($return as $index => $dataSet) {
+        foreach ($data as $index => $dataSet) {
             foreach ($dataSet[2] as $dataSetIndex => $filePath) {
-                $return[$index][2][$dataSetIndex] = str_replace(
+                $data[$index][2][$dataSetIndex] = str_replace(
                     '/home/travis/build/theofidry/AliceBundle',
                     getcwd(),
                     $dataSet[2][$dataSetIndex]
@@ -308,7 +261,7 @@ class FinderTest extends \PHPUnit_Framework_TestCase
             }
         }
 
-        return $return;
+        return $data;
     }
 
     public function dataLoadersProvider()

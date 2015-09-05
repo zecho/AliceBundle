@@ -30,18 +30,14 @@
             <argument type="service" id="logger" on-invalid="ignore" />
         </service>
 
-        <service id="hautelook_alice.finder" class="Hautelook\AliceBundle\Doctrine\Finder\Finder" />
+        <service id="hautelook_alice.fixtures_finder"
+                 class="Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder" />
 
-        <service id="hautelook_alice.doctrine.finder" class="Hautelook\AliceBundle\Doctrine\Finder\Finder" />
+        <service id="hautelook_alice.bundle_resolver" class="Hautelook\AliceBundle\Resolver\BundlesResolver" />
 
-        <service id="hautelook_alice.doctrine.command.load_command"
-                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
-                 lazy="true">
-            <argument type="service" id="doctrine" />
-            <argument type="service" id="hautelook_alice.fixtures.loader" />
-            <argument type="service" id="hautelook_alice.doctrine.finder" />
-            <tag name="console.command" />
-        </service>
+        <service id="hautelook_alice.doctrine.command_factory"
+                 class="Hautelook\AliceBundle\Doctrine\Command\CommandFactory"
+                 lazy="true" />
     </services>
 
 </container>

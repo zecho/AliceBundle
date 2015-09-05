@@ -17,7 +17,7 @@
 
 ### Doctrine command
 
-You should now rely on the bundle command `hautelook_alice:fixtures:load` (or `h:f:l`) instead of `doctrine:fixtures:load`.
+You should now rely on the bundle command `hautelook_alice:doctrine:fixtures:load` (or `h:d:f:l`) instead of `doctrine:fixtures:load`.
 
 
 ### Remove DoctrineFixturesBundle
