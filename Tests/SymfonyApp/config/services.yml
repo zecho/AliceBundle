@@ -1,3 +1,6 @@
+parameters:
+    test_app.random: 'Random parameter'
+
 services:
     alice.processor.entity_managers:
         class: Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Processor\BrandProcessor

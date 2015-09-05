@@ -71,6 +71,43 @@ class DataLoader extends AbstractLoader
 
 **Warning**: when you're putting a data loader in a fixture directory, only the fixtures specified by the data loader will be loaded. But you can use several data loaders in the same directory, they will all be loaded.
 
+## Fixtures parameters
+
+### Alice parameters
+
+You can already use parameters specifics to your fixture file with [Alice](https://github.com/nelmio/alice/blob/master/doc/fixtures-refactoring.md#parameters). To manage your fixtures parameters, you may wish to have a dedicated file for that:
+
+```yaml
+# src/AppBundle/DataFixtures/ORM/parameters.yml
+
+parameters:
+    app.alice.parameters.parameter1: something
+    app.alice.parameters.parameter2: something else
+    ...
+```
+
+Then you can use the parameters `app.alice.parameters.parameter1` across all your fixtures files:
+
+```yaml
+# AppBundle/DataFixtures/ORM/dummy.yml
+
+AppBundle\Entity\Dummy:
+    dummy_0:
+        name: <{app.alice.parameters.parameter1}>
+```
+
+### Application parameters
+
+You can access out of the box to your application parameters:
+
+```yaml
+# AppBundle/DataFixtures/ORM/dummy.yml
+
+AppBundle\Entity\Dummy:
+    dummy_0:
+        locale: <{framework.validation.enabled}>
+```
+
 ## Doctrine ODM and Doctrine PHPCR ODM
 
 The usage is the same as [HautelookAliceBundle with Doctrine ORM](#doctrine-orm) replacing `ORM` namespaces and folders by `ODM` for Doctrine ODM and `PHPCR` for Doctrine PHPCR ODM. The commands are:

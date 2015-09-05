@@ -1,3 +1,6 @@
+parameters:
+    custom: 2
+
 Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand:
     brand{1..10}:
-        name: Brand <foo('lol')> <name()>
+        name: Brand <{hautelook_alice.locale}> <foo(%framework.secret%)> <name()> <{test_app.random}> <{custom}>
