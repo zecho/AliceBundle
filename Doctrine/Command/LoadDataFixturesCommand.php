@@ -130,8 +130,6 @@ class LoadDataFixturesCommand extends Command
                 'Purge data by using a database-level TRUNCATE statement when using Doctrine ORM.'
             );
         }
-
-        //TODO: set help
     }
 
     /**
