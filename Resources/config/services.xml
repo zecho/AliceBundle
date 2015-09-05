@@ -21,7 +21,8 @@
                  class="Hautelook\AliceBundle\Faker\Provider\ProviderChain"
                  lazy="true" />
 
-        <service id="hautelook_alice.alice.fixtures.loader" class="Nelmio\Alice\Fixtures\Loader">
+        <service id="hautelook_alice.alice.fixtures.loader"
+                 class="Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader">
             <argument>%hautelook_alice.locale%</argument>
             <argument type="expression">service('hautelook_alice.faker.provider_chain').getProviders()</argument>
             <argument>%hautelook_alice.seed%</argument>

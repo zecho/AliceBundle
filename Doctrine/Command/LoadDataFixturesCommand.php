@@ -20,6 +20,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager as MongoDBDocumentManager;
 use Doctrine\ODM\PHPCR\DocumentManager as PHPCRDocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ExecutorInterface;
@@ -29,7 +30,6 @@ use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\PHPCRExecutor;
 use Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
-use Nelmio\Alice\Fixtures\Loader as AliceLoader;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\DialogHelper;
@@ -67,15 +67,15 @@ class LoadDataFixturesCommand extends Command
      */
     private $bundlesResolver;
     /**
-     * @var AliceLoader
+     * @var FixturesLoaderInterface
      */
-    private $aliceLoader;
+    private $fixturesLoader;
 
     /**
      * @param string                   $name Command name
      * @param ManagerRegistry          $doctrine
      * @param LoaderInterface          $loader
-     * @param AliceLoader              $aliceLoader
+     * @param FixturesLoaderInterface  $fixturesLoader
      * @param FixturesFinderInterface  $fixturesFinder
      * @param BundlesResolverInterface $bundlesResolver
      */
@@ -83,13 +83,13 @@ class LoadDataFixturesCommand extends Command
         $name,
         ManagerRegistry $doctrine,
         LoaderInterface $loader,
-        AliceLoader $aliceLoader,
+        FixturesLoaderInterface $fixturesLoader,
         FixturesFinderInterface $fixturesFinder,
         BundlesResolverInterface $bundlesResolver
     ) {
         $this->doctrine = $doctrine;
         $this->loader = $loader;
-        $this->aliceLoader = $aliceLoader;
+        $this->fixturesLoader = $fixturesLoader;
         $this->fixturesFinder = $fixturesFinder;
         $this->bundlesResolver = $bundlesResolver;
 
@@ -217,7 +217,7 @@ class LoadDataFixturesCommand extends Command
 
         $loaders = $this->fixturesFinder->getDataLoaders($bundles, $environment);
 
-        $newAliceLoader = clone $this->aliceLoader;
+        $newAliceLoader = clone $this->fixturesLoader;
         $newAliceLoader->addProvider($loaders);
 
         return new Loader(

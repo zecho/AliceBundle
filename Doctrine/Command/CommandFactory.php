@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
-use Nelmio\Alice\Fixtures\Loader as AliceLoader;
+use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 
 /**
  * Factory class to generate Doctrine load data fixtures commands.
@@ -28,7 +28,7 @@ class CommandFactory
      * @param string                   $name Command name
      * @param ManagerRegistry          $doctrineRegistry
      * @param LoaderInterface          $loader
-     * @param AliceLoader              $aliceLoader
+     * @param FixturesLoaderInterface  $fixturesLoader
      * @param FixturesFinderInterface  $fixturesFinder
      * @param BundlesResolverInterface $bundlesResolver
      *
@@ -38,7 +38,7 @@ class CommandFactory
         $name,
         ManagerRegistry $doctrineRegistry,
         LoaderInterface $loader,
-        AliceLoader $aliceLoader,
+        FixturesLoaderInterface $fixturesLoader,
         FixturesFinderInterface $fixturesFinder,
         BundlesResolverInterface $bundlesResolver
     ) {
@@ -46,7 +46,7 @@ class CommandFactory
             $name,
             $doctrineRegistry,
             $loader,
-            $aliceLoader,
+            $fixturesLoader,
             $fixturesFinder,
             $bundlesResolver
         );
