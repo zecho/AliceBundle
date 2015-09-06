@@ -454,13 +454,6 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
         $containerBuilderProphecy
             ->setDefinition(
-                'hautelook_alice.fixtures_finder',
-                HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder')
-            )
-            ->shouldBeCalled()
-        ;
-        $containerBuilderProphecy
-            ->setDefinition(
                 'hautelook_alice.bundle_resolver',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Resolver\BundlesResolver')
             )
