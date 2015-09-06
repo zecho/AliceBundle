@@ -96,6 +96,18 @@ AppBundle\Entity\Dummy:
         name: <{app.alice.parameters.parameter1}>
 ```
 
+You can also pass your parameters to functions:
+
+```yaml
+# AppBundle/DataFixtures/ORM/dummy.yml
+
+AppBundle\Entity\Dummy:
+    dummy_0:
+        name: <foo(<{app.alice.parameters.parameter1}>)>
+```
+
+For more, check [Alice documentation](https://github.com/nelmio/alice#table-of-contents).
+
 ### Application parameters
 
 You can access out of the box to your application parameters:
