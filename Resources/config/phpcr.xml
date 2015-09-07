@@ -20,6 +20,8 @@
             <argument type="service" id="hautelook_alice.alice.fixtures.loader" />
             <argument type="service" id="hautelook_alice.doctrine.phpcr.fixtures_finder" />
             <argument type="service" id="hautelook_alice.bundle_resolver" />
+            <argument type="service" id="hautelook_alice.doctrine.generator.loader_generator" />
+            <argument type="service" id="hautelook_alice.doctrine.executor.fixtures_executor" />
             <tag name="console.command" />
         </service>
     </services>

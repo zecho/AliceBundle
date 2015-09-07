@@ -15,7 +15,7 @@ use Nelmio\Alice\PersisterInterface;
 use Nelmio\Alice\ProcessorInterface;
 
 /**
- * The loader is class responsible for loading the fixtures.
+ * The loader is class responsible for loading the fixtures files into objects and persist them into the database.
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */

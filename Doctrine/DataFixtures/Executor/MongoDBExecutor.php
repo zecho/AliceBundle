@@ -15,12 +15,10 @@ use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor as DoctrineMongoDBExec
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
-use Nelmio\Alice\Persister\Doctrine;
 
 /**
  * Class responsible for executing data fixtures.
  *
- * @author Jonathan H. Wage <jonwage@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class MongoDBExecutor extends DoctrineMongoDBExecutor implements ExecutorInterface

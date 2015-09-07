@@ -13,6 +13,9 @@ namespace Hautelook\AliceBundle\Doctrine\Command;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
+use Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator;
+use Hautelook\AliceBundle\Doctrine\Generator\LoaderGeneratorInterface;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
@@ -25,30 +28,36 @@ use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as Fixture
 class CommandFactory
 {
     /**
-     * @param string                   $name Command name
-     * @param ManagerRegistry          $doctrineRegistry
-     * @param LoaderInterface          $loader
-     * @param FixturesLoaderInterface  $fixturesLoader
-     * @param FixturesFinderInterface  $fixturesFinder
-     * @param BundlesResolverInterface $bundlesResolver
+     * @param string                    $name Command name
+     * @param ManagerRegistry           $doctrine
+     * @param LoaderInterface           $loader
+     * @param FixturesLoaderInterface   $fixturesLoader
+     * @param FixturesFinderInterface   $fixturesFinder
+     * @param BundlesResolverInterface  $bundlesResolver
+     * @param LoaderGeneratorInterface  $loaderGenerator
+     * @param FixturesExecutorInterface $fixturesExecutor
      *
      * @return LoadDataFixturesCommand
      */
     public function createCommand(
         $name,
-        ManagerRegistry $doctrineRegistry,
+        ManagerRegistry $doctrine,
         LoaderInterface $loader,
         FixturesLoaderInterface $fixturesLoader,
         FixturesFinderInterface $fixturesFinder,
-        BundlesResolverInterface $bundlesResolver
+        BundlesResolverInterface $bundlesResolver,
+        LoaderGeneratorInterface $loaderGenerator,
+        FixturesExecutorInterface $fixturesExecutor
     ) {
         return new LoadDataFixturesCommand(
             $name,
-            $doctrineRegistry,
+            $doctrine,
             $loader,
             $fixturesLoader,
             $fixturesFinder,
-            $bundlesResolver
+            $bundlesResolver,
+            $loaderGenerator,
+            $fixturesExecutor
         );
     }
 }

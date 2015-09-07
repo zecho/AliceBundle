@@ -18,8 +18,13 @@ trait ExecutorTrait
      * @param string[]          $fixtures Real path to fixtures files
      * @param bool              $append
      */
-    private function executeExecutor(ExecutorInterface $executor, ObjectManager $manager, LoaderInterface $loader, array $fixtures, $append = false)
-    {
+    private function executeExecutor(
+        ExecutorInterface $executor,
+        ObjectManager $manager,
+        LoaderInterface $loader,
+        array $fixtures,
+        $append = false
+    ) {
         $function = function (ObjectManager $manager) use ($executor, $loader, $fixtures, $append) {
             if (false === $append) {
                 $executor->purge();

@@ -20,7 +20,6 @@ use Nelmio\Alice\Persister\Doctrine;
 /**
  * Class responsible for executing data fixtures.
  *
- * @author Jonathan H. Wage <jonwage@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
