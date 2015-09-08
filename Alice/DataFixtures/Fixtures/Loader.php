@@ -11,6 +11,8 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures\Fixtures;
 
+use Nelmio\Alice\PersisterInterface;
+
 /**
  * Bridge for Alice's loader.
  *
@@ -18,4 +20,11 @@ namespace Hautelook\AliceBundle\Alice\DataFixtures\Fixtures;
  */
 class Loader extends \Nelmio\Alice\Fixtures\Loader implements LoaderInterface
 {
+    /**
+     * @return PersisterInterface
+     */
+    public function getPersister()
+    {
+        return $this->manager;
+    }
 }

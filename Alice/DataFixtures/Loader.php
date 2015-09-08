@@ -11,6 +11,7 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
+use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader as FixturesLoader;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Nelmio\Alice\PersisterInterface;
 use Nelmio\Alice\ProcessorInterface;
@@ -58,6 +59,11 @@ class Loader implements LoaderInterface
      */
     public function load(PersisterInterface $persister, array $fixtures)
     {
+        if ($this->fixturesLoader instanceof FixturesLoader) {
+            $_persister = $this->fixturesLoader->getPersister();
+        }
+        $this->fixturesLoader->setPersister($persister);
+
         if (0 === count($fixtures)) {
             return [];
         }
@@ -75,6 +81,10 @@ class Loader implements LoaderInterface
 
         if (true === $this->persistOnce) {
             $this->persist($persister, $objects);
+        }
+
+        if (isset($_persister)) {
+            $this->fixturesLoader->setPersister($_persister);
         }
 
         return $objects;

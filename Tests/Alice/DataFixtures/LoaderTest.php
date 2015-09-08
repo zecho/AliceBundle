@@ -65,13 +65,18 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $object = new \stdClass();
 
-        $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
-        $aliceLoaderProphecy->load('random/file')->willReturn([$object]);
+        $oldPersister = $this->prophesize('Nelmio\Alice\PersisterInterface')->reveal();
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
         $persisterProphecy->persist([$object])->shouldBeCalled();
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), [], false);
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
+        $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
+        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+        $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
+        $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertEquals([$object], $objects);
@@ -88,15 +93,20 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             new \stdClass(),
         ];
 
-        $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
-        $aliceLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
-        $aliceLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $oldPersister = $this->prophesize('Nelmio\Alice\PersisterInterface')->reveal();
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
         $persisterProphecy->persist([$objects[0]])->shouldBeCalled();
         $persisterProphecy->persist([$objects[1]])->shouldBeCalled();
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), [], false);
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
+        $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
+        $fixturesLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
+        $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
         $objects = $loader->load(
             $persisterProphecy->reveal(),
             [
@@ -119,14 +129,19 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             new \stdClass(),
         ];
 
-        $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
-        $aliceLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
-        $aliceLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $oldPersister = $this->prophesize('Nelmio\Alice\PersisterInterface')->reveal();
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
         $persisterProphecy->persist($objects)->shouldBeCalled();
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), [], true);
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
+        $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
+        $fixturesLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
+        $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], true);
         $objects = $loader->load(
             $persisterProphecy->reveal(),
             [
@@ -146,17 +161,22 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $object = new \stdClass();
 
-        $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
-        $aliceLoaderProphecy->load('random/file')->willReturn([$object]);
+        $oldPersister = $this->prophesize('Nelmio\Alice\PersisterInterface')->reveal();
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
         $persisterProphecy->persist([$object])->shouldBeCalled();
+
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
+        $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
+        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+        $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
+        $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
         $processorProphecy = $this->prophesize('Nelmio\Alice\ProcessorInterface');
         $processorProphecy->preProcess($object)->shouldBeCalled();
         $processorProphecy->postProcess($object)->shouldBeCalled();
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), [$processorProphecy->reveal()], false);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [$processorProphecy->reveal()], false);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertEquals([$object], $objects);
