@@ -14,7 +14,6 @@ namespace Hautelook\AliceBundle\Doctrine\Command;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
-use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
 use Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder;
@@ -29,7 +28,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
  * Command used to load the fixtures.
