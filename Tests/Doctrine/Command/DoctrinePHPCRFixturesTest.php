@@ -12,41 +12,28 @@
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
 use Doctrine\ODM\PHPCR\DocumentManager;
-use Hautelook\AliceBundle\Tests\KernelTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrinePHPCRFixturesTest extends KernelTestCase
+class DoctrinePHPCRFixturesTest extends CommandTestCase
 {
-    /**
-     * @var Application
-     */
-    private $application;
-
     /**
      * @var DocumentManager
      */
-    private $doctrineManager;
+    private $documentManager;
 
     protected function setUp()
     {
-        self::bootKernel();
-        $this->application = new Application(self::$kernel);
+        parent::setUp();
 
-        // Register doctrine bundles
         $this->application->add(
             self::$kernel->getContainer()->get('hautelook_alice.doctrine.phpcr.command.load_command')
         );
 
-        $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine_phpcr')->getManager();
-
-        $this->application->setAutoExit(false);
-        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
-        $this->runConsole("doctrine:schema:create");
+        $this->documentManager = $this->application->getKernel()->getContainer()->get('doctrine_phpcr')->getManager();
     }
 
     public function testFixturesLoading()
@@ -79,18 +66,10 @@ class DoctrinePHPCRFixturesTest extends KernelTestCase
 
     private function verifyProducts()
     {
-        $tasks = $this->doctrineManager->getRepository
+        $tasks = $this->documentManager->getRepository
         ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Task')->findAll();
 
         $this->assertCount(10, $tasks);
-    }
-
-    private function runConsole($command, array $options = [])
-    {
-        $options["-e"] = "test";
-        $options["-q"] = null;
-        $options = array_merge($options, ['command' => $command]);
-        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     }
 
     public function loadCommandProvider()

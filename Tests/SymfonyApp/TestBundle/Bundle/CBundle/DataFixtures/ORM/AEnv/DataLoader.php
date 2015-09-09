@@ -20,8 +20,8 @@ class DataLoader extends AbstractLoader
      */
     public function getFixtures()
     {
-        return array(
+        return [
             __DIR__.'/../../../../ABundle/DataFixtures/ORM/aentity.yml',
-        );
+        ];
     }
 }
