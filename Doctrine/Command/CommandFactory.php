@@ -14,7 +14,6 @@ namespace Hautelook\AliceBundle\Doctrine\Command;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
-use Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator;
 use Hautelook\AliceBundle\Doctrine\Generator\LoaderGeneratorInterface;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
