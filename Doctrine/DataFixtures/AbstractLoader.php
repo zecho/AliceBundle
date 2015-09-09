@@ -31,6 +31,5 @@ abstract class AbstractLoader extends ContainerAware implements LoaderInterface
      */
     public function load(ObjectManager $objectManager)
     {
-        throw new \RuntimeException('This method was not expected to be called.');
     }
 }
