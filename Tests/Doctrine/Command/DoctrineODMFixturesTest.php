@@ -12,41 +12,28 @@
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Hautelook\AliceBundle\Tests\KernelTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrineODMFixturesTest extends KernelTestCase
+class DoctrineODMFixturesTest extends CommandTestCase
 {
-    /**
-     * @var Application
-     */
-    private $application;
-
     /**
      * @var DocumentManager
      */
-    private $doctrineManager;
+    private $documentManager;
 
     protected function setUp()
     {
-        self::bootKernel();
-        $this->application = new Application(self::$kernel);
+        parent::setUp();
 
-        // Register doctrine bundles
         $this->application->add(
             self::$kernel->getContainer()->get('hautelook_alice.doctrine.mongodb.command.load_command')
         );
 
-        $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine_mongodb')->getManager();
-
-        $this->application->setAutoExit(false);
-        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
-        $this->runConsole("doctrine:schema:create");
+        $this->documentManager = $this->application->getKernel()->getContainer()->get('doctrine_mongodb')->getManager();
     }
 
     public function testFixturesLoading()
@@ -77,18 +64,10 @@ class DoctrineODMFixturesTest extends KernelTestCase
 
     private function verifyProducts()
     {
-        $products = $this->doctrineManager->getRepository
+        $products = $this->documentManager->getRepository
         ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product')->findAll();
 
         $this->assertCount(10, $products);
-    }
-
-    private function runConsole($command, array $options = [])
-    {
-        $options["-e"] = "test";
-        $options["-q"] = null;
-        $options = array_merge($options, ['command' => $command]);
-        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     }
 
     public function loadCommandProvider()

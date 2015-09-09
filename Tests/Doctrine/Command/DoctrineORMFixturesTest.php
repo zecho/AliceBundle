@@ -11,42 +11,29 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Hautelook\AliceBundle\Tests\KernelTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrineORMFixturesTest extends KernelTestCase
+class DoctrineORMFixturesTest extends CommandTestCase
 {
     /**
-     * @var Application
+     * @var EntityManager
      */
-    private $application;
-
-    /**
-     * @var ObjectManager
-     */
-    private $doctrineManager;
+    private $entityManager;
 
     protected function setUp()
     {
-        self::bootKernel();
-        $this->application = new Application(self::$kernel);
+        parent::setUp();
 
-        // Register doctrine bundles
         $this->application->add(
             self::$kernel->getContainer()->get('hautelook_alice.doctrine.command.load_command')
         );
 
-        $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
-
-        $this->application->setAutoExit(false);
-        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
-        $this->runConsole("doctrine:schema:create");
+        $this->entityManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
     }
 
     /**
@@ -83,7 +70,7 @@ class DoctrineORMFixturesTest extends KernelTestCase
     {
         for ($i = 1; $i <= 10; ++$i) {
             /* @var \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product */
-            $product = $this->doctrineManager->find(
+            $product = $this->entityManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product',
                 $i
             );
@@ -101,19 +88,11 @@ class DoctrineORMFixturesTest extends KernelTestCase
     {
         for ($i = 1; $i <= 10; ++$i) {
             /* @var $brand \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand */
-            $this->doctrineManager->find(
+            $this->entityManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand',
                 $i
             );
         }
-    }
-
-    private function runConsole($command, array $options = [])
-    {
-        $options["-e"] = "test";
-        $options["-q"] = null;
-        $options = array_merge($options, ['command' => $command]);
-        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     }
 
     public function loadCommandProvider()

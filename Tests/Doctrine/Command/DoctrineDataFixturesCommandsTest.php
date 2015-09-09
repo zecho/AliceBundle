@@ -11,9 +11,6 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
-use Doctrine\Common\Persistence\ObjectManager;
-use Hautelook\AliceBundle\Tests\KernelTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
@@ -21,33 +18,15 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrineDataFixturesCommandsTest extends KernelTestCase
+class DoctrineDataFixturesCommandsTest extends CommandTestCase
 {
-    /**
-     * @var Application
-     */
-    private $application;
-
-    /**
-     * @var ObjectManager
-     */
-    private $doctrineManager;
-
     protected function setUp()
     {
-        self::bootKernel();
-        $this->application = new Application(self::$kernel);
+        parent::setUp();
 
-        // Register doctrine bundles
         $this->application->add(
             self::$kernel->getContainer()->get('hautelook_alice.doctrine.command.load_command')
         );
-
-        $this->doctrineManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
-
-        $this->application->setAutoExit(false);
-        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
-        $this->runConsole("doctrine:schema:create");
     }
 
     /**
@@ -62,15 +41,15 @@ class DoctrineDataFixturesCommandsTest extends KernelTestCase
 
         $expected = <<<EOF
               > purging database
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored2\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Provider\DataLoader
+  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\AEnv\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\BEnv\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\DEnv\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\EEnv\DataLoader
+  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\DataLoader
 
 EOF;
 
@@ -107,13 +86,5 @@ EOF;
 EOF;
 
         $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
-    }
-
-    private function runConsole($command, array $options = [])
-    {
-        $options["-e"] = "test";
-        $options["-q"] = null;
-        $options = array_merge($options, ['command' => $command]);
-        return $this->application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
     }
 }
