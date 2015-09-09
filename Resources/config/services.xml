@@ -47,9 +47,6 @@
             <argument>%hautelook_alice.persist_once%</argument>
         </service>
 
-        <service id="hautelook_alice.fixtures_finder"
-                 class="Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder" />
-
         <service id="hautelook_alice.bundle_resolver" class="Hautelook\AliceBundle\Resolver\BundlesResolver" />
 
         <service id="hautelook_alice.doctrine.command_factory"
