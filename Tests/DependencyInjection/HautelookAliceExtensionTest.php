@@ -420,6 +420,14 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled()
         ;
         $containerBuilderProphecy
+            ->setDefinition('hautelook_alice.doctrine.executor.fixtures_executor', HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutor'))
+            ->shouldBeCalled()
+        ;
+        $containerBuilderProphecy
+            ->setDefinition('hautelook_alice.doctrine.generator.loader_generator', HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator'))
+            ->shouldBeCalled()
+        ;
+        $containerBuilderProphecy
             ->setDefinition('hautelook_alice.faker', HautelookAliceBundleArgument::definition('Faker\Generator'))
             ->shouldBeCalled()
         ;

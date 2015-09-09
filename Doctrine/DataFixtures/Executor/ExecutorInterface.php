@@ -35,8 +35,15 @@ interface ExecutorInterface
     /**
      * Executes the given array of data fixtures.
      *
-     * @param array $fixtures Array of fixtures to execute.
-     * @param boolean $append Whether to append the data fixtures or purge the database before loading.
+     * @param object[] $fixtures Array of fixtures to execute.
+     * @param boolean  $append   Whether to append the data fixtures or purge the database before loading.
      */
     public function execute(array $fixtures, $append = false);
+
+    /**
+     * Sets the logger callable to execute with the log() method.
+     *
+     * @param callable $logger
+     */
+    public function setLogger($logger);
 }

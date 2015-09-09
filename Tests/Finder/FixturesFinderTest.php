@@ -373,6 +373,14 @@ class FixturesFinderTest extends KernelTestCase
             []
         ];
 
+        // Non string or SqlInfo instance
+        $data[] = [
+            [
+                new \stdClass(),
+            ],
+            []
+        ];
+
 
         // Fix paths
         foreach ($data as $index => $dataSet) {

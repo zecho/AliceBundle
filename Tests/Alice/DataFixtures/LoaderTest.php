@@ -181,4 +181,20 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals([$object], $objects);
     }
+
+    public function testLoaderInterface()
+    {
+        $object = new \stdClass();
+
+        $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
+        $persisterProphecy->persist([$object])->shouldBeCalled();
+
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
+        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
+        $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
+
+        $this->assertEquals([$object], $objects);
+    }
 }

@@ -61,8 +61,8 @@ class Loader implements LoaderInterface
     {
         if ($this->fixturesLoader instanceof FixturesLoader) {
             $_persister = $this->fixturesLoader->getPersister();
+            $this->fixturesLoader->setPersister($persister);
         }
-        $this->fixturesLoader->setPersister($persister);
 
         if (0 === count($fixtures)) {
             return [];

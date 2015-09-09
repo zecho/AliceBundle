@@ -12,22 +12,13 @@
 namespace Hautelook\AliceBundle\Doctrine\Command;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Doctrine\Common\DataFixtures\Purger\PHPCRPurger;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\ODM\MongoDB\DocumentManager as MongoDBDocumentManager;
-use Doctrine\ODM\PHPCR\DocumentManager as PHPCRDocumentManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ExecutorInterface;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\MongoDBExecutor;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\ORMExecutor;
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\PHPCRExecutor;
+use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
 use Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder;
+use Hautelook\AliceBundle\Doctrine\Generator\LoaderGeneratorInterface;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -48,14 +39,19 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 class LoadDataFixturesCommand extends Command
 {
     /**
+     * @var BundlesResolverInterface
+     */
+    private $bundlesResolver;
+
+    /**
      * @var ManagerRegistry
      */
     private $doctrine;
 
     /**
-     * @var LoaderInterface
+     * @var FixturesExecutorInterface
      */
-    private $loader;
+    private $fixturesExecutor;
 
     /**
      * @var FixturesFinderInterface|FixturesFinder
@@ -63,21 +59,29 @@ class LoadDataFixturesCommand extends Command
     private $fixturesFinder;
 
     /**
-     * @var BundlesResolverInterface
-     */
-    private $bundlesResolver;
-    /**
      * @var FixturesLoaderInterface
      */
     private $fixturesLoader;
 
     /**
-     * @param string                   $name Command name
-     * @param ManagerRegistry          $doctrine
-     * @param LoaderInterface          $loader
-     * @param FixturesLoaderInterface  $fixturesLoader
-     * @param FixturesFinderInterface  $fixturesFinder
-     * @param BundlesResolverInterface $bundlesResolver
+     * @var LoaderInterface
+     */
+    private $loader;
+
+    /**
+     * @var LoaderGeneratorInterface
+     */
+    private $loaderGenerator;
+
+    /**
+     * @param string                    $name Command name
+     * @param ManagerRegistry           $doctrine
+     * @param LoaderInterface           $loader
+     * @param FixturesLoaderInterface   $fixturesLoader
+     * @param FixturesFinderInterface   $fixturesFinder
+     * @param BundlesResolverInterface  $bundlesResolver
+     * @param LoaderGeneratorInterface  $loaderGenerator
+     * @param FixturesExecutorInterface $fixturesExecutor
      */
     public function __construct(
         $name,
@@ -85,13 +89,17 @@ class LoadDataFixturesCommand extends Command
         LoaderInterface $loader,
         FixturesLoaderInterface $fixturesLoader,
         FixturesFinderInterface $fixturesFinder,
-        BundlesResolverInterface $bundlesResolver
+        BundlesResolverInterface $bundlesResolver,
+        LoaderGeneratorInterface $loaderGenerator,
+        FixturesExecutorInterface $fixturesExecutor
     ) {
         $this->doctrine = $doctrine;
         $this->loader = $loader;
         $this->fixturesLoader = $fixturesLoader;
         $this->fixturesFinder = $fixturesFinder;
         $this->bundlesResolver = $bundlesResolver;
+        $this->loaderGenerator = $loaderGenerator;
+        $this->fixturesExecutor = $fixturesExecutor;
 
         parent::__construct($name);
     }
@@ -184,86 +192,17 @@ class LoadDataFixturesCommand extends Command
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));
         }
 
-        $newLoader = $this->getLoader($bundles, $environment);
-
-        // Get executor
-        $purgeMode = ($input->hasOption('purge-with-truncate'))? $input->getOption('purge-with-truncate'): null;
-        $executor = $this->getExecutor($manager, $newLoader, $purgeMode);
-        $executor->setLogger(function ($message) use ($output) {
-            $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
-        });
-
-        // Purge database and load fixtures
-        $executor->execute($fixtures, $input->getOption('append'));
-        $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures loaded'));
-    }
-
-    /**
-     * Gets a fresh instance of {@see Hautelook\AliceBundle\Alice\DataFixtures\Loader} with all the options registered
-     * to the hautelook_alice.fixtures.loader service and all data loaders found as faker providers.
-     *
-     * @param BundleInterface[] $bundles
-     * @param string            $environment
-     *
-     * @return Loader
-     */
-    private function getLoader(array $bundles, $environment)
-    {
-        if (false === $this->fixturesFinder instanceof FixturesFinder) {
-            return $this->loader;
-        }
-
-        $loaders = $this->fixturesFinder->getDataLoaders($bundles, $environment);
-
-        $newAliceLoader = clone $this->fixturesLoader;
-        $newAliceLoader->addProvider($loaders);
-
-        return new Loader(
-            $newAliceLoader,
-            $this->loader->getProcessors(),
-            $this->loader->getPersistOnce()
+        $this->fixturesExecutor->execute(
+            $manager,
+            $this->loaderGenerator->generate($this->loader, $this->fixturesLoader, $bundles, $environment),
+            $fixtures,
+            $input->getOption('append'),
+            function ($message) use ($output) {
+                $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
+            },
+            $input->hasOption('purge-with-truncate')
         );
-    }
-
-    /**
-     * Gets the executor for the matching the given object manager.
-     *
-     * @param ObjectManager   $manager
-     * @param LoaderInterface $loader
-     * @param bool|null       $purgeMode
-     *
-     * @return ExecutorInterface
-     */
-    private function getExecutor(ObjectManager $manager, LoaderInterface $loader, $purgeMode)
-    {
-        switch (true) {
-            case $manager instanceof EntityManagerInterface:
-                $executor = new ORMExecutor($manager, $loader);
-                $purger = new ORMPurger($manager);
-                $purger->setPurgeMode(
-                    $purgeMode
-                        ? ORMPurger::PURGE_MODE_TRUNCATE
-                        : ORMPurger::PURGE_MODE_DELETE
-                );
-                break;
-
-            case $manager instanceof MongoDBDocumentManager:
-                $executor = new MongoDBExecutor($manager, $loader);
-                $purger = new MongoDBPurger($manager);
-                break;
-
-            case $manager instanceof PHPCRDocumentManager:
-                $executor = new PHPCRExecutor($manager, $loader);
-                $purger = new PHPCRPurger($manager);
-                break;
-
-            default:
-                throw new \InvalidArgumentException(sprintf('Unsupported manager type %s', get_class($manager)));
-        }
-
-        $executor->setPurger($purger);
-
-        return $executor;
+        $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures loaded'));
     }
 
     /**
