@@ -11,14 +11,14 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
-use Doctrine\ODM\PHPCR\DocumentManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * @author Baldur Rensch <brensch@gmail.com>
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrinePHPCRFixturesTest extends CommandTestCase
+class DoctrineODMFixturesTest extends CommandTestCase
 {
     /**
      * @var DocumentManager
@@ -30,16 +30,15 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
         parent::setUp();
 
         $this->application->add(
-            self::$kernel->getContainer()->get('hautelook_alice.doctrine.phpcr.command.load_command')
+            self::$kernel->getContainer()->get('hautelook_alice.doctrine.mongodb.command.load_command')
         );
 
-        $this->documentManager = $this->application->getKernel()->getContainer()->get('doctrine_phpcr')->getManager();
+        $this->documentManager = $this->application->getKernel()->getContainer()->get('doctrine_mongodb')->getManager();
     }
 
     public function testFixturesLoading()
     {
-        $this->markTestSkipped();
-        $command = $this->application->find('hautelook_alice:doctrine:phpcr:fixtures:load');
+        $command = $this->application->find('hautelook_alice:doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute([], ['interactive' => false]);
@@ -55,8 +54,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
      */
     public function testFixturesRegistering(array $inputs, $expected)
     {
-        $this->markTestSkipped();
-        $command = $this->application->find('hautelook_alice:doctrine:phpcr:fixtures:load');
+        $command = $this->application->find('hautelook_alice:doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);
         $commandTester->execute($inputs, ['interactive' => false]);
@@ -66,10 +64,10 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
     private function verifyProducts()
     {
-        $tasks = $this->documentManager->getRepository
-        ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Task')->findAll();
+        $products = $this->documentManager->getRepository
+        ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product')->findAll();
 
-        $this->assertCount(10, $tasks);
+        $this->assertCount(10, $products);
     }
 
     public function loadCommandProvider()
@@ -80,7 +78,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
             [],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/PHPCR/task.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ODM/product.yml
   > purging database
   > fixtures loaded
 

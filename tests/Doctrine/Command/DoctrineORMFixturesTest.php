@@ -103,10 +103,10 @@ class DoctrineORMFixturesTest extends CommandTestCase
             [],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
   > purging database
   > fixtures loaded
 
@@ -119,11 +119,11 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
   > purging database
   > fixtures loaded
 
@@ -136,11 +136,11 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
   > purging database
   > fixtures loaded
 
@@ -153,11 +153,11 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
   > purging database
   > fixtures loaded
 
@@ -173,9 +173,9 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
   > purging database
   > fixtures loaded
 
@@ -191,7 +191,7 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
   > purging database
   > fixtures loaded
 
@@ -208,10 +208,10 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
   > purging database
   > fixtures loaded
 
@@ -227,8 +227,8 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
   > purging database
   > fixtures loaded
 
@@ -244,8 +244,8 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
   > purging database
   > fixtures loaded
 
@@ -261,9 +261,9 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Ignored2/notIgnored.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Ignored2/notIgnored.yml
   > purging database
   > fixtures loaded
 
@@ -279,9 +279,9 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Provider/testFormatter.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Provider/testFormatter.yml
   > purging database
   > fixtures loaded
 

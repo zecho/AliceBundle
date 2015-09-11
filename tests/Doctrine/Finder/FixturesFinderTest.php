@@ -42,10 +42,10 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
         $finder = new FixturesFinder('DataFixtures/ORM');
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
         $kernel->locateResource('@TestABundle/DataFixtures/ORM/aentity.yml', null, true)->willReturn(
-            getcwd().'/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
+            getcwd().'/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
         );
         $kernel->locateResource('@TestBBundle/DataFixtures/ORM/bentity.yml', null, true)->willReturn(
-            getcwd().'/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml'
+            getcwd().'/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml'
         );
 
         try {
@@ -108,9 +108,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
 
@@ -120,9 +120,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'Dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
 
@@ -132,9 +132,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'inte',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
 
@@ -144,9 +144,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'prod',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
             ]
         ];
 
@@ -156,7 +156,7 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
             ]
         ];
 
@@ -166,7 +166,7 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
             ]
         ];
 
@@ -176,8 +176,8 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
             ]
         ];
 
@@ -187,9 +187,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'CEnv',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
             ]
         ];
 
@@ -199,10 +199,10 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'DEnv',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product1.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product2.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product1.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/DEnv/products/product2.yml',
             ]
         ];
 
@@ -212,9 +212,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'CEnv',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
             ]
         ];
 
@@ -225,11 +225,11 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'CEnv',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/CEnv/empty.yml',
             ]
         ];
 
@@ -239,9 +239,9 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             ],
             'EEnv',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/EEnv/empty.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/CBundle/DataFixtures/ORM/EEnv/empty.yml',
             ]
         ];
 
