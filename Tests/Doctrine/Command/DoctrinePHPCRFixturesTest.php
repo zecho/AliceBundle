@@ -61,7 +61,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute($inputs, ['interactive' => false]);
 
-        $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
     }
 
     private function verifyProducts()

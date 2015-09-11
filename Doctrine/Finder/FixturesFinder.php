@@ -96,7 +96,7 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
 
             if (true === isset($phpClasses[$sourceFile])) {
                 if ($reflectionClass->implementsInterface('Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface')) {
-                    $loaders[] = new $className;
+                    $loaders[$className] = new $className;
                 }
             }
         }

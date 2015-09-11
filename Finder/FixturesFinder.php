@@ -54,6 +54,7 @@ class FixturesFinder implements FixturesFinderInterface
         }
 
         // Get real fixtures path
+        // Note: Fixtures returned are guaranteed to be unique here
         return $this->resolveFixtures($kernel, $fixtures);
     }
 

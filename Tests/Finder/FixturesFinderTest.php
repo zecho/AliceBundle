@@ -52,9 +52,7 @@ class FixturesFinderTest extends KernelTestCase
         try {
             $fixtures = $finder->getFixtures($kernelProphecy->reveal(), $bundles, $environment);
 
-            sort($expected);
-            sort($fixtures);
-            $this->assertEquals($expected, $fixtures);
+            $this->assertCount(0, array_diff($expected, $fixtures));
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
                 throw $exception;
@@ -135,9 +133,9 @@ class FixturesFinderTest extends KernelTestCase
             'dev',
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
             ]
         ];
 
@@ -148,9 +146,9 @@ class FixturesFinderTest extends KernelTestCase
             'Dev',
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
             ]
         ];
 
@@ -162,8 +160,8 @@ class FixturesFinderTest extends KernelTestCase
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
             ]
         ];
 
@@ -175,8 +173,8 @@ class FixturesFinderTest extends KernelTestCase
             [
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
                 '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
             ]
         ];
 
