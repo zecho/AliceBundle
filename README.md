@@ -19,17 +19,17 @@ Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.h
 
 1. [Install](#installation)
 2. [Basic usage](#basic-usage)
-3. [Advanced usage](Resources/doc/advanced-usage.md)
-    1. [Enabling databases](Resources/doc/advanced-usage.md#enabling-databases)
-    2. [Fixtures parameters](Resources/doc/advanced-usage.md#fixtures-parameters)
-	3. [Doctrine ORM](Resources/doc/advanced-usage.md#doctrine-orm)
-	4. [Doctrine ODM (MongoDB)](Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
-	5. [Doctrine PHPCR ODM](Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
-4. [Custom Faker Providers](Resources/doc/faker-providers.md)
-	1. [Simple Provider](Resources/doc/faker-providers.md#simple-provider)
-	2. [Advanced Provider](Resources/doc/faker-providers.md#advanced-provider)
-5. [Custom Alice Processors](Resources/doc/alice-processors.md)
-6. [DoctrineFixturesBundle support](Resources/doc/doctrine-fixtures-bundle.md)
+3. [Advanced usage](src/Resources/doc/advanced-usage.md)
+    1. [Enabling databases](src/Resources/doc/advanced-usage.md#enabling-databases)
+    2. [Fixtures parameters](src/Resources/doc/advanced-usage.md#fixtures-parameters)
+	3. [Doctrine ORM](src/Resources/doc/advanced-usage.md#doctrine-orm)
+	4. [Doctrine ODM (MongoDB)](src/Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+	5. [Doctrine PHPCR ODM](src/Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+4. [Custom Faker Providers](src/Resources/doc/faker-providers.md)
+	1. [Simple Provider](src/Resources/doc/faker-providers.md#simple-provider)
+	2. [Advanced Provider](src/Resources/doc/faker-providers.md#advanced-provider)
+5. [Custom Alice Processors](src/Resources/doc/alice-processors.md)
+6. [DoctrineFixturesBundle support](src/Resources/doc/doctrine-fixtures-bundle.md)
 7. [Resources](#resources)
 
 Other references:
@@ -108,7 +108,7 @@ Then simply load your fixtures with the doctrine command `php app/console hautel
 If you want to load the fixtures of a bundle only, do `php app/console h:d:f:l -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
-Next chapter: [Advanced usage](Resources/doc/advanced-usage.md)
+Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
 
 
 ## Resources
