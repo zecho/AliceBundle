@@ -111,8 +111,9 @@ Next chapter: [Advanced usage](Resources/doc/advanced-usage.md)
 
 ## Credits
 
-This bundle is developped by [Baldur Rensch](https://github.com/baldurrensch), [HauteLook](https://github.com/hautelook)
-and its [awesome contributors](https://github.com/hautelook/AliceBundle/graphs/contributors).
+This bundle was originaly developped by [Baldur RENSCH](https://github.com/baldurrensch) and [HauteLook](https://github.com/hautelook). It is now maintained by [Théo FIDRY](https://github.com/theofidry).
+
+[Other contributors](https://github.com/hautelook/AliceBundle/graphs/contributors).
 
 ## License
 
