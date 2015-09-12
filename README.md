@@ -92,6 +92,15 @@ Then create a fixture file in `AppBundle/DataFixtures/ORM`:
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
         name: <name()>
+        related_dummy: @related_dummy*
+```
+
+```yaml
+# AppBundle/DataFixtures/ORM/related_dummy.yml
+
+AppBundle\Entity\RelatedDummy:
+    related_dummy_{1..10}:
+        name: <name()>
 ```
 
 Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:doctrine:fixtures:load` (or `php app/console h:d:f:l`).
