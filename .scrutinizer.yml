@@ -2,7 +2,7 @@ checks:
     php: true
 filter:
     excluded_paths:
-        - Tests/*
+        - tests/*
 tools:
     external_code_coverage:
         timeout: 1800

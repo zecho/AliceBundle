@@ -132,10 +132,10 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
             ]
         ];
 
@@ -145,10 +145,10 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'Dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
             ]
         ];
 
@@ -158,10 +158,10 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'inte',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
             ]
         ];
 
@@ -171,10 +171,10 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'prod',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
             ]
         ];
 
@@ -184,7 +184,7 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
             ]
         ];
 
@@ -194,7 +194,7 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
             ]
         ];
 
@@ -213,7 +213,7 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
             ]
         ];
 
@@ -237,22 +237,22 @@ class FixturesFinderTest extends KernelTestCase
 
         // Valid file
         $data[] = [
-            [getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Valid file with unresolved path
         $data[] = [
-            [getcwd().'/Tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            [getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml'],
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Unknown file
         $data[] = [
-            [getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml'],
+            [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml'],
             []
         ];
         // directory
         $data[] = [
-            [getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM'],
+            [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM'],
             []
         ];
 
@@ -263,7 +263,7 @@ class FixturesFinderTest extends KernelTestCase
         // Valid file
         $data[] = [
             ['@TestBundle/DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Valid file with unresolved path
         $data[] = [
@@ -287,22 +287,22 @@ class FixturesFinderTest extends KernelTestCase
         //
         // Valid file
         $data[] = [
-            [new \SplFileInfo(getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml')],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml')],
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Valid file with unresolved path
         $data[] = [
-            [new \SplFileInfo(getcwd().'/Tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml')],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml')],
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Unknown file
         $data[] = [
-            [new \SplFileInfo(getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml')],
+            [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml')],
             []
         ];
         // directory
         $data[] = [
-            [new \SplFileInfo(getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM')],
+            [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM')],
             []
         ];
         // With the @ annotation
@@ -319,30 +319,30 @@ class FixturesFinderTest extends KernelTestCase
         $data[] = [
             [
                 new SymfonySplFileInfo(
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                     'brand.yml'
                 )
             ],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Valid file with unresolved path
         $data[] = [
             [
                 new SymfonySplFileInfo(
-                    getcwd().'/Tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
-                    getcwd().'/Tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
                     'brand.yml'
                 )
             ],
-            ['/home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
         ];
         // Unknown file
         $data[] = [
             [
                 new SymfonySplFileInfo(
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
                     'unknown.yml'
                 )
             ],
@@ -352,8 +352,8 @@ class FixturesFinderTest extends KernelTestCase
         $data[] = [
             [
                 new SymfonySplFileInfo(
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM',
-                    getcwd().'/Tests/SymfonyApp/TestBundle/DataFixtures/ORM',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM',
+                    getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM',
                     'ORM'
                 )
             ],

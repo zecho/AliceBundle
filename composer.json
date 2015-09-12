@@ -50,6 +50,9 @@
         "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony"
     },
     "autoload": {
-        "psr-4": { "Hautelook\\AliceBundle\\": "" }
+        "psr-4": { "Hautelook\\AliceBundle\\": "src" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Hautelook\\AliceBundle\\Tests\\": "tests" }
     }
 }

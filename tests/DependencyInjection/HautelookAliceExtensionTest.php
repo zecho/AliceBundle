@@ -411,7 +411,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         $containerBuilderProphecy->hasExtension("http://symfony.com/schema/dic/services")->shouldBeCalled();
 
         $containerBuilderProphecy
-            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/Resources/config/services.xml'))
+            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/services.xml'))
             ->shouldBeCalled()
         ;
 
@@ -474,7 +474,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     private function addDoctrineORMDefinitions(ObjectProphecy $containerBuilderProphecy)
     {
         $containerBuilderProphecy
-            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/Resources/config/orm.xml'))
+            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/orm.xml'))
             ->shouldBeCalled()
         ;
 
@@ -516,7 +516,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     private function addDoctrineODMDefinitions(ObjectProphecy $containerBuilderProphecy)
     {
         $containerBuilderProphecy
-            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/Resources/config/mongodb.xml'))
+            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/mongodb.xml'))
             ->shouldBeCalled()
         ;
 
@@ -551,7 +551,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     private function addDoctrinePHPCRDefinitions(ObjectProphecy $containerBuilderProphecy)
     {
         $containerBuilderProphecy
-            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/Resources/config/phpcr.xml'))
+            ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/phpcr.xml'))
             ->shouldBeCalled()
         ;
 
