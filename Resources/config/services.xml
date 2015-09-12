@@ -25,11 +25,6 @@
                  class="Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutor"
                  lazy="true" />
 
-        <service id="hautelook_alice.doctrine.generator.loader_generator"
-                 class="Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator">
-            <argument type="service" id="hautelook_alice.doctrine.orm.fixtures_finder" />
-        </service>
-
         <service id="hautelook_alice.alice.fixtures.loader"
                  class="Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader">
             <argument>%hautelook_alice.locale%</argument>

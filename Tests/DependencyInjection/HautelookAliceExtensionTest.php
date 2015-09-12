@@ -424,10 +424,6 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
             ->shouldBeCalled()
         ;
         $containerBuilderProphecy
-            ->setDefinition('hautelook_alice.doctrine.generator.loader_generator', HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator'))
-            ->shouldBeCalled()
-        ;
-        $containerBuilderProphecy
             ->setDefinition('hautelook_alice.faker', HautelookAliceBundleArgument::definition('Faker\Generator'))
             ->shouldBeCalled()
         ;
@@ -491,6 +487,13 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
         $containerBuilderProphecy
             ->setDefinition(
+                'hautelook_alice.doctrine.orm.loader_generator',
+                HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator')
+            )
+            ->shouldBeCalled()
+        ;
+        $containerBuilderProphecy
+            ->setDefinition(
                 'hautelook_alice.doctrine.command.deprecated_load_command',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand')
             )
@@ -526,6 +529,13 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
         $containerBuilderProphecy
             ->setDefinition(
+                'hautelook_alice.doctrine.mongodb.loader_generator',
+                HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator')
+            )
+            ->shouldBeCalled()
+        ;
+        $containerBuilderProphecy
+            ->setDefinition(
                 'hautelook_alice.doctrine.mongodb.command.load_command',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand')
             )
@@ -549,6 +559,13 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
             ->setDefinition(
                 'hautelook_alice.doctrine.phpcr.fixtures_finder',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder')
+            )
+            ->shouldBeCalled()
+        ;
+        $containerBuilderProphecy
+            ->setDefinition(
+                'hautelook_alice.doctrine.phpcr.loader_generator',
+                HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator')
             )
             ->shouldBeCalled()
         ;
