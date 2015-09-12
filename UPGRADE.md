@@ -1,6 +1,6 @@
 # Upgrading guide
 
-## From 0.X to 1.X
+## From 0.2 to 1.x
 
 ### Upgrading the data loaders
 
