@@ -63,7 +63,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute($inputs, ['interactive' => false]);
 
-        $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
     }
 
     private function verifyProducts()
@@ -153,11 +153,11 @@ EOF
             ],
             <<<EOF
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
-      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
       - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
       - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/Tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
   > purging database
   > fixtures loaded
 

@@ -51,10 +51,7 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
         try {
             $fixtures = $finder->getFixtures($kernel->reveal(), $bundles, $environment);
 
-            sort($expected);
-            sort($fixtures);
-
-            $this->assertEquals($expected, $fixtures);
+            $this->assertCount(0, array_diff($expected, $fixtures));
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
                 throw $exception;
@@ -92,10 +89,8 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
             foreach ($loaders as $index => $loader) {
                 $loaders[$index] = get_class($loader);
             }
-            sort($expected);
-            sort($loaders);
 
-            $this->assertEquals($expected, $loaders);
+            $this->assertCount(0, array_diff($expected, $loaders));
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
                 throw $exception;

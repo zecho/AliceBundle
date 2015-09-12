@@ -52,4 +52,32 @@ class CommandTestCase extends KernelTestCase
         $options = array_merge($options, ['command' => $command]);
         return $this->application->run(new ArrayInput($options));
     }
+
+    /**
+     * @param string $expected
+     * @param string $display
+     */
+    protected function assertFixturesDisplayEquals($expected, $display)
+    {
+        $expected = $this->normalizeFixturesDisplay($expected);
+        $display = $this->normalizeFixturesDisplay($display);
+
+        $this->assertCount(0, array_diff($expected, $display));
+    }
+
+    /**
+     * @param string $display
+     *
+     * @return string[]
+     */
+    private function normalizeFixturesDisplay($display)
+    {
+        $display = trim($display, ' ');
+        $display = trim($display, "\t");
+        $display = preg_replace('/\n/', '', $display);
+        $display = explode("  > loading ", $display);
+        array_shift($display);
+
+        return $display;
+    }
 }
