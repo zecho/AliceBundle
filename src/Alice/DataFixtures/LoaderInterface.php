@@ -24,12 +24,12 @@ interface LoaderInterface
     /**
      * Loads the fixtures files.
      *
-     * @param PersisterInterface $persister Class used to persist fixtures.
-     * @param string[]           $fixtures  Path to the fixtures files to loads.
+     * @param PersisterInterface $persister     Class used to persist fixtures.
+     * @param string[]           $fixturesFiles Path to the fixtures files to loads.
      *
      * @return \object[] Persisted objects
      */
-    public function load(PersisterInterface $persister, array $fixtures);
+    public function load(PersisterInterface $persister, array $fixturesFiles);
 
     /**
      * @return array|ProcessorInterface[]

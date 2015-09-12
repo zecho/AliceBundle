@@ -21,8 +21,8 @@ class DataLoader extends AbstractLoader
     public function getFixtures()
     {
         return [
-            __DIR__.'/brand.yml',
             __DIR__.'/product.yml',
+            __DIR__.'/brand.yml',
         ];
     }
 }

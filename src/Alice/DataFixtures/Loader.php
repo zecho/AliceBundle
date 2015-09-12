@@ -40,6 +40,11 @@ class Loader implements LoaderInterface
     private $persistOnce;
 
     /**
+     * @var int
+     */
+    private $loadingLimit = 5;
+
+    /**
      * @param FixturesLoaderInterface $fixturesLoader
      * @param ProcessorInterface[]    $processors
      * @param bool                    $persistOnce
@@ -55,28 +60,49 @@ class Loader implements LoaderInterface
     }
 
     /**
+     * Sets load file limit, which is the maximum number of time the loader will try to load the files passed.
+     *
+     * @param int $loadingLimit
+     *
+     * @return $this
+     */
+    public function setLoadingLimit($loadingLimit)
+    {
+        $this->loadingLimit = $loadingLimit;
+
+        return $this;
+    }
+
+    /**
      * {@inheritdoc}
      */
-    public function load(PersisterInterface $persister, array $fixtures)
+    public function load(PersisterInterface $persister, array $fixturesFiles)
     {
         if ($this->fixturesLoader instanceof FixturesLoader) {
             $_persister = $this->fixturesLoader->getPersister();
             $this->fixturesLoader->setPersister($persister);
         }
 
-        if (0 === count($fixtures)) {
+        if (0 === count($fixturesFiles)) {
             return [];
         }
 
         $objects = [];
-        foreach ($fixtures as $file) {
-            $dataSet = $this->fixturesLoader->load($file);
+        $loadFileAttemps = 0;
+        $normalizedFixturesFiles = $this->normalizeFixturesFiles($fixturesFiles);
 
-            if (false === $this->persistOnce) {
-                $this->persist($persister, $dataSet);
+        while(true) {
+            $objects = array_merge($objects, $this->tryToLoadFiles($persister, $normalizedFixturesFiles, $objects));
+
+            if (true === $this->areAllFixturesLoaded($normalizedFixturesFiles)) {
+                break;
             }
 
-            $objects = array_merge($objects, $dataSet);
+            if ($this->loadingLimit <= $loadFileAttemps) {
+                throw new LoadingLimitException($this->loadingLimit, $normalizedFixturesFiles);
+            }
+
+            ++$loadFileAttemps;
         }
 
         if (true === $this->persistOnce) {
@@ -104,6 +130,70 @@ class Loader implements LoaderInterface
     public function getPersistOnce()
     {
         return $this->persistOnce;
+    }
+
+    private function areAllFixturesLoaded(array $normalizedFixturesFiles)
+    {
+        foreach ($normalizedFixturesFiles as $fileRealPath => $fileHasBeenLoaded) {
+            if (false === $fileHasBeenLoaded) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns an array where the key is the fixture file path and the value is the boolean false value.
+     *
+     * @param string[] $fixturesFiles
+     *
+     * @return array
+     */
+    private function normalizeFixturesFiles(array $fixturesFiles)
+    {
+        $normalizedFixturesFiles = array_flip($fixturesFiles);
+        foreach ($normalizedFixturesFiles as $fileRealPath => $index) {
+            $normalizedFixturesFiles[$fileRealPath] = false;
+        }
+
+        return $normalizedFixturesFiles;
+    }
+
+    /**
+     * Goes through all fixtures files to try to load them one by one and specify for each if the file could
+     * successfuly be loaded or not.
+     *
+     * @param PersisterInterface $persister
+     * @param array              $normalizedFixturesFiles Array with the file real path as key and true as a value if
+     *                                                    the files has been loaded.
+     * @param array              $references
+     *
+     * @return \object[] All objects that could have been loaded.
+     */
+    private function tryToLoadFiles(PersisterInterface $persister, array &$normalizedFixturesFiles, array $references)
+    {
+        $objects = [];
+        foreach ($normalizedFixturesFiles as $fixtureFilePath => $hasBeenLoaded) {
+            if (true === $hasBeenLoaded) {
+                continue;
+            }
+
+            try {
+                $dataSet = $this->fixturesLoader->load($fixtureFilePath, $references);
+                $normalizedFixturesFiles[$fixtureFilePath] = true;
+
+                if (false === $this->persistOnce) {
+                    $this->persist($persister, $dataSet);
+                }
+
+                $objects = array_merge($objects, $dataSet);
+            } catch (\UnexpectedValueException $exception) {
+                // continue
+            }
+        }
+
+        return $objects;
     }
 
     /**

@@ -53,7 +53,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
         $fixturesLoaderProphecy->addProvider([$dataloaderProphecy->reveal()])->shouldBeCalled();
-        $fixturesLoaderProphecy->load('fixtureFile')->willReturn(['fixtureObject']);
+        $fixturesLoaderProphecy->load('fixtureFile', [])->willReturn(['fixtureObject']);
 
         $loaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface');
         $loaderProphecy->getProcessors()->willReturn([$processorProphecy->reveal()]);
