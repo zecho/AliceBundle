@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 1.X
+## Version 1.x
 
 * Upgraded [nelmio/alice](https://github.com/nelmio/alice) to the version [2.0.0](https://github.com/nelmio/alice/releases/tag/2.0.0)
 * Now uses [`Nelmio\Alice\Fixtures`](https://github.com/nelmio/alice/blob/master/src/Nelmio/Alice/Fixtures.php) and
@@ -18,6 +18,13 @@ its loaders instead of custom ones
 * Now possible to register [Alice Processors][1]
 * Now possible to register [Custom Faker Data Providers][2]
 * Enhanced documentation
+
+## Version 0.2
+
+Although a developement version, this version was the last one available for almost a year, hence the mention in the changelog.
+
+* Extends [DoctrineFixturesBundle](https://github.com/doctrine/DoctrineFixturesBundle) to allow data loaders to load yaml fixtures files using [nelmio/alice 1.x](https://github.com/nelmio/alice/tree/1.x)
+* Added Solarium loaders for Behat
 
 [Back to the documentation](README.md)
 
