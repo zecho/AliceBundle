@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\Tests\Alice\DataFixtures;
 
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
+use Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Alice\DataFixtures\Loader
@@ -72,7 +73,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
         $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
-        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+        $fixturesLoaderProphecy->load('random/file', [])->willReturn([$object]);
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
@@ -101,8 +102,8 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
         $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
-        $fixturesLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
-        $fixturesLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file1', [])->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file2', [])->willReturn([$objects[0]]);
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
@@ -136,8 +137,8 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
         $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
-        $fixturesLoaderProphecy->load('random/file1')->willReturn([$objects[0]]);
-        $fixturesLoaderProphecy->load('random/file2')->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file1', [])->willReturn([$objects[0]]);
+        $fixturesLoaderProphecy->load('random/file2', [])->willReturn([$objects[0]]);
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
@@ -168,7 +169,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
         $fixturesLoaderProphecy->getPersister()->willReturn($oldPersister);
-        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+        $fixturesLoaderProphecy->load('random/file', [])->willReturn([$object]);
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
@@ -190,11 +191,44 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $persisterProphecy->persist([$object])->shouldBeCalled();
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
-        $fixturesLoaderProphecy->load('random/file')->willReturn([$object]);
+        $fixturesLoaderProphecy->load('random/file', [])->willReturn([$object]);
 
         $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertEquals([$object], $objects);
+    }
+
+    /**
+     * @expectedException \Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException
+     */
+    public function testLoaderLimit()
+    {
+        $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
+        $persisterProphecy->persist()->shouldNotBeCalled();
+
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
+        $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(6);
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
+        $loader->load($persisterProphecy->reveal(), ['random/file']);
+    }
+
+    /**
+     * @expectedException \Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException
+     */
+    public function testLoaderWithCustomLimit()
+    {
+        $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
+        $persisterProphecy->persist()->shouldNotBeCalled();
+
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
+        $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(11);
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false);
+        $loader->setLoadingLimit(10);
+        $loader->load($persisterProphecy->reveal(), ['random/file']);
     }
 }
