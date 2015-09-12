@@ -10,6 +10,11 @@
             <argument type="string">DataFixtures/PHPCR</argument>
         </service>
 
+        <service id="hautelook_alice.doctrine.phpcr.loader_generator"
+                 class="Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator">
+            <argument type="service" id="hautelook_alice.doctrine.phpcr.fixtures_finder" />
+        </service>
+
         <service id="hautelook_alice.doctrine.phpcr.command.load_command"
                  class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
                  lazy="true">
@@ -20,7 +25,7 @@
             <argument type="service" id="hautelook_alice.alice.fixtures.loader" />
             <argument type="service" id="hautelook_alice.doctrine.phpcr.fixtures_finder" />
             <argument type="service" id="hautelook_alice.bundle_resolver" />
-            <argument type="service" id="hautelook_alice.doctrine.generator.loader_generator" />
+            <argument type="service" id="hautelook_alice.doctrine.phpcr.loader_generator" />
             <argument type="service" id="hautelook_alice.doctrine.executor.fixtures_executor" />
             <tag name="console.command" />
         </service>
