@@ -53,7 +53,7 @@ Then, enable the bundle by updating your `app/config/AppKernel.php` file to enab
 public function registerBundles()
 {
     //...
-    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    if (in_array($this->getEnvironment(), ['dev', 'test'])) {
         //...
         $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
     }
@@ -65,7 +65,7 @@ public function registerBundles()
 Configure the bundle to your needs (example with default values):
 
 ```yaml
-# app/config/config.yml
+# app/config/config_dev.yml
 
 hautelook_alice:
     db_drivers:
