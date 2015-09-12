@@ -190,6 +190,8 @@ class LoadDataFixturesCommand extends Command
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));
         }
 
+        $truncate = $input->hasOption('purge-with-truncate') ?$input->getOption('purge-with-truncate') : false;
+
         $this->fixturesExecutor->execute(
             $manager,
             $this->loaderGenerator->generate($this->loader, $this->fixturesLoader, $bundles, $environment),
@@ -198,7 +200,7 @@ class LoadDataFixturesCommand extends Command
             function ($message) use ($output) {
                 $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', $message));
             },
-            $input->hasOption('purge-with-truncate')
+            $truncate
         );
         $output->writeln(sprintf('  <comment>></comment> <info>%s</info>', 'fixtures loaded'));
     }
