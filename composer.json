@@ -20,7 +20,7 @@
         "nelmio/alice": "~2.1",
         "symfony/finder": "^2.7"
     },
-  "require-dev": {
+    "require-dev": {
         "doctrine/doctrine-bundle": "~1.2",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "doctrine/mongodb-odm": "^1.0",
