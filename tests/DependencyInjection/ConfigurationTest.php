@@ -22,14 +22,15 @@ use Symfony\Component\Config\Definition\Processor;
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
     private static $defaultConfig = [
-        'db_drivers' => [
+        'db_drivers'    => [
             'orm'     => null,
             'mongodb' => null,
             'phpcr'   => null,
         ],
-        'locale'       => 'en_US',
-        'seed'         => 1,
-        'persist_once' => false,
+        'locale'        => 'en_US',
+        'seed'          => 1,
+        'persist_once'  => false,
+        'loading_limit' => 5,
     ];
 
     /**

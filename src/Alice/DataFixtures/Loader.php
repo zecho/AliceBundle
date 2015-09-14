@@ -42,35 +42,24 @@ class Loader implements LoaderInterface
     /**
      * @var int
      */
-    private $loadingLimit = 5;
+    private $loadingLimit;
 
     /**
      * @param FixturesLoaderInterface $fixturesLoader
      * @param ProcessorInterface[]    $processors
      * @param bool                    $persistOnce
+     * @param int                     $loadingLimit
      */
     public function __construct(
         FixturesLoaderInterface $fixturesLoader,
         array $processors,
-        $persistOnce
+        $persistOnce,
+        $loadingLimit
     ) {
         $this->fixturesLoader = $fixturesLoader;
         $this->processors = $processors;
         $this->persistOnce = $persistOnce;
-    }
-
-    /**
-     * Sets load file limit, which is the maximum number of time the loader will try to load the files passed.
-     *
-     * @param int $loadingLimit
-     *
-     * @return $this
-     */
-    public function setLoadingLimit($loadingLimit)
-    {
         $this->loadingLimit = $loadingLimit;
-
-        return $this;
     }
 
     /**
@@ -130,6 +119,14 @@ class Loader implements LoaderInterface
     public function getPersistOnce()
     {
         return $this->persistOnce;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLoadingLimit()
+    {
+        return $this->loadingLimit;
     }
 
     private function areAllFixturesLoaded(array $normalizedFixturesFiles)

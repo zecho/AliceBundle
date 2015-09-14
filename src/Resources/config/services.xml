@@ -40,6 +40,7 @@
             <argument type="service" id="hautelook_alice.alice.fixtures.loader" />
             <argument type="expression">service('hautelook_alice.alice.processor_chain').getProcessors()</argument>
             <argument>%hautelook_alice.persist_once%</argument>
+            <argument>%hautelook_alice.loading_limit%</argument>
         </service>
 
         <service id="hautelook_alice.bundle_resolver" class="Hautelook\AliceBundle\Resolver\BundlesResolver" />
