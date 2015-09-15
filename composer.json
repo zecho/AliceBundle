@@ -39,7 +39,7 @@
         "symfony/expression-language": "^2.7"
     },
     "suggest": {
-        "theofidry/alice-fixtures-extension": "Behat extension for HautelookAliceBundle",
+        "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle",
         "doctrine/data-fixtures": "To use Doctrine fixtures loader",
         "doctrine/orm": "To use Doctrine ORM",
         "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
