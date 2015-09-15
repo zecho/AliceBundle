@@ -113,7 +113,7 @@ Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
 
 ## Resources
 
-* [Behat Extension](https://github.com/theofidry/AliceFixturesExtension)
+* Behat extension: [AliceBundleExtension](https://github.com/theofidry/AliceBundleExtension)
 * [Upgrade guide](UPGRADE.md)
   * [Upgrade from 0.X to 1.X](UPGRADE.md#from-0x-to-1x)
 * [Changelog](CHANGELOG.md)
