@@ -36,7 +36,8 @@
         "symfony/yaml": "~2.1",
         "symfony/validator": "~2.1",
         "theofidry/psysh-bundle": "~1.1",
-        "symfony/expression-language": "^2.7"
+        "symfony/expression-language": "^2.7",
+        "symfony/phpunit-bridge": "^2.7.4"
     },
     "suggest": {
         "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle",
