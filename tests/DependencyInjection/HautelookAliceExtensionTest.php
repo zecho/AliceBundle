@@ -16,6 +16,7 @@ use Hautelook\AliceBundle\Tests\Prophecy\Argument as HautelookAliceBundleArgumen
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Definition;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\DependencyInjection\HautelookAliceExtension
@@ -404,6 +405,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $containerBuilderProphecy = $this->prophesize('Symfony\Component\DependencyInjection\ContainerBuilder');
 
+        $containerBuilderProphecy->getParameterBag()->willReturn(new ParameterBag());
+        $containerBuilderProphecy->getDefinition('hautelook_alice.alice.fixtures.loader')->willReturn(new Definition(null, ['foo', 'bar', null, false]));
         $containerBuilderProphecy->getDefinition('hautelook_alice.faker')->willReturn(new Definition());
         $containerBuilderProphecy->setParameter('hautelook_alice.loading_limit', 5)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.locale', 'en_US')->shouldBeCalled();

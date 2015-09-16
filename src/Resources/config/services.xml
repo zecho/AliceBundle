@@ -27,9 +27,9 @@
         <service id="hautelook_alice.alice.fixtures.loader"
                  class="Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader">
             <argument>%hautelook_alice.locale%</argument>
-            <argument type="expression">service('hautelook_alice.faker.provider_chain').getProviders()</argument>
+            <argument type="service" id="hautelook_alice.faker.provider_chain" />
             <argument>%hautelook_alice.seed%</argument>
-            <argument type="expression">service('service_container').getParameterBag().all()</argument>
+            <argument />
             <call method="setLogger">
                 <argument type="service" id="logger" on-invalid="ignore" />
             </call>
@@ -37,7 +37,7 @@
 
         <service id="hautelook_alice.fixtures.loader" class="Hautelook\AliceBundle\Alice\DataFixtures\Loader">
             <argument type="service" id="hautelook_alice.alice.fixtures.loader" />
-            <argument type="expression">service('hautelook_alice.alice.processor_chain').getProcessors()</argument>
+            <argument type="service" id="hautelook_alice.alice.processor_chain" />
             <argument>%hautelook_alice.persist_once%</argument>
             <argument>%hautelook_alice.loading_limit%</argument>
         </service>

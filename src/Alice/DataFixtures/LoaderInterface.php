@@ -32,7 +32,7 @@ interface LoaderInterface
     public function load(PersisterInterface $persister, array $fixturesFiles);
 
     /**
-     * @return array|ProcessorInterface[]
+     * @return ProcessorInterface[]
      */
     public function getProcessors();
 

@@ -13,8 +13,8 @@ namespace Hautelook\AliceBundle\Alice\DataFixtures;
 
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader as FixturesLoader;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
+use Hautelook\AliceBundle\Alice\ProcessorChain;
 use Nelmio\Alice\PersisterInterface;
-use Nelmio\Alice\ProcessorInterface;
 
 /**
  * Bootstraps the given loader to persist the objects retrieved by the loader.
@@ -30,9 +30,9 @@ class Loader implements LoaderInterface
     private $fixturesLoader;
 
     /**
-     * @var array|ProcessorInterface[]
+     * @var ProcessorChain
      */
-    private $processors;
+    private $processorChain;
 
     /**
      * @var bool
@@ -46,18 +46,18 @@ class Loader implements LoaderInterface
 
     /**
      * @param FixturesLoaderInterface $fixturesLoader
-     * @param ProcessorInterface[]    $processors
+     * @param ProcessorChain          $processorChain
      * @param bool                    $persistOnce
      * @param int                     $loadingLimit
      */
     public function __construct(
         FixturesLoaderInterface $fixturesLoader,
-        array $processors,
+        ProcessorChain $processorChain,
         $persistOnce,
         $loadingLimit
     ) {
         $this->fixturesLoader = $fixturesLoader;
-        $this->processors = $processors;
+        $this->processorChain = $processorChain;
         $this->persistOnce = $persistOnce;
         $this->loadingLimit = $loadingLimit;
     }
@@ -106,11 +106,19 @@ class Loader implements LoaderInterface
     }
 
     /**
+     * @return ProcessorChain
+     */
+    public function getProcessorChain()
+    {
+        return $this->processorChain;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getProcessors()
     {
-        return $this->processors;
+        return $this->getProcessorChain()->getProcessors();
     }
 
     /**
@@ -201,7 +209,7 @@ class Loader implements LoaderInterface
      */
     private function persist(PersisterInterface $persister, array $objects)
     {
-        foreach ($this->processors as $processor) {
+        foreach ($this->getProcessors() as $processor) {
             foreach ($objects as $object) {
                 $processor->preProcess($object);
             }
@@ -209,7 +217,7 @@ class Loader implements LoaderInterface
 
         $persister->persist($objects);
 
-        foreach ($this->processors as $processor) {
+        foreach ($this->getProcessors() as $processor) {
             foreach ($objects as $object) {
                 $processor->postProcess($object);
             }

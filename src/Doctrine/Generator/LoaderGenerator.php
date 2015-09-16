@@ -43,6 +43,10 @@ class LoaderGenerator implements LoaderGeneratorInterface
         array $bundles,
         $environment
     ) {
+        if (!$loader instanceof Loader) {
+            throw new \UnexpectedValueException('Unsupported loader for this generator. Must be an instance of Hautelook\AliceBundle\Alice\DataFixtures\Loader.');
+        }
+
         $doctrineDataLoaders = $this->fixturesFinder->getDataLoaders($bundles, $environment);
 
         $_fixturesLoader = clone $fixturesLoader;
@@ -50,7 +54,7 @@ class LoaderGenerator implements LoaderGeneratorInterface
 
         return new Loader(
             $_fixturesLoader,
-            $loader->getProcessors(),
+            $loader->getProcessorChain(),
             $loader->getPersistOnce(),
             $loader->getLoadingLimit()
         );

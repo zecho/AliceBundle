@@ -85,6 +85,9 @@ class HautelookAliceExtension extends Extension implements PrependExtensionInter
                 }
             }
         }
+
+        $container->getDefinition('hautelook_alice.alice.fixtures.loader')
+            ->replaceArgument(3, $container->getParameterBag()->all());
     }
 
     private function setCommandFactory(Definition $commandDefinition)

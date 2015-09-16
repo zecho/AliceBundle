@@ -11,6 +11,7 @@
 
 namespace Hautelook\AliceBundle\Alice\DataFixtures\Fixtures;
 
+use Hautelook\AliceBundle\Faker\Provider\ProviderChain;
 use Nelmio\Alice\PersisterInterface;
 
 /**
@@ -20,6 +21,17 @@ use Nelmio\Alice\PersisterInterface;
  */
 class Loader extends \Nelmio\Alice\Fixtures\Loader implements LoaderInterface
 {
+    /**
+     * @param string        $locale
+     * @param ProviderChain $providerChain
+     * @param int           $seed
+     * @param array         $parameters
+     */
+    public function __construct($locale = 'en_US', ProviderChain $providerChain, $seed = 1, array $parameters = [])
+    {
+        parent::__construct($locale, $providerChain->getProviders(), $seed, $parameters);
+    }
+
     /**
      * Loads a fixture file.
      *
