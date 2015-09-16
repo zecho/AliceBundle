@@ -11,8 +11,6 @@
 
 namespace Hautelook\AliceBundle\Tests;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as SymfonyKernelTestCase;
-
 /**
  * Overrides the $class property as {@see SymfonyKernelTestCase::getKernelClass()} does not seems to resolve
  * properly the AppKernel class.
@@ -22,4 +20,11 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase as SymfonyKernelTestCase;
 class KernelTestCase extends SymfonyKernelTestCase
 {
     protected static $class = 'Hautelook\AliceBundle\Tests\SymfonyApp\AppKernel';
+
+    protected static function bootKernel(array $options = array())
+    {
+        parent::bootKernel(array_merge(['debug' => false], $options));
+    }
+
+
 }
