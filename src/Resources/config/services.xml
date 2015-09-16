@@ -6,7 +6,6 @@
 
     <services>
         <service id="hautelook_alice.faker" class="Faker\Generator" lazy="true">
-            <factory class="Faker\Factory" method="create" />
             <argument>%hautelook_alice.locale%</argument>
             <call method="seed">
                 <argument>%hautelook_alice.seed%</argument>

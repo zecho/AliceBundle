@@ -18,7 +18,6 @@
         <service id="hautelook_alice.doctrine.phpcr.command.load_command"
                  class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
                  lazy="true">
-            <factory service="hautelook_alice.doctrine.command_factory" method="createCommand"/>
             <argument type="string">hautelook_alice:doctrine:phpcr:fixtures:load</argument>
             <argument type="service" id="doctrine_phpcr" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />

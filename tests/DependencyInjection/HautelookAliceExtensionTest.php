@@ -16,6 +16,7 @@ use Hautelook\AliceBundle\Tests\Prophecy\Argument as HautelookAliceBundleArgumen
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\DependencyInjection\Definition;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\DependencyInjection\HautelookAliceExtension
@@ -404,6 +405,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $containerBuilderProphecy = $this->prophesize('Symfony\Component\DependencyInjection\ContainerBuilder');
 
+        $containerBuilderProphecy->getDefinition('hautelook_alice.faker')->willReturn(new Definition());
         $containerBuilderProphecy->setParameter('hautelook_alice.loading_limit', 5)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.locale', 'en_US')->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.seed', 1)->shouldBeCalled();
@@ -480,6 +482,16 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
 
         $containerBuilderProphecy
+            ->getDefinition('hautelook_alice.doctrine.command.deprecated_load_command')
+            ->willReturn(new Definition())
+        ;
+
+        $containerBuilderProphecy
+            ->getDefinition('hautelook_alice.doctrine.command.load_command')
+            ->willReturn(new Definition())
+        ;
+
+        $containerBuilderProphecy
             ->setDefinition(
                 'hautelook_alice.doctrine.orm.fixtures_finder',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder')
@@ -522,6 +534,11 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         ;
 
         $containerBuilderProphecy
+            ->getDefinition('hautelook_alice.doctrine.mongodb.command.load_command')
+            ->willReturn(new Definition())
+        ;
+
+        $containerBuilderProphecy
             ->setDefinition(
                 'hautelook_alice.doctrine.mongodb.fixtures_finder',
                 HautelookAliceBundleArgument::definition('Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder')
@@ -554,6 +571,11 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         $containerBuilderProphecy
             ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/phpcr.xml'))
             ->shouldBeCalled()
+        ;
+
+        $containerBuilderProphecy
+            ->getDefinition('hautelook_alice.doctrine.phpcr.command.load_command')
+            ->willReturn(new Definition())
         ;
 
         $containerBuilderProphecy

@@ -14,7 +14,9 @@ namespace Hautelook\AliceBundle\DependencyInjection;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
@@ -59,12 +61,41 @@ class HautelookAliceExtension extends Extension implements PrependExtensionInter
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
 
+        // Deprecated factory methods handling.
+        // To be removed and set directly on config file when bumping Symfony requirements to >=2.6
+        $aliceFakerDefinition = $container->getDefinition('hautelook_alice.faker');
+        if (method_exists($aliceFakerDefinition, 'setFactory')) {
+            $aliceFakerDefinition->setFactory(['Faker\Factory', 'create']);
+        } else {
+            $aliceFakerDefinition->setFactoryClass('Faker\Factory');
+            $aliceFakerDefinition->setFactoryMethod('create');
+        }
+
         foreach ($config['db_drivers'] as $driver => $isEnabled) {
             if (true === $isEnabled
                 || (null === $isEnabled && true === $this->isExtensionEnabled($driver))
             ) {
                 $loader->load(sprintf('%s.xml', $driver));
+
+                if ('orm' === $driver) {
+                    $this->setCommandFactory($container->getDefinition('hautelook_alice.doctrine.command.deprecated_load_command'));
+                    $this->setCommandFactory($container->getDefinition('hautelook_alice.doctrine.command.load_command'));
+                } else {
+                    $this->setCommandFactory($container->getDefinition(sprintf('hautelook_alice.doctrine.%s.command.load_command', $driver)));
+                }
             }
+        }
+    }
+
+    private function setCommandFactory(Definition $commandDefinition)
+    {
+        // Deprecated factory methods handling.
+        // To be removed and set directly on config file when bumping Symfony requirements to >=2.6
+        if (method_exists($commandDefinition, 'setFactory')) {
+            $commandDefinition->setFactory([new Reference('hautelook_alice.doctrine.command_factory'), 'createCommand']);
+        } else {
+            $commandDefinition->setFactoryService('hautelook_alice.doctrine.command_factory');
+            $commandDefinition->setFactoryMethod('createCommand');
         }
     }
 
