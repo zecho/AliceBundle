@@ -63,6 +63,10 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue(false)
                     ->info('Only persist objects once if multiple files are passed')
                 ->end()
+                ->scalarNode('loading_limit')
+                    ->defaultValue(5)
+                    ->info('Maximum number of time the loader will try to load the files passed')
+                ->end()
             ->end()
         ;
 

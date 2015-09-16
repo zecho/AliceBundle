@@ -404,6 +404,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
     {
         $containerBuilderProphecy = $this->prophesize('Symfony\Component\DependencyInjection\ContainerBuilder');
 
+        $containerBuilderProphecy->setParameter('hautelook_alice.loading_limit', 5)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.locale', 'en_US')->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.seed', 1)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.persist_once', false)->shouldBeCalled();

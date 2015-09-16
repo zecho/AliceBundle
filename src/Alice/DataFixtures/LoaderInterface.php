@@ -40,4 +40,9 @@ interface LoaderInterface
      * @return bool If true only persist once the objects loaded.
      */
     public function getPersistOnce();
+
+    /**
+     * @return int Maximum number of time the loader will try to load the files passed
+     */
+    public function getLoadingLimit();
 }

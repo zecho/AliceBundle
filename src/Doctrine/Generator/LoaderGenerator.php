@@ -51,7 +51,8 @@ class LoaderGenerator implements LoaderGeneratorInterface
         return new Loader(
             $_fixturesLoader,
             $loader->getProcessors(),
-            $loader->getPersistOnce()
+            $loader->getPersistOnce(),
+            $loader->getLoadingLimit()
         );
     }
 }

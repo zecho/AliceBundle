@@ -29,7 +29,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
     {
         $fixturesFinderProphecy = $this->prophesize('Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder');
 
-        new LoaderGenerator($fixturesFinderProphecy->reveal());
+        new LoaderGenerator($fixturesFinderProphecy->reveal(), 5);
     }
 
     /**
@@ -56,6 +56,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->load('fixtureFile', [])->willReturn(['fixtureObject']);
 
         $loaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface');
+        $loaderProphecy->getLoadingLimit()->willReturn(5);
         $loaderProphecy->getProcessors()->willReturn([$processorProphecy->reveal()]);
         $loaderProphecy->getPersistOnce()->willReturn(true);
 
