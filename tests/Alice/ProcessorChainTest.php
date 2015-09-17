@@ -46,14 +46,14 @@ class ProcessorChainTest extends KernelTestCase
     public function testConstructor()
     {
         $processorChain = new ProcessorChain([]);
-        $this->assertEquals([], $processorChain->getProcessors());
+        $this->assertSame([], $processorChain->getProcessors());
 
         $processors = [
             $this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal(),
             $this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal(),
         ];
         $processorChain = new ProcessorChain($processors);
-        $this->assertEquals($processors, $processorChain->getProcessors());
+        $this->assertSame($processors, $processorChain->getProcessors());
 
         $processors[] = 'foo';
         try {
@@ -69,8 +69,8 @@ class ProcessorChainTest extends KernelTestCase
      */
     public function testGenerator()
     {
-        $this->assertEquals(1, count($this->processorChain->getProcessors()));
-        $this->assertEquals(
+        $this->assertSame(1, count($this->processorChain->getProcessors()));
+        $this->assertSame(
             'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Processor\BrandProcessor',
             get_class($this->processorChain->getProcessors()[0]),
             'Expected custom Faker provider to be registered.'

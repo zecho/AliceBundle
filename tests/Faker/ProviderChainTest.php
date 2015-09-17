@@ -47,11 +47,11 @@ class ProviderChainTest extends KernelTestCase
     public function testConstructor()
     {
         $providerChain = new ProviderChain([]);
-        $this->assertEquals([], $providerChain->getProviders());
+        $this->assertSame([], $providerChain->getProviders());
 
         $providers = ['foo', 'bar'];
         $providerChain = new ProviderChain($providers);
-        $this->assertEquals($providers, $providerChain->getProviders());
+        $this->assertSame($providers, $providerChain->getProviders());
     }
 
     /**
@@ -59,8 +59,8 @@ class ProviderChainTest extends KernelTestCase
      */
     public function testGenerator()
     {
-        $this->assertEquals(count((new Generator())->getProviders()) + 1, count($this->providerChain->getProviders()));
-        $this->assertEquals(
+        $this->assertSame(count((new Generator())->getProviders()) + 1, count($this->providerChain->getProviders()));
+        $this->assertSame(
             'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Faker\Provider\FooProvider',
             get_class($this->providerChain->getProviders()[0]),
             'Expected custom Faker provider to be registered.'

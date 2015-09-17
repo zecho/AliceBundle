@@ -109,7 +109,7 @@ class FixturesFinderTest extends KernelTestCase
                 $this->fail('Expected an exception to be thrown.');
             }
 
-            $this->assertEquals($expected, $actual);
+            $this->assertSame($expected, $actual);
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
                 $this->fail($exception->getMessage());

@@ -49,6 +49,6 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         );
         $this->assertInstanceOf('Symfony\Component\Config\Definition\ConfigurationInterface', $configuration);
         $this->assertInstanceOf('Symfony\Component\Config\Definition\Builder\TreeBuilder', $treeBuilder);
-        $this->assertEquals(self::$defaultConfig, $config);
+        $this->assertSame(self::$defaultConfig, $config);
     }
 }

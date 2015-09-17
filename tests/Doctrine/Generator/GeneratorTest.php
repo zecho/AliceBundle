@@ -70,7 +70,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             'dev'
         );
 
-        $this->assertEquals([$processorProphecy->reveal()], $loader->getProcessors());
+        $this->assertSame([$processorProphecy->reveal()], $loader->getProcessors());
         $this->assertTrue($loader->getPersistOnce());
 
         $loader->load($persister, ['fixtureFile']);

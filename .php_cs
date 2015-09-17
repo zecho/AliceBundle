@@ -27,6 +27,8 @@ return Symfony\CS\Config\Config::create()
         'newline_after_open_tag',
         'ordered_use',
         'short_array_syntax',
+        'php_unit_construct',
+        'php_unit_strict',
     ])
     ->setUsingCache(true)
     ->finder($finder)
