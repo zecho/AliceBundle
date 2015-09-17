@@ -21,10 +21,8 @@ class KernelTestCase extends SymfonyKernelTestCase
 {
     protected static $class = 'Hautelook\AliceBundle\Tests\SymfonyApp\AppKernel';
 
-    protected static function bootKernel(array $options = array())
+    protected static function bootKernel(array $options = [])
     {
         parent::bootKernel(array_merge(['debug' => false], $options));
     }
-
-
 }

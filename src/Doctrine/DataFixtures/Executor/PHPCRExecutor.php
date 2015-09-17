@@ -44,10 +44,9 @@ class PHPCRExecutor extends DoctrinePHPCRExecutor implements ExecutorInterface
         $this->loader = $loader;
     }
 
-    /** @inheritDoc */
+    /** {@inheritdoc} */
     public function execute(array $fixtures, $append = false)
     {
         $this->executeExecutor($this, $this->getObjectManager(), $this->loader, $fixtures, $append);
     }
 }
-

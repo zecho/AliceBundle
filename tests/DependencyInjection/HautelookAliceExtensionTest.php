@@ -13,7 +13,6 @@ namespace Hautelook\AliceBundle\Tests\DependencyInjection;
 
 use Hautelook\AliceBundle\DependencyInjection\HautelookAliceExtension;
 use Hautelook\AliceBundle\Tests\Prophecy\Argument as HautelookAliceBundleArgument;
-use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\Definition;
@@ -63,8 +62,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                     'hautelook_alice' => [
                         'db_drivers' => [
                             'unknown' => null,
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 $containerBuilder
             );
@@ -132,7 +131,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         $containerBuilderProphecy->setParameter('hautelook_alice.seed', 1)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.persist_once', false)->shouldBeCalled();
 
-        $containerBuilderProphecy->hasExtension("http://symfony.com/schema/dic/services")->shouldBeCalled();
+        $containerBuilderProphecy->hasExtension('http://symfony.com/schema/dic/services')->shouldBeCalled();
 
         $this->addDoctrineORMDefinitions($containerBuilderProphecy);
         $this->addDoctrineODMDefinitions($containerBuilderProphecy);
@@ -193,8 +192,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                         'orm'     => true,
                         'mongodb' => true,
                         'phpcr'   => true,
-                    ]
-                ]
+                    ],
+                ],
             ],
             $containerBuilder
         );
@@ -245,8 +244,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                         'orm'     => true,
                         'mongodb' => true,
                         'phpcr'   => true,
-                    ]
-                ]
+                    ],
+                ],
             ],
             $containerBuilder
         );
@@ -290,8 +289,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                         'orm'     => false,
                         'mongodb' => false,
                         'phpcr'   => false,
-                    ]
-                ]
+                    ],
+                ],
             ],
             $containerBuilder
         );
@@ -335,8 +334,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                         'orm'     => false,
                         'mongodb' => false,
                         'phpcr'   => false,
-                    ]
-                ]
+                    ],
+                ],
             ],
             $containerBuilder
         );
@@ -386,8 +385,8 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
                         'orm'     => true,
                         'mongodb' => false,
                         'phpcr'   => true,
-                    ]
-                ]
+                    ],
+                ],
             ],
             $containerBuilder
         );
@@ -411,7 +410,7 @@ class HautelookAliceExtensionTest extends \PHPUnit_Framework_TestCase
         $containerBuilderProphecy->setParameter('hautelook_alice.seed', 1)->shouldBeCalled();
         $containerBuilderProphecy->setParameter('hautelook_alice.persist_once', false)->shouldBeCalled();
 
-        $containerBuilderProphecy->hasExtension("http://symfony.com/schema/dic/services")->shouldBeCalled();
+        $containerBuilderProphecy->hasExtension('http://symfony.com/schema/dic/services')->shouldBeCalled();
 
         $containerBuilderProphecy
             ->addResource(HautelookAliceBundleArgument::service(getcwd().'/src/Resources/config/services.xml'))

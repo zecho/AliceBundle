@@ -12,7 +12,6 @@
 namespace Hautelook\AliceBundle\Tests\Alice\DataFixtures;
 
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
-use Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Alice\DataFixtures\Loader
@@ -32,7 +31,6 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['dummyProcessor'], $loader->getProcessors());
         $this->assertFalse($loader->getPersistOnce());
-
 
         $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
 

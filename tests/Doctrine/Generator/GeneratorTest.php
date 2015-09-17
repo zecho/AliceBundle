@@ -11,9 +11,7 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine;
 
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutor;
 use Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator;
-use Prophecy\Argument;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Doctrine\Generator

@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
     const PHPCR_DRIVER = 'phpcr';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
     {

@@ -44,7 +44,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $config = $processor->processConfiguration(
             $configuration,
             [
-                'hautelook_alice' => []
+                'hautelook_alice' => [],
             ]
         );
         $this->assertInstanceOf('Symfony\Component\Config\Definition\ConfigurationInterface', $configuration);

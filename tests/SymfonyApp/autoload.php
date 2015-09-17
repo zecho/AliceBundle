@@ -9,13 +9,11 @@
  * file that was distributed with this source code.
  */
 
+use Composer\Autoload\ClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver as ODMAnnotationDriver;
-use Composer\Autoload\ClassLoader;
 
-/**
-* @var ClassLoader $loader
-*/
+/** @var ClassLoader $loader */
 $loader = require __DIR__.'/../../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);

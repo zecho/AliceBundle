@@ -50,7 +50,7 @@ class ProcessorChainTest extends KernelTestCase
 
         $processors = [
             $this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal(),
-            $this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal()
+            $this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal(),
         ];
         $processorChain = new ProcessorChain($processors);
         $this->assertEquals($processors, $processorChain->getProcessors());

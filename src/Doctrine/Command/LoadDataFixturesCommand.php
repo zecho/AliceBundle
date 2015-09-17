@@ -72,7 +72,7 @@ class LoadDataFixturesCommand extends Command
     private $loaderGenerator;
 
     /**
-     * @param string                    $name Command name
+     * @param string                    $name             Command name
      * @param ManagerRegistry           $doctrine
      * @param LoaderInterface           $loader
      * @param FixturesLoaderInterface   $fixturesLoader
@@ -112,7 +112,7 @@ class LoadDataFixturesCommand extends Command
             ->addOption(
                 'bundle',
                 'b',
-                InputOption::VALUE_OPTIONAL|InputOption::VALUE_IS_ARRAY,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Bundles where fixtures should be loaded.'
             )
             ->addOption(
@@ -190,7 +190,7 @@ class LoadDataFixturesCommand extends Command
             $output->writeln(sprintf('      <comment>-</comment> <info>%s</info>', $fixture));
         }
 
-        $truncate = $input->hasOption('purge-with-truncate') ?$input->getOption('purge-with-truncate') : false;
+        $truncate = $input->hasOption('purge-with-truncate') ? $input->getOption('purge-with-truncate') : false;
 
         $this->fixturesExecutor->execute(
             $manager,
@@ -220,6 +220,7 @@ class LoadDataFixturesCommand extends Command
         if (false === class_exists('Symfony\Component\Console\Question\ConfirmationQuestion')) {
             /** @var DialogHelper $dialogHelper */
             $dialogHelper = $this->getHelperSet()->get('dialog');
+
             return $dialogHelper->askConfirmation($output, $question, $default);
         }
 
@@ -227,6 +228,6 @@ class LoadDataFixturesCommand extends Command
         $questionHelper = $this->getHelperSet()->get('question');
         $question = new ConfirmationQuestion($question, $default);
 
-        return (boolean)$questionHelper->ask($input, $output, $question);
+        return (boolean) $questionHelper->ask($input, $output, $question);
     }
 }

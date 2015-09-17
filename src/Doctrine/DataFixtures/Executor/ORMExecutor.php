@@ -12,10 +12,9 @@
 namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor as DoctrineORMExecutor;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\ORM\EntityManagerInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
-use Nelmio\Alice\Persister\Doctrine;
 
 /**
  * Class responsible for executing data fixtures.

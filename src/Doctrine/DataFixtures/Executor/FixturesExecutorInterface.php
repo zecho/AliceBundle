@@ -24,10 +24,10 @@ interface FixturesExecutorInterface
      *
      * @param ObjectManager   $manager
      * @param LoaderInterface $loader
-     * @param string[]        $fixturesPath Fixtures real paths
-     * @param boolean         $append       If true append the loaded data otherwise purge the database before
+     * @param string[]        $fixturesPath   Fixtures real paths
+     * @param bool            $append         If true append the loaded data otherwise purge the database before
      * @param callable        $loggerCallable
-     * @param boolean         $truncate     The purge mode (truncate or delete).
+     * @param bool            $truncate       The purge mode (truncate or delete).
      *
      * @return
      */

@@ -69,7 +69,7 @@ EOF;
 
 EOF;
 
-        $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
+        $this->assertEquals(trim($expected, ' '), trim($commandTester->getDisplay(), ' '));
     }
 
     public function testDoctrinePHPCR()
@@ -85,6 +85,6 @@ EOF;
 
 EOF;
 
-        $this->assertEquals(trim($expected,' '), trim($commandTester->getDisplay(), ' '));
+        $this->assertEquals(trim($expected, ' '), trim($commandTester->getDisplay(), ' '));
     }
 }

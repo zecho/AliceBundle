@@ -115,7 +115,7 @@ EOF
 
         $data[] = [
             [
-                '--env' => 'dev'
+                '--env' => 'dev',
             ],
             <<<EOF
               > fixtures found:
@@ -132,7 +132,7 @@ EOF
 
         $data[] = [
             [
-                '--env' => 'Prod'
+                '--env' => 'Prod',
             ],
             <<<EOF
               > fixtures found:
@@ -149,7 +149,7 @@ EOF
 
         $data[] = [
             [
-                '--env' => 'prod'
+                '--env' => 'prod',
             ],
             <<<EOF
               > fixtures found:
@@ -168,8 +168,8 @@ EOF
             [
                 '--env'    => 'dev',
                 '--bundle' => [
-                    'TestBundle'
-                ]
+                    'TestBundle',
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -187,7 +187,7 @@ EOF
                 '--env'    => 'dev',
                 '--bundle' => [
                     'TestABundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -204,7 +204,7 @@ EOF
                 '--bundle' => [
                     'TestBundle',
                     'TestABundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -223,7 +223,7 @@ EOF
                 '--env'    => 'dev',
                 '--bundle' => [
                     'TestCBundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -240,7 +240,7 @@ EOF
                 '--env'    => 'ignored',
                 '--bundle' => [
                     'TestBundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -257,7 +257,7 @@ EOF
                 '--env'    => 'ignored2',
                 '--bundle' => [
                     'TestBundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
@@ -275,7 +275,7 @@ EOF
                 '--env'    => 'provider',
                 '--bundle' => [
                     'TestBundle',
-                ]
+                ],
             ],
             <<<EOF
               > fixtures found:
