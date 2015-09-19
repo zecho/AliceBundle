@@ -1,7 +1,7 @@
 vendor/*
 composer.lock
-Tests/SymfonyApp/cache
-Tests/SymfonyApp/logs
+tests/SymfonyApp/cache
+tests/SymfonyApp/logs
 coverage.xml
 phpunit.xml
 .php_cs.cache
