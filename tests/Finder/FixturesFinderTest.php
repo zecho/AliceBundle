@@ -109,7 +109,7 @@ class FixturesFinderTest extends KernelTestCase
                 $this->fail('Expected an exception to be thrown.');
             }
 
-            $this->assertEquals($expected, $actual);
+            $this->assertSame($expected, $actual);
         } catch (\InvalidArgumentException $exception) {
             if (0 !== count($expected)) {
                 $this->fail($exception->getMessage());
@@ -136,7 +136,7 @@ class FixturesFinderTest extends KernelTestCase
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -149,7 +149,7 @@ class FixturesFinderTest extends KernelTestCase
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Dev/dev.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -162,7 +162,7 @@ class FixturesFinderTest extends KernelTestCase
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Inte/inte.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -175,7 +175,7 @@ class FixturesFinderTest extends KernelTestCase
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/dummy.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml',
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Prod/prod.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -185,7 +185,7 @@ class FixturesFinderTest extends KernelTestCase
             'dev',
             [
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -195,7 +195,7 @@ class FixturesFinderTest extends KernelTestCase
             'dev',
             [
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml',
-            ]
+            ],
         ];
 
         $data[] = [
@@ -203,7 +203,7 @@ class FixturesFinderTest extends KernelTestCase
                 new TestCBundle(),
             ],
             'dev',
-            []
+            [],
         ];
 
         $data[] = [
@@ -214,7 +214,7 @@ class FixturesFinderTest extends KernelTestCase
             'dev',
             [
                 '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
-            ]
+            ],
         ];
 
         // Fix paths
@@ -238,24 +238,23 @@ class FixturesFinderTest extends KernelTestCase
         // Valid file
         $data[] = [
             [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Valid file with unresolved path
         $data[] = [
             [getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Unknown file
         $data[] = [
             [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml'],
-            []
+            [],
         ];
         // directory
         $data[] = [
             [getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM'],
-            []
+            [],
         ];
-
 
         //
         // '@' annotation
@@ -263,24 +262,23 @@ class FixturesFinderTest extends KernelTestCase
         // Valid file
         $data[] = [
             ['@TestBundle/DataFixtures/ORM/brand.yml'],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Valid file with unresolved path
         $data[] = [
             ['@TestBundle/Entity/../DataFixtures/ORM/brand.yml'],
-            []
+            [],
         ];
         // Unknown file
         $data[] = [
             ['@TestBundle/DataFixtures/ORM/unknown.yml'],
-            []
+            [],
         ];
         // directory
         $data[] = [
             ['@TestBundle/DataFixtures/ORM'],
-            []
+            [],
         ];
-
 
         //
         // SplInfo support
@@ -288,29 +286,28 @@ class FixturesFinderTest extends KernelTestCase
         // Valid file
         $data[] = [
             [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml')],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Valid file with unresolved path
         $data[] = [
             [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml')],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Unknown file
         $data[] = [
             [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml')],
-            []
+            [],
         ];
         // directory
         $data[] = [
             [new \SplFileInfo(getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM')],
-            []
+            [],
         ];
         // With the @ annotation
         $data[] = [
             [new \SplFileInfo('@TestBundle/DataFixtures/ORM/brand.yml')],
-            []
+            [],
         ];
-
 
         //
         // Symfony SplInfo support
@@ -322,9 +319,9 @@ class FixturesFinderTest extends KernelTestCase
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml',
                     'brand.yml'
-                )
+                ),
             ],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Valid file with unresolved path
         $data[] = [
@@ -333,9 +330,9 @@ class FixturesFinderTest extends KernelTestCase
                     getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
                     getcwd().'/tests/SymfonyApp/TestBundle/Entity/../DataFixtures/ORM/brand.yml',
                     'brand.yml'
-                )
+                ),
             ],
-            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml']
+            ['/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml'],
         ];
         // Unknown file
         $data[] = [
@@ -344,9 +341,9 @@ class FixturesFinderTest extends KernelTestCase
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM/unknown.yml',
                     'unknown.yml'
-                )
+                ),
             ],
-            []
+            [],
         ];
         // directory
         $data[] = [
@@ -355,9 +352,9 @@ class FixturesFinderTest extends KernelTestCase
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM',
                     getcwd().'/tests/SymfonyApp/TestBundle/DataFixtures/ORM',
                     'ORM'
-                )
+                ),
             ],
-            []
+            [],
         ];
         // With the @ annotation
         $data[] = [
@@ -366,9 +363,9 @@ class FixturesFinderTest extends KernelTestCase
                     '@TestBundle/DataFixtures/ORM/brand.yml',
                     '@TestBundle/DataFixtures/ORM/brand.yml',
                     'brand.yml'
-                )
+                ),
             ],
-            []
+            [],
         ];
 
         // Non string or SqlInfo instance
@@ -376,9 +373,8 @@ class FixturesFinderTest extends KernelTestCase
             [
                 new \stdClass(),
             ],
-            []
+            [],
         ];
-
 
         // Fix paths
         foreach ($data as $index => $dataSet) {

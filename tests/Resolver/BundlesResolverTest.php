@@ -39,10 +39,10 @@ class BundlesResolverTest extends \PHPUnit_Framework_TestCase
         $application->getKernel()->willReturn($kernel->reveal());
 
         $bundles = $resolver->resolveBundles($application->reveal(), ['ABundle']);
-        $this->assertEquals(['ABundle' => 'ABundleInstance'], $bundles);
+        $this->assertSame(['ABundle' => 'ABundleInstance'], $bundles);
 
         $bundles = $resolver->resolveBundles($application->reveal(), ['ABundle', 'BBundle']);
-        $this->assertEquals(['ABundle' => 'ABundleInstance', 'BBundle' => 'BBundleInstance'], $bundles);
+        $this->assertSame(['ABundle' => 'ABundleInstance', 'BBundle' => 'BBundleInstance'], $bundles);
 
         try {
             $resolver->resolveBundles($application->reveal(), ['UnknownBundle']);

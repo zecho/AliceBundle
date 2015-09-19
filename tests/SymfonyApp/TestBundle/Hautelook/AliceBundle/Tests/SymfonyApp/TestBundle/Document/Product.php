@@ -1,32 +1,38 @@
 <?php
 
+/*
+ * This file is part of the Hautelook\AliceBundle package.
+ *
+ * (c) Baldur Rensch <brensch@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document;
 
-
-
 /**
- * Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product
+ * Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product.
  */
 class Product
 {
     /**
-     * @var $id
+     * @var
      */
     protected $id;
 
     /**
-     * @var string $name
+     * @var string
      */
     protected $name;
 
     /**
-     * @var float $price
+     * @var float
      */
     protected $price;
 
-
     /**
-     * Get id
+     * Get id.
      *
      * @return id $id
      */
@@ -36,19 +42,21 @@ class Product
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return self
      */
     public function setName($name)
     {
         $this->name = $name;
+
         return $this;
     }
 
     /**
-     * Get name
+     * Get name.
      *
      * @return string $name
      */
@@ -58,19 +66,21 @@ class Product
     }
 
     /**
-     * Set price
+     * Set price.
      *
      * @param float $price
+     *
      * @return self
      */
     public function setPrice($price)
     {
         $this->price = $price;
+
         return $this;
     }
 
     /**
-     * Get price
+     * Get price.
      *
      * @return float $price
      */

@@ -64,8 +64,7 @@ class DoctrineODMFixturesTest extends CommandTestCase
 
     private function verifyProducts()
     {
-        $products = $this->documentManager->getRepository
-        ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product')->findAll();
+        $products = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product')->findAll();
 
         $this->assertCount(10, $products);
     }

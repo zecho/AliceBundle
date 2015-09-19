@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of the Symfony package.
+ * This file is part of the Hautelook\AliceBundle package.
  *
- * (c) Fabien Potencier <fabien@symfony.com>
+ * (c) Baldur Rensch <brensch@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,9 +11,9 @@
 
 namespace Hautelook\AliceBundle\Tests;
 
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\KernelInterface;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 // TODO: Remove this workaround when Symfony 2.3 support will be dropped.
 // See: https://github.com/hautelook/AliceBundle/pull/120#issuecomment-140374618
@@ -137,7 +137,7 @@ if (class_exists('Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')) {
          *
          * @param array $options
          */
-        protected static function bootKernel(array $options = array())
+        protected static function bootKernel(array $options = [])
         {
             static::ensureKernelShutdown();
 
@@ -157,7 +157,7 @@ if (class_exists('Symfony\Bundle\FrameworkBundle\Test\KernelTestCase')) {
          *
          * @return KernelInterface A KernelInterface instance
          */
-        protected static function createKernel(array $options = array())
+        protected static function createKernel(array $options = [])
         {
             if (null === static::$class) {
                 static::$class = static::getKernelClass();

@@ -19,9 +19,9 @@ namespace Hautelook\AliceBundle\Alice\DataFixtures;
 class LoadingLimitException extends \RuntimeException
 {
     /**
-     * @param int $limit
-     * @param array  $normalizedFixturesFiles Array where keys are fixtures files path and value is a boolean set to
-     *                                        true for when the fixture file has been loaded and false otherwise.
+     * @param int   $limit
+     * @param array $normalizedFixturesFiles Array where keys are fixtures files path and value is a boolean set to
+     *                                       true for when the fixture file has been loaded and false otherwise.
      */
     public function __construct($limit, array $normalizedFixturesFiles)
     {

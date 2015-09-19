@@ -12,7 +12,6 @@
 namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\EEnv;
 
 use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
-use Symfony\Component\Finder\Finder;
 
 class DataLoader extends AbstractLoader
 {

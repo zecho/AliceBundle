@@ -58,8 +58,7 @@ install:
   - composer global update --prefer-dist --no-interaction
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
-script:
-  - make test
+script: make test
 
 after_script:
   - if ([ "hhvm" != "$TRAVIS_PHP_VERSION" ] && [ "nightly" != "$TRAVIS_PHP_VERSION" ]); then php ocular.phar code-coverage:upload --format=php-clover coverage.xml; fi;

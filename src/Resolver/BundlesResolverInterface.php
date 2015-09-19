@@ -29,6 +29,7 @@ interface BundlesResolverInterface
      * @param string[]    $names       Bundle names.
      *
      * @return BundleInterface[] Bundles requested.
+     *
      * @throws \RuntimeException A bundle could not be resolved.
      */
     public function resolveBundles(Application $application, array $names);

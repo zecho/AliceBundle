@@ -74,7 +74,7 @@ class FixturesFinder implements FixturesFinderInterface
                     throw new \RuntimeException(
                         sprintf(
                             'The file %s pointed by a %s instance was not found.',
-                            (string)$fixture,
+                            (string) $fixture,
                             get_class($fixture)
                         )
                     );
@@ -120,7 +120,7 @@ class FixturesFinder implements FixturesFinderInterface
 
         $finder = SymfonyFinder::create()->in($path)->depth(0)->files()->name('*.yml');
         foreach ($finder as $file) {
-            /** @var SplFileInfo $file */
+            /* @var SplFileInfo $file */
             $fixtures[$file->getRealPath()] = true;
         }
 
@@ -159,7 +159,7 @@ class FixturesFinder implements FixturesFinderInterface
                 }
             }
         }
-        
+
         return array_keys($paths);
     }
 }

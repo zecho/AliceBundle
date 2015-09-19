@@ -28,7 +28,6 @@
         "doctrine/orm": "~2.4",
         "doctrine/phpcr-bundle": "^1.2",
         "doctrine/phpcr-odm": "^1.2",
-        "fabpot/php-cs-fixer": "^1.9",
         "jackalope/jackalope-doctrine-dbal": "^1.2",
         "phpunit/phpunit": "^4.7",
         "symfony/console": "~2.3",

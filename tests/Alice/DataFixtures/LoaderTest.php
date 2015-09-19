@@ -12,7 +12,6 @@
 namespace Hautelook\AliceBundle\Tests\Alice\DataFixtures;
 
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
-use Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Alice\DataFixtures\Loader
@@ -30,15 +29,14 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $loader = new Loader($aliceLoaderProphecy->reveal(), ['dummyProcessor'], false, 5);
 
-        $this->assertEquals(['dummyProcessor'], $loader->getProcessors());
+        $this->assertSame(['dummyProcessor'], $loader->getProcessors());
         $this->assertFalse($loader->getPersistOnce());
-
 
         $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
 
         $loader = new Loader($aliceLoaderProphecy->reveal(), [], true, 5);
 
-        $this->assertEquals([], $loader->getProcessors());
+        $this->assertSame([], $loader->getProcessors());
         $this->assertTrue($loader->getPersistOnce());
     }
 
@@ -55,7 +53,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader($aliceLoaderProphecy->reveal(), ['dummyProcessor'], false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), []);
 
-        $this->assertEquals([], $objects);
+        $this->assertSame([], $objects);
     }
 
     /**
@@ -80,7 +78,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
-        $this->assertEquals([$object], $objects);
+        $this->assertSame([$object], $objects);
     }
 
     /**
@@ -116,7 +114,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->assertEquals($objects, $objects);
+        $this->assertSame($objects, $objects);
     }
 
     /**
@@ -151,7 +149,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             ]
         );
 
-        $this->assertEquals($objects, $objects);
+        $this->assertSame($objects, $objects);
     }
 
     /**
@@ -180,7 +178,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader($fixturesLoaderProphecy->reveal(), [$processorProphecy->reveal()], false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
-        $this->assertEquals([$object], $objects);
+        $this->assertSame([$object], $objects);
     }
 
     public function testLoaderInterface()
@@ -196,7 +194,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
-        $this->assertEquals([$object], $objects);
+        $this->assertSame([$object], $objects);
     }
 
     /**

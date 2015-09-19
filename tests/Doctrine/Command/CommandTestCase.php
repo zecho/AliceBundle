@@ -32,8 +32,8 @@ class CommandTestCase extends KernelTestCase
         $this->application = new Application(self::$kernel);
         $this->application->setAutoExit(false);
 
-        $this->runConsole("doctrine:schema:drop", ["--force" => true]);
-        $this->runConsole("doctrine:schema:create");
+        $this->runConsole('doctrine:schema:drop', ['--force' => true]);
+        $this->runConsole('doctrine:schema:create');
     }
 
     /**
@@ -43,13 +43,15 @@ class CommandTestCase extends KernelTestCase
      * @param array  $options
      *
      * @return int
+     *
      * @throws \Exception
      */
     protected function runConsole($command, array $options = [])
     {
-        $options["-e"] = "test";
-        $options["-q"] = null;
+        $options['-e'] = 'test';
+        $options['-q'] = null;
         $options = array_merge($options, ['command' => $command]);
+
         return $this->application->run(new ArrayInput($options));
     }
 
@@ -75,7 +77,7 @@ class CommandTestCase extends KernelTestCase
         $display = trim($display, ' ');
         $display = trim($display, "\t");
         $display = preg_replace('/\n/', '', $display);
-        $display = explode("  > loading ", $display);
+        $display = explode('  > loading ', $display);
         array_shift($display);
 
         return $display;

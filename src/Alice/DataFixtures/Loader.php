@@ -80,7 +80,7 @@ class Loader implements LoaderInterface
         $loadFileAttemps = 0;
         $normalizedFixturesFiles = $this->normalizeFixturesFiles($fixturesFiles);
 
-        while(true) {
+        while (true) {
             $objects = array_merge($objects, $this->tryToLoadFiles($persister, $normalizedFixturesFiles, $objects));
 
             if (true === $this->areAllFixturesLoaded($normalizedFixturesFiles)) {

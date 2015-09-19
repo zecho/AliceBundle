@@ -66,8 +66,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
     private function verifyProducts()
     {
-        $tasks = $this->documentManager->getRepository
-        ('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Task')->findAll();
+        $tasks = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Task')->findAll();
 
         $this->assertCount(10, $tasks);
     }

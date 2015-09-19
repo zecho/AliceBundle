@@ -42,7 +42,8 @@ interface FixturesFinderInterface
      * @param KernelInterface         $kernel
      * @param string[]|\SplFileInfo[] $fixtures
      *
-     * @return string[]                  Fixtures real path
+     * @return string[] Fixtures real path
+     *
      * @throws \InvalidArgumentException Invalid file (got a directory or unsupported type)
      * @throws \RuntimeException         File could not be resolved.
      */

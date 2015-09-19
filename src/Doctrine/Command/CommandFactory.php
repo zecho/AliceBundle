@@ -12,12 +12,12 @@
 namespace Hautelook\AliceBundle\Doctrine\Command;
 
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
 use Hautelook\AliceBundle\Doctrine\Generator\LoaderGeneratorInterface;
 use Hautelook\AliceBundle\Finder\FixturesFinderInterface;
 use Hautelook\AliceBundle\Resolver\BundlesResolverInterface;
-use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 
 /**
  * Factory class to generate Doctrine load data fixtures commands.
@@ -27,7 +27,7 @@ use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as Fixture
 class CommandFactory
 {
     /**
-     * @param string                    $name Command name
+     * @param string                    $name             Command name
      * @param ManagerRegistry           $doctrine
      * @param LoaderInterface           $loader
      * @param FixturesLoaderInterface   $fixturesLoader

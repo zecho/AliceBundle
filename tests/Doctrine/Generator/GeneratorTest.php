@@ -11,9 +11,7 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine;
 
-use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutor;
 use Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator;
-use Prophecy\Argument;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Doctrine\Generator
@@ -72,7 +70,7 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
             'dev'
         );
 
-        $this->assertEquals([$processorProphecy->reveal()], $loader->getProcessors());
+        $this->assertSame([$processorProphecy->reveal()], $loader->getProcessors());
         $this->assertTrue($loader->getPersistOnce());
 
         $loader->load($persister, ['fixtureFile']);

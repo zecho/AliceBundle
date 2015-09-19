@@ -37,7 +37,7 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
         foreach ($loaders as $loader) {
             $fixtures = array_merge($fixtures, $loader->getFixtures());
         }
-        
+
         // If no data loader is found, takes all fixtures files
         if (0 === count($loaders)) {
             return parent::getFixturesFromDirectory($path);
@@ -84,7 +84,7 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
         $phpClasses = [];
         $finder = SymfonyFinder::create()->depth(0)->in($path)->files()->name('*.php');
         foreach ($finder as $file) {
-            /** @var SplFileInfo $file */
+            /* @var SplFileInfo $file */
             $phpClasses[$file->getRealPath()] = true;
             require_once $file->getRealPath();
         }
@@ -96,7 +96,7 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
 
             if (true === isset($phpClasses[$sourceFile])) {
                 if ($reflectionClass->implementsInterface('Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface')) {
-                    $loaders[$className] = new $className;
+                    $loaders[$className] = new $className();
                 }
             }
         }

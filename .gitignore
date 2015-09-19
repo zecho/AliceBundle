@@ -4,3 +4,4 @@ Tests/SymfonyApp/cache
 Tests/SymfonyApp/logs
 coverage.xml
 phpunit.xml
+.php_cs.cache
