@@ -37,7 +37,7 @@ class DoctrineDataFixturesCommandsTest extends CommandTestCase
         $command = $this->application->find('doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute([], ['interactive' => false]);
+        $commandTester->execute(['command' => 'doctrine:fixtures:load'], ['interactive' => false]);
 
         $expected = <<<EOF
               > purging database
@@ -61,7 +61,7 @@ EOF;
         $command = $this->application->find('doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute([], ['interactive' => false]);
+        $commandTester->execute(['command' => 'doctrine:mongodb:fixtures:load'], ['interactive' => false]);
 
         $expected = <<<EOF
               > purging database
@@ -77,7 +77,7 @@ EOF;
         $command = $this->application->find('doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute([], ['interactive' => false]);
+        $commandTester->execute(['command' => 'doctrine:mongodb:fixtures:load'], ['interactive' => false]);
 
         $expected = <<<EOF
               > purging database

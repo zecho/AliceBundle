@@ -36,7 +36,6 @@ matrix:
     - env: SYMFONY_VERSION=2.8.*@dev
     - env: SYMFONY_VERSION="3.0.x-dev as 2.8"
     # TODO: Remove those two line when test will be fixed.
-    - env: SYMFONY_VERSION=2.3.*
     - env: COMPOSER_FLAGS="--prefer-lowest"
 
 services:
