@@ -29,7 +29,6 @@
         "doctrine/phpcr-bundle": "^1.2",
         "doctrine/phpcr-odm": "^1.2",
         "jackalope/jackalope-doctrine-dbal": "^1.2",
-        "phpunit/phpunit": "^4.7",
         "symfony/console": "~2.3",
         "symfony/framework-bundle": "~2.3",
         "symfony/yaml": "~2.3",
