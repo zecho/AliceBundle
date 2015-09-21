@@ -11,6 +11,7 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine;
 
+use Hautelook\AliceBundle\Alice\ProcessorChain;
 use Hautelook\AliceBundle\Doctrine\Generator\LoaderGenerator;
 
 /**
@@ -53,9 +54,9 @@ class GeneratorTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->addProvider([$dataloaderProphecy->reveal()])->shouldBeCalled();
         $fixturesLoaderProphecy->load('fixtureFile', [])->willReturn(['fixtureObject']);
 
-        $loaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface');
+        $loaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Loader');
         $loaderProphecy->getLoadingLimit()->willReturn(5);
-        $loaderProphecy->getProcessors()->willReturn([$processorProphecy->reveal()]);
+        $loaderProphecy->getProcessorChain()->willReturn(new ProcessorChain([$processorProphecy->reveal()]));
         $loaderProphecy->getPersistOnce()->willReturn(true);
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');

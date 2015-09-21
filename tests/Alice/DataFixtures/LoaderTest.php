@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\Tests\Alice\DataFixtures;
 
 use Hautelook\AliceBundle\Alice\DataFixtures\Loader;
+use Hautelook\AliceBundle\Alice\ProcessorChain;
 
 /**
  * @coversDefaultClass Hautelook\AliceBundle\Alice\DataFixtures\Loader
@@ -27,14 +28,15 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), ['dummyProcessor'], false, 5);
+        $processors = [$this->getMock('Nelmio\Alice\ProcessorInterface')];
+        $loader = new Loader($aliceLoaderProphecy->reveal(), new ProcessorChain($processors), false, 5);
 
-        $this->assertSame(['dummyProcessor'], $loader->getProcessors());
+        $this->assertSame($processors, $loader->getProcessors());
         $this->assertFalse($loader->getPersistOnce());
 
         $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), [], true, 5);
+        $loader = new Loader($aliceLoaderProphecy->reveal(), new ProcessorChain([]), true, 5);
 
         $this->assertSame([], $loader->getProcessors());
         $this->assertTrue($loader->getPersistOnce());
@@ -50,7 +52,8 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
 
-        $loader = new Loader($aliceLoaderProphecy->reveal(), ['dummyProcessor'], false, 5);
+        $processors = [$this->getMock('Nelmio\Alice\ProcessorInterface')];
+        $loader = new Loader($aliceLoaderProphecy->reveal(), new ProcessorChain($processors), false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), []);
 
         $this->assertSame([], $objects);
@@ -75,7 +78,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertSame([$object], $objects);
@@ -105,7 +108,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 5);
         $objects = $loader->load(
             $persisterProphecy->reveal(),
             [
@@ -140,7 +143,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->setPersister($persisterProphecy->reveal())->shouldBeCalled();
         $fixturesLoaderProphecy->setPersister($oldPersister)->shouldBeCalled();
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], true, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), true, 5);
         $objects = $loader->load(
             $persisterProphecy->reveal(),
             [
@@ -175,7 +178,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $processorProphecy->preProcess($object)->shouldBeCalled();
         $processorProphecy->postProcess($object)->shouldBeCalled();
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [$processorProphecy->reveal()], false, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([$processorProphecy->reveal()]), false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertSame([$object], $objects);
@@ -191,7 +194,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
         $fixturesLoaderProphecy->load('random/file', [])->willReturn([$object]);
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), ['random/file']);
 
         $this->assertSame([$object], $objects);
@@ -209,7 +212,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
         $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(6);
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 5);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 5);
         $loader->load($persisterProphecy->reveal(), ['random/file']);
     }
 
@@ -225,7 +228,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
         $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(11);
 
-        $loader = new Loader($fixturesLoaderProphecy->reveal(), [], false, 10);
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 10);
         $loader->load($persisterProphecy->reveal(), ['random/file']);
     }
 }
