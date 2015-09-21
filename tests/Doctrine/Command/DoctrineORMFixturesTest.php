@@ -44,7 +44,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
         $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute([], ['interactive' => false]);
+        $commandTester->execute(['command' => 'hautelook_alice:doctrine:fixtures:load'], ['interactive' => false]);
 
         $this->verifyProducts();
         $this->verifyBrands();
@@ -61,7 +61,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
         $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute($inputs, ['interactive' => false]);
+        $commandTester->execute(array_merge(['command' => 'hautelook_alice:doctrine:fixtures:load'], $inputs), ['interactive' => false]);
 
         $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
     }
