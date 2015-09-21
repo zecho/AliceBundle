@@ -13,8 +13,6 @@ php:
 env:
   global:
     - PATH="$HOME/.composer/vendor/bin:$PATH"
-    # TODO: Remove it when fixed
-    - SYMFONY_DEPRECATIONS_HELPER=weak
 
 matrix:
   fast_finish: true
