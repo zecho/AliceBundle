@@ -34,6 +34,7 @@
         "symfony/yaml": "~2.3",
         "symfony/validator": "~2.3",
         "theofidry/psysh-bundle": "^1.1.2",
+        "sllh/php-cs-fixer-styleci-bridge": "~1.0",
         "symfony/phpunit-bridge": "^2.7.4"
     },
     "suggest": {
