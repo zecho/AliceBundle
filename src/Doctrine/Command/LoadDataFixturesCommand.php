@@ -148,7 +148,7 @@ class LoadDataFixturesCommand extends Command
         if (false !== strpos($input->getFirstArgument(), 'hautelook_alice:fixtures:load')
             || false !== strpos($input->getFirstArgument(), 'h:f:l')
         ) {
-            $output->writeln('<comment>The use of "hautelook_alice:fixtures:load" command is deprecated and will be removed 1.1.0. Use the
+            $output->writeln('<comment>The use of "hautelook_alice:fixtures:load" command is deprecated since 1.0 and will be removed in 2.0. Use the
 "hautelook_alice:doctrine:fixtures:load" instead.</comment>');
         }
 
