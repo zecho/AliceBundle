@@ -7,7 +7,6 @@ enabled:
   - short_array_syntax
 
 disabled:
-  - psr0
   - unalign_double_arrow
   - unalign_equals
 
