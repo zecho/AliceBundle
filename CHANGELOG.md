@@ -3,16 +3,14 @@
 ## Version 1.x
 
 * Upgraded [nelmio/alice](https://github.com/nelmio/alice) to the version [2.0.0](https://github.com/nelmio/alice/releases/tag/2.0.0)
-* Now uses [`Nelmio\Alice\Fixtures`](https://github.com/nelmio/alice/blob/master/src/Nelmio/Alice/Fixtures.php) and
-its loaders instead of custom ones
 * Add support for [Doctrine ODM (MongoDB)](http://doctrine-mongodb-odm.readthedocs.org/en/latest/)
-* Add support for [Doctrine PHPCR ODM](http://doctrine-phpcr-odm.readthedocs.org/en/latest/)
+* Add support for [Doctrine PHPCR](http://doctrine-phpcr-odm.readthedocs.org/en/latest/)
 * Introduced commands:
 	* `hautelook_alice:doctrine:fixtures:load`
 	* `hautelook_alice:doctrine:mongodb:fixtures:load`
 	* `hautelook_alice:doctrine:phpcr:fixtures:load`
-* Possibility to load fixtures by environment
-* Possibility to load fixtures by bundle
+* Possibility to [load fixtures by environment](https://github.com/hautelook/AliceBundle/blob/master/src/Resources/doc/advanced-usage.md#environment-specific-fixtures)
+* Possibility to [load fixtures by bundle](https://github.com/hautelook/AliceBundle#basic-usage)
 * No longer need to create a data loader to load fixtures
 * Removed [DoctrineFixturesBundle](https://github.com/doctrine/DoctrineFixturesBundle) dependency
 * Now possible to register [Alice Processors][1]
