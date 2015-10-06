@@ -57,10 +57,8 @@ services:
         lazy: true
         arguments:
             - %hautelook_alice.locale%
-        call:
-            - method: seed
-              arguments: [ %hautelook_alice.seed% ]
-            - %hautelook_alice.seed%
+        calls:
+            - [ seed, [ %hautelook_alice.seed% ] ]
 ```
 
 Example:
