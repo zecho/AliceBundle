@@ -47,11 +47,21 @@ AppBundle\Entity\Dummy:
 
 Sometimes, your Provider needs to extend the [Faker Base Provider][2]
 or one of it's children. The issue is it needs a [`Faker\Generator`](https://github.com/fzaninotto/Faker/blob/master/src/Faker/Generator.php)
-instance. In such cases, this bundle provides you a configured generator `hautelook_alice.faker` to help the
-declaration of your provider. This faker generator instance is configured with:
-* the bundle locale
-* the bundle seed
-* the registered providers
+instance. AliceBundle provides a faker generator `hautelook_alice.faker` configured with the bundle parameters and with all the registered providers. **You must not use this one for your providers**: as this generator requires all providers, if your provider requires this generator this will result in a circular references. In such cases, you should use your own Faker generator:
+
+```yaml
+# app/config/services.yml
+services:
+    hautelook_alice.bare_faker:
+        class: Faker\Generator
+        lazy: true
+        arguments:
+            - %hautelook_alice.locale%
+        call:
+            - method: seed
+              arguments: [ %hautelook_alice.seed% ]
+            - %hautelook_alice.seed%
+```
 
 Example:
 ```php
@@ -76,7 +86,7 @@ class FooProvider extends BaseProvider;
 services:
     faker.provider.foo:
         class: AppBundle\DataFixtures\Faker\Provider\FooProvider
-        arguments: [ @hautelook_alice.faker ]
+        arguments: [ @hautelook_alice.bare_faker ]
         tags: [ { name: hautelook_alice.faker.provider } ]
 ```
 
