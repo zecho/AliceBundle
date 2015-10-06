@@ -41,7 +41,7 @@ Other references:
 You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
 ```bash
-composer require hautelook/alice-bundle
+composer require --dev hautelook/alice-bundle
 ```
 
 Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
