@@ -16,6 +16,9 @@ EOF;
 
 HeaderCommentFixer::setHeader($header);
 
-return ConfigBridge::create()
+$config = ConfigBridge::create();
+
+return $config
     ->setUsingCache(true)
+    ->fixers(array_merge($config->getFixers(), ['-psr0']))
 ;
