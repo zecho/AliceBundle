@@ -231,4 +231,32 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 10);
         $loader->load($persisterProphecy->reveal(), ['random/file']);
     }
+
+    /**
+     * @covers ::load()
+     * @covers ::registerErrorMessage()
+     */
+    public function testLoaderLimitWithMessages()
+    {
+        $this->setExpectedException(
+            '\Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException',
+            'Loading files limit of 3 reached. Could not load the following files:'.PHP_EOL
+            .'another/file:'.PHP_EOL
+            .' - That is a failed'.PHP_EOL
+            .'empty/message'.PHP_EOL
+            .'random/file:'.PHP_EOL
+            .' - Some dummy message'
+        );
+
+        $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
+        $persisterProphecy->persist()->shouldNotBeCalled();
+
+        $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException('Some dummy message'));
+        $fixturesLoaderProphecy->load('another/file', [])->willThrow(new \UnexpectedValueException('That is a failed'));
+        $fixturesLoaderProphecy->load('empty/message', [])->willThrow(new \UnexpectedValueException());
+
+        $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 3);
+        $loader->load($persisterProphecy->reveal(), ['random/file', 'another/file', 'empty/message']);
+    }
 }

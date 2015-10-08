@@ -45,6 +45,11 @@ class Loader implements LoaderInterface
     private $loadingLimit;
 
     /**
+     * @var string[]
+     */
+    private $errorMessages;
+
+    /**
      * @param FixturesLoaderInterface $fixturesLoader
      * @param ProcessorChain          $processorChain
      * @param bool                    $persistOnce
@@ -80,6 +85,7 @@ class Loader implements LoaderInterface
         $loadFileAttempts = 0;
         $normalizedFixturesFiles = $this->normalizeFixturesFiles($fixturesFiles);
 
+        $this->errorMessages = [];
         while (true) {
             $objects = array_merge($objects, $this->tryToLoadFiles($persister, $normalizedFixturesFiles, $objects));
 
@@ -88,7 +94,7 @@ class Loader implements LoaderInterface
             }
 
             if ($this->loadingLimit <= $loadFileAttempts) {
-                throw new LoadingLimitException($this->loadingLimit, $normalizedFixturesFiles);
+                throw new LoadingLimitException($this->loadingLimit, $normalizedFixturesFiles, $this->errorMessages);
             }
 
             ++$loadFileAttempts;
@@ -194,7 +200,7 @@ class Loader implements LoaderInterface
 
                 $objects = array_merge($objects, $dataSet);
             } catch (\UnexpectedValueException $exception) {
-                // continue
+                $this->registerErrorMessage($fixtureFilePath, $exception->getMessage());
             }
         }
 
@@ -222,5 +228,24 @@ class Loader implements LoaderInterface
                 $processor->postProcess($object);
             }
         }
+    }
+
+    /**
+     * Registers the error message with the related fixture file.
+     *
+     * @param string $fixtureFilePath
+     * @param string $errorMessage
+     */
+    private function registerErrorMessage($fixtureFilePath, $errorMessage)
+    {
+        if (true === empty($errorMessage)) {
+            return;
+        }
+
+        if (!isset($this->errorMessages[$fixtureFilePath])) {
+            $this->errorMessages[$fixtureFilePath] = [];
+        }
+
+        array_push($this->errorMessages[$fixtureFilePath], $errorMessage);
     }
 }
