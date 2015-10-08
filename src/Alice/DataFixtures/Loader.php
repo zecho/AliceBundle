@@ -77,7 +77,7 @@ class Loader implements LoaderInterface
         }
 
         $objects = [];
-        $loadFileAttemps = 0;
+        $loadFileAttempts = 0;
         $normalizedFixturesFiles = $this->normalizeFixturesFiles($fixturesFiles);
 
         while (true) {
@@ -87,11 +87,11 @@ class Loader implements LoaderInterface
                 break;
             }
 
-            if ($this->loadingLimit <= $loadFileAttemps) {
+            if ($this->loadingLimit <= $loadFileAttempts) {
                 throw new LoadingLimitException($this->loadingLimit, $normalizedFixturesFiles);
             }
 
-            ++$loadFileAttemps;
+            ++$loadFileAttempts;
         }
 
         if (true === $this->persistOnce) {
