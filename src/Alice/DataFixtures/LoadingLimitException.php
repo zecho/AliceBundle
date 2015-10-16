@@ -22,8 +22,9 @@ class LoadingLimitException extends \RuntimeException
      * @param int   $limit
      * @param array $normalizedFixturesFiles Array where keys are fixtures files path and value is a boolean set to
      *                                       true for when the fixture file has been loaded and false otherwise.
+     * @param array $errorMessages           All encountered errors messages while trying to load fixtures.
      */
-    public function __construct($limit, array $normalizedFixturesFiles)
+    public function __construct($limit, array $normalizedFixturesFiles, array $errorMessages = [])
     {
         $unloadedFiles = [];
 
@@ -33,10 +34,22 @@ class LoadingLimitException extends \RuntimeException
             }
         }
 
-        $this->message = sprintf(
-            'Loading files limit of %d reached. Could not load the following files: %s',
-            $limit,
-            implode(', ', $unloadedFiles)
-        );
+        $messageLines = [];
+        $messageLines[] = sprintf('Loading files limit of %d reached. Could not load the following files:', $limit);
+
+        sort($unloadedFiles);
+        foreach ($unloadedFiles as $unloadedFile) {
+            if (isset($errorMessages[$unloadedFile]) && 0 < count($errorMessages[$unloadedFile])) {
+                $messageLines[] = sprintf('%s:', $unloadedFile);
+                $fileErrorMessages = array_unique($errorMessages[$unloadedFile]);
+                foreach ($fileErrorMessages as $errorMessage) {
+                    $messageLines[] = sprintf(' - %s', $errorMessage);
+                }
+            } else {
+                $messageLines[] = $unloadedFile;
+            }
+        }
+
+        $this->message = implode(PHP_EOL, $messageLines);
     }
 }
