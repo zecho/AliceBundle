@@ -14,6 +14,7 @@ Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.h
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hautelook/AliceBundle.svg?b=master&style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
 [![HHVM support](https://img.shields.io/hhvm/hautelook/alice-bundle/master.svg?style=flat-square)](http://hhvm.h4cc.de/package/hautelook/alice-bundle)
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hautelook/AliceBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Documentation
 
