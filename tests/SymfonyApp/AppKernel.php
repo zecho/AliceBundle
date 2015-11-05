@@ -15,7 +15,6 @@ use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle;
 use Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle;
-use Fidry\PsyshBundle\PsyshBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\ABundle\TestABundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\BBundle\TestBBundle;
@@ -42,7 +41,6 @@ class AppKernel extends Kernel
             new TestBBundle(),
             new TestCBundle(),
             new TestDBundle(),
-            new PsyshBundle(),
         ];
     }
 
