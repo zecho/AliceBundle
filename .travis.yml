@@ -26,13 +26,13 @@ matrix:
     - php: 5.6
       env: SYMFONY_VERSION=2.8.*@dev
     - php: 5.6
-      env: SYMFONY_VERSION="3.0.x-dev as 2.8"
+      env: SYMFONY_VERSION="3.0.*@dev"
   allow_failures:
     - php: 7.0
     - php: nightly
     - php: hhvm
     - env: SYMFONY_VERSION=2.8.*@dev
-    - env: SYMFONY_VERSION="3.0.x-dev as 2.8"
+    - env: SYMFONY_VERSION="3.0.*@dev"
     # TODO: Remove those two line when test will be fixed.
     - env: COMPOSER_FLAGS="--prefer-lowest"
 
