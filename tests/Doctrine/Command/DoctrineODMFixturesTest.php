@@ -75,7 +75,7 @@ class DoctrineODMFixturesTest extends CommandTestCase
 
         $data[] = [
             [],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ODM/product.yml
   > purging database

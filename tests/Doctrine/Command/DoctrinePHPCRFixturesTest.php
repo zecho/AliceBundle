@@ -77,7 +77,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
         $data[] = [
             [],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/PHPCR/task.yml
   > purging database
