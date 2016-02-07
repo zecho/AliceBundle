@@ -50,11 +50,11 @@ composer require --dev hautelook/alice-bundle doctrine/data-fixtures
 
 Of course, the `doctrine/data-fixtures` library is only needed if you're using Doctrine.
 
-Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
+Then, enable the bundle by updating your `app/AppKernel.php` file to enable the bundle:
 
 ```php
 <?php
-// app/config/AppKernel.php
+// app/AppKernel.php
 
 public function registerBundles()
 {
