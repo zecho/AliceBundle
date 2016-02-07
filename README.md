@@ -45,8 +45,10 @@ Check the documentation [here](src/Resources/doc/install.md).
 You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
 ```bash
-composer require --dev hautelook/alice-bundle
+composer require --dev hautelook/alice-bundle doctrine/data-fixtures
 ```
+
+Of course, the `doctrine/data-fixtures` library is only needed if you're using Doctrine.
 
 Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
 
@@ -87,12 +89,13 @@ Fore more information regarding the locale, refer to
 
 ## Basic usage
 
-Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), install
-the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and [`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages and register both bundles.
-Then create a fixture file in `AppBundle/DataFixtures/ORM`:
+Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), make sure you
+have the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and [`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages installed.
+
+Then create a fixture file in `src/AppBundle/DataFixtures/ORM`:
 
 ```yaml
-# AppBundle/DataFixtures/ORM/dummy.yml
+# src/AppBundle/DataFixtures/ORM/dummy.yml
 
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
