@@ -101,7 +101,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
 
         $data[] = [
             [],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -117,7 +117,7 @@ EOF
             [
                 '--env' => 'dev',
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -134,7 +134,7 @@ EOF
             [
                 '--env' => 'Prod',
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -151,7 +151,7 @@ EOF
             [
                 '--env' => 'prod',
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
@@ -171,7 +171,7 @@ EOF
                     'TestBundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -189,7 +189,7 @@ EOF
                     'TestABundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
   > purging database
@@ -206,7 +206,7 @@ EOF
                     'TestABundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -225,7 +225,7 @@ EOF
                     'TestCBundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/BBundle/DataFixtures/ORM/bentity.yml
@@ -242,7 +242,7 @@ EOF
                     'TestBundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -259,7 +259,7 @@ EOF
                     'TestBundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
@@ -277,7 +277,7 @@ EOF
                     'TestBundle',
                 ],
             ],
-            <<<EOF
+            <<<'EOF'
               > fixtures found:
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml

@@ -3,4 +3,4 @@ Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product:
         name: Product <current()>
         price: 10.0
         description: Awesome <identity(@self->name)>
-        brand: @brand*
+        brand: '@brand*'

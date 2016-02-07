@@ -39,7 +39,7 @@ class DoctrineDataFixturesCommandsTest extends CommandTestCase
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command' => 'doctrine:fixtures:load'], ['interactive' => false]);
 
-        $expected = <<<EOF
+        $expected = <<<'EOF'
               > purging database
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored\DataLoader
@@ -63,7 +63,7 @@ EOF;
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command' => 'doctrine:mongodb:fixtures:load'], ['interactive' => false]);
 
-        $expected = <<<EOF
+        $expected = <<<'EOF'
               > purging database
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
 
@@ -79,7 +79,7 @@ EOF;
         $commandTester = new CommandTester($command);
         $commandTester->execute(['command' => 'doctrine:mongodb:fixtures:load'], ['interactive' => false]);
 
-        $expected = <<<EOF
+        $expected = <<<'EOF'
               > purging database
   > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
 

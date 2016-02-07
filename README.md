@@ -7,7 +7,7 @@ A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](ht
 Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html), [Doctrine ODM](http://doctrine-mongodb-odm.readthedocs.org/en/latest/), [Doctrine PHPCR ODM](http://doctrine-phpcr-odm.readthedocs.org/en/latest/).
 
 [![Package version](https://img.shields.io/packagist/v/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
-[![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
+[![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=1.x)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d93a3fc4-3fe8-4be3-aa62-307f53898199.svg?style=flat-square)](https://insight.sensiolabs.com/projects/d93a3fc4-3fe8-4be3-aa62-307f53898199)
 [![Dependency Status](https://www.versioneye.com/user/projects/55d26478265ff6001a000084/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55d26478265ff6001a000084)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hautelook/AliceBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
@@ -45,14 +45,16 @@ Check the documentation [here](src/Resources/doc/install.md).
 You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
 ```bash
-composer require --dev hautelook/alice-bundle
+composer require --dev hautelook/alice-bundle doctrine/data-fixtures
 ```
 
-Then, enable the bundle by updating your `app/config/AppKernel.php` file to enable the bundle:
+Of course, the `doctrine/data-fixtures` library is only needed if you're using Doctrine.
+
+Then, enable the bundle by updating your `app/AppKernel.php` file to enable the bundle:
 
 ```php
 <?php
-// app/config/AppKernel.php
+// app/AppKernel.php
 
 public function registerBundles()
 {
@@ -87,12 +89,13 @@ Fore more information regarding the locale, refer to
 
 ## Basic usage
 
-Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), install
-the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and [`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages and register both bundles.
-Then create a fixture file in `AppBundle/DataFixtures/ORM`:
+Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), make sure you
+have the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and [`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages installed.
+
+Then create a fixture file in `src/AppBundle/DataFixtures/ORM`:
 
 ```yaml
-# AppBundle/DataFixtures/ORM/dummy.yml
+# src/AppBundle/DataFixtures/ORM/dummy.yml
 
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
