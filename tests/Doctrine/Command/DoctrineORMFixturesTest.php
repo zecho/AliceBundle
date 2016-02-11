@@ -34,6 +34,13 @@ class DoctrineORMFixturesTest extends CommandTestCase
         );
 
         $this->entityManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
+
+        // Create shard database
+        $connection = $this->entityManager->getConnection();
+        $connection->connect(1);
+        $this->runConsole('doctrine:schema:drop', ['--force' => true]);
+        $this->runConsole('doctrine:schema:create');
+        $connection->connect(0);
     }
 
     /**
@@ -282,6 +289,25 @@ EOF
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
       - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Provider/testFormatter.yml
+  > purging database
+  > fixtures loaded
+
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env'     => 'Shard',
+                '--shard'   => 1,
+                '--bundle'  => [
+                    'TestBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ORM/Shard/shard.yml
   > purging database
   > fixtures loaded
 

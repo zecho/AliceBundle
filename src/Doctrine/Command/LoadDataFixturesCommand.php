@@ -13,6 +13,7 @@ namespace Hautelook\AliceBundle\Doctrine\Command;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Sharding\PoolingShardConnection;
 use Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface as FixturesLoaderInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 use Hautelook\AliceBundle\Doctrine\DataFixtures\Executor\FixturesExecutorInterface;
@@ -127,6 +128,12 @@ class LoadDataFixturesCommand extends Command
                 InputOption::VALUE_NONE,
                 'Append the data fixtures instead of deleting all data from the database first.'
             )
+            ->addOption(
+                'shard',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'The shard database id to use for this command.'
+            )
         ;
 
         if ($this->doctrine instanceof Registry) {
@@ -191,6 +198,18 @@ class LoadDataFixturesCommand extends Command
         }
 
         $truncate = $input->hasOption('purge-with-truncate') ? $input->getOption('purge-with-truncate') : false;
+
+        // Shard database
+        $shard = $input->getOption('shard');
+        if (!empty($shard)) {
+            $connection = $manager->getConnection();
+            if (!$connection instanceof PoolingShardConnection) {
+                throw new \RuntimeException('Expected Doctrine\DBAL\Sharding\PoolingShardConnection connection when using shard option.');
+            }
+
+            // Switch to shard database
+            $connection->connect($shard);
+        }
 
         $this->fixturesExecutor->execute(
             $manager,
