@@ -54,6 +54,7 @@ instance. AliceBundle provides a faker generator `hautelook_alice.faker` configu
 services:
     hautelook_alice.bare_faker:
         class: Faker\Generator
+        factory: [ Faker\Factory, create ]
         lazy: true
         arguments:
             - %hautelook_alice.locale%
