@@ -13,6 +13,7 @@ namespace Hautelook\AliceBundle\Doctrine\DataFixtures\Executor;
 
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor as DoctrineORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\ORM\EntityManagerInterface;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 
@@ -42,6 +43,25 @@ class ORMExecutor extends DoctrineORMExecutor implements ExecutorInterface
         parent::__construct($manager, $purger);
 
         $this->loader = $loader;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function purge()
+    {
+        $connection = $this->getObjectManager()->getConnection();
+        $mysqlPlatform = $this->purger->getPurgeMode() === ORMPurger::PURGE_MODE_TRUNCATE
+            && $connection->getDatabasePlatform() instanceof MySqlPlatform;
+        if ($mysqlPlatform) {
+            $connection->exec('SET FOREIGN_KEY_CHECKS = 0;');
+        }
+
+        parent::purge();
+
+        if ($mysqlPlatform) {
+            $connection->exec('SET FOREIGN_KEY_CHECKS = 1;');
+        }
     }
 
     /**
