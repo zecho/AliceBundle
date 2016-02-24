@@ -18,7 +18,20 @@ doctrine:
         entity_managers:
             default:
                 connection: default
-                auto_mapping: true
+                mappings:
+                    TestBundle: ~
+                    TestABundle: ~
+                    TestBBundle: ~
+                    TestCBundle: ~
+                    TestDBundle: ~
+            mysql:
+                connection: mysql
+                mappings:
+                    TestBundle: ~
+                    TestABundle: ~
+                    TestBBundle: ~
+                    TestCBundle: ~
+                    TestDBundle: ~
     dbal:
         connections:
             default:
@@ -29,6 +42,25 @@ doctrine:
                 shard_choser: Doctrine\DBAL\Sharding\ShardChoser\MultiTenantShardChoser
                 shards:
                     - { id: 1, path: %kernel.cache_dir%/db_shard.sqlite }
+            mysql:
+                driver: pdo_mysql
+                host: localhost
+                port: 3306
+                dbname: alice
+                user: root
+                password: null
+                charset: utf8
+                server_version: 5.6
+                wrapper_class: Doctrine\DBAL\Sharding\PoolingShardConnection
+                shard_choser: Doctrine\DBAL\Sharding\ShardChoser\MultiTenantShardChoser
+                shards:
+                    - id: 1
+                      host: localhost
+                      port: 3306
+                      dbname: alice_shard_1
+                      user: root
+                      password: null
+                      charset: utf8
 
 doctrine_mongodb:
     connections:

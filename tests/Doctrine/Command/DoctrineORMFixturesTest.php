@@ -11,6 +11,7 @@
 
 namespace Hautelook\AliceBundle\Tests\Doctrine\Command;
 
+use Doctrine\DBAL\Sharding\PoolingShardConnection;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -23,7 +24,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    private $defaultEntityManager;
 
     protected function setUp()
     {
@@ -33,14 +34,25 @@ class DoctrineORMFixturesTest extends CommandTestCase
             self::$kernel->getContainer()->get('hautelook_alice.doctrine.command.load_command')
         );
 
-        $this->entityManager = $this->application->getKernel()->getContainer()->get('doctrine')->getManager();
+        $doctrineORM = $this->application->getKernel()->getContainer()->get('doctrine');
+        $this->defaultEntityManager = $doctrineORM->getManager();
 
-        // Create shard database
-        $connection = $this->entityManager->getConnection();
-        $connection->connect(1);
-        $this->runConsole('doctrine:schema:drop', ['--force' => true]);
-        $this->runConsole('doctrine:schema:create');
-        $connection->connect(0);
+        // Create required MySQL databases for ORM
+        $this->runConsole('doctrine:database:create', ['--if-not-exists' => true, '--connection' => 'mysql']);
+        $this->runConsole('doctrine:database:create', ['--if-not-exists' => true, '--connection' => 'mysql', '--shard' => 1]);
+
+        // Reset ORM schemas
+        foreach ($doctrineORM->getManagers() as $name => $manager) {
+            $this->runConsole('doctrine:schema:drop', ['--force' => true, '--em' => $name]);
+            $this->runConsole('doctrine:schema:create', ['--em' => $name]);
+            $connection = $manager->getConnection();
+            if ($connection instanceof PoolingShardConnection) {
+                $connection->connect(1);
+                $this->runConsole('doctrine:schema:drop', ['--force' => true, '--em' => $name]);
+                $this->runConsole('doctrine:schema:create', ['--em' => $name]);
+                $connection->connect(0);
+            }
+        }
     }
 
     /**
@@ -63,12 +75,55 @@ class DoctrineORMFixturesTest extends CommandTestCase
      * @param array  $inputs
      * @param string $expected
      */
-    public function testFixturesRegistering(array $inputs, $expected)
+    public function testFixturesRegisteringUsingSQLite(array $inputs, $expected)
     {
         $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array_merge(['command' => 'hautelook_alice:doctrine:fixtures:load'], $inputs), ['interactive' => false]);
+        $commandTester->execute(array_merge([
+            'command' => 'hautelook_alice:doctrine:fixtures:load',
+        ], $inputs), ['interactive' => false]);
+
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
+    }
+
+    /**
+     * @dataProvider loadCommandProvider
+     *
+     * @param array  $inputs
+     * @param string $expected
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Doctrine ORM Manager named "foo" does not exist.
+     */
+    public function testFixturesRegisteringUsingInvalidManager(array $inputs, $expected)
+    {
+        $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
+
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array_merge([
+            'command' => 'hautelook_alice:doctrine:fixtures:load',
+            '--manager' => 'foo',
+        ], $inputs), ['interactive' => false]);
+
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
+    }
+
+    /**
+     * @dataProvider loadCommandProvider
+     *
+     * @param array  $inputs
+     * @param string $expected
+     */
+    public function testFixturesRegisteringUsingMySQL(array $inputs, $expected)
+    {
+        $command = $this->application->find('hautelook_alice:doctrine:fixtures:load');
+
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(array_merge([
+            'command' => 'hautelook_alice:doctrine:fixtures:load',
+            '--manager' => 'mysql',
+        ], $inputs), ['interactive' => false]);
 
         $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
     }
@@ -77,7 +132,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
     {
         for ($i = 1; $i <= 10; ++$i) {
             /* @var \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product */
-            $product = $this->entityManager->find(
+            $product = $this->defaultEntityManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Product',
                 $i
             );
@@ -95,7 +150,7 @@ class DoctrineORMFixturesTest extends CommandTestCase
     {
         for ($i = 1; $i <= 10; ++$i) {
             /* @var $brand \Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand */
-            $this->entityManager->find(
+            $this->defaultEntityManager->find(
                 'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand',
                 $i
             );
