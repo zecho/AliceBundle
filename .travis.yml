@@ -36,6 +36,7 @@ matrix:
 
 services:
   - mongodb
+  - mysql
 
 cache:
   directories:
