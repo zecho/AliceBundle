@@ -8,10 +8,6 @@ php:
   - nightly
   - hhvm
 
-env:
-  global:
-    - PATH="$HOME/.composer/vendor/bin:$PATH"
-
 matrix:
   fast_finish: true
   include:
@@ -36,6 +32,7 @@ matrix:
 
 services:
   - mongodb
+  - mysql
 
 cache:
   directories:
@@ -43,14 +40,11 @@ cache:
 
 before_install:
   - composer self-update
-  - composer config -g github-oauth.github.com $GITHUB_OAUTH_TOKEN
-  - composer global require phpunit/phpunit:@stable --no-update
   - if [ "$SYMFONY_VERSION" != "" ]; then composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update; fi;
   - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
 
 install:
   - if ([ "hhvm" != "$TRAVIS_PHP_VERSION" ] && [ "nightly" != "$TRAVIS_PHP_VERSION" ]); then wget https://scrutinizer-ci.com/ocular.phar; fi;
-  - composer global update --prefer-dist --no-interaction
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script: make test

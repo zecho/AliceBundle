@@ -15,13 +15,19 @@
             "homepage": "https://github.com/theofidry"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/lafourchette/DoctrineBundle"
+        }
+    ],
     "require": {
         "php": ">=5.4.0",
         "nelmio/alice": "~2.1",
         "symfony/finder": "^2.7|~3.0"
     },
     "require-dev": {
-        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/doctrine-bundle": "dev-sharding-erb as 1.2.x-dev",
         "doctrine/doctrine-fixtures-bundle": "~2.2",
         "doctrine/mongodb-odm": "^1.0",
         "doctrine/mongodb-odm-bundle": "^3.0",
@@ -34,7 +40,8 @@
         "symfony/yaml": "~2.3|~3.0",
         "symfony/validator": "~2.3|~3.0",
         "sllh/php-cs-fixer-styleci-bridge": "~1.0",
-        "symfony/phpunit-bridge": "^2.7.4|~3.0"
+        "symfony/phpunit-bridge": "^2.7.4|~3.0",
+        "phpunit/phpunit": "~4.8"
     },
     "suggest": {
         "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle",
