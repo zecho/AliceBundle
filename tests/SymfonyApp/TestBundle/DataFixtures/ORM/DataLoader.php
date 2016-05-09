@@ -20,6 +20,11 @@ class DataLoader extends AbstractLoader
      */
     public function getFixtures()
     {
+        \PHPUnit_Framework_Assert::assertInstanceOf(
+            'Symfony\Component\DependencyInjection\ContainerInterface',
+            $this->container
+        );
+
         return [
             __DIR__.'/product.yml',
             __DIR__.'/brand.yml',
