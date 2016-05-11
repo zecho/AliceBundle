@@ -17,6 +17,7 @@ use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\BBundle\TestBBundle
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\TestCBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\EmptyBundle\TestEmptyBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\TestBundle;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
 /**
@@ -26,6 +27,27 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  */
 class FixturesFinderTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var FixturesFinder
+     */
+    private $finder;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function setUp()
+    {
+        $this->finder = new FixturesFinder('DataFixtures/ORM');
+
+        $containerProphecy = $this->prophesize('Symfony\Component\DependencyInjection\ContainerInterface');
+        $containerProphecy->get()->shouldNotBeCalled();
+
+        /* @var $container ContainerInterface */
+        $container = $containerProphecy->reveal();
+
+        $this->finder->setContainer($container);
+    }
+
     /**
      * @cover ::getFixtures
      * @cover ::getLoadersPaths
@@ -39,7 +61,6 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFixtures(array $bundles, $environment, array $expected)
     {
-        $finder = new FixturesFinder('DataFixtures/ORM');
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
         $kernel->locateResource('@TestABundle/DataFixtures/ORM/aentity.yml', null, true)->willReturn(
             getcwd().'/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml'
@@ -49,7 +70,7 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
         );
 
         try {
-            $fixtures = $finder->getFixtures($kernel->reveal(), $bundles, $environment);
+            $fixtures = $this->finder->getFixtures($kernel->reveal(), $bundles, $environment);
 
             $this->assertCount(0, array_diff($expected, $fixtures));
         } catch (\InvalidArgumentException $exception) {
@@ -64,11 +85,10 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetFixturesWithInvalidPath()
     {
-        $finder = new FixturesFinder('DataFixutres/ORM');
         $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
 
         try {
-            $finder->getFixtures($kernel->reveal(), [new TestEmptyBundle()], 'dev');
+            $this->finder->getFixtures($kernel->reveal(), [new TestEmptyBundle()], 'dev');
             $this->fail('Expected \InvalidArgumentException to be thrown.');
         } catch (\InvalidArgumentException $exception) {
             // Expected result
@@ -81,9 +101,7 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetDataLoaders($bundles, $environment, $expected)
     {
-        $finder = new FixturesFinder('DataFixtures/ORM');
-
-        $loaders = $finder->getDataLoaders($bundles, $environment);
+        $loaders = $this->finder->getDataLoaders($bundles, $environment);
 
         try {
             foreach ($loaders as $index => $loader) {
