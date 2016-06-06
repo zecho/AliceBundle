@@ -104,13 +104,15 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder implem
             require_once $file->getRealPath();
         }
 
+        $loaderInterface = 'Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface';
+
         // Check if PHP classes are data loaders or not
         foreach (get_declared_classes() as $className) {
             $reflectionClass = new \ReflectionClass($className);
             $sourceFile = $reflectionClass->getFileName();
 
             if (true === isset($phpClasses[$sourceFile])) {
-                if ($reflectionClass->implementsInterface('Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface')) {
+                if ($reflectionClass->implementsInterface($loaderInterface) && !$reflectionClass->isAbstract()) {
                     $loader = new $className();
                     $loaders[$className] = $loader;
 

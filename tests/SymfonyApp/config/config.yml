@@ -4,7 +4,7 @@ imports:
 framework:
     secret: test
     router:
-        resource: %kernel.root_dir%/config/routing.yml
+        resource: "%kernel.root_dir%/config/routing.yml"
     form: ~
     validation:
         enabled: true
@@ -36,12 +36,12 @@ doctrine:
         connections:
             default:
                 driver: pdo_sqlite
-                path: %kernel.cache_dir%/db.sqlite
+                path: "%kernel.cache_dir%/db.sqlite"
                 charset: UTF8
                 wrapper_class: Doctrine\DBAL\Sharding\PoolingShardConnection
                 shard_choser: Doctrine\DBAL\Sharding\ShardChoser\MultiTenantShardChoser
                 shards:
-                    - { id: 1, path: %kernel.cache_dir%/db_shard.sqlite }
+                    - { id: 1, path: "%kernel.cache_dir%/db_shard.sqlite" }
             mysql:
                 driver: pdo_mysql
                 host: localhost
@@ -84,4 +84,4 @@ doctrine_phpcr:
 
     odm:
         auto_mapping: true
-        auto_generate_proxy_classes: %kernel.debug%
+        auto_generate_proxy_classes: "%kernel.debug%"
