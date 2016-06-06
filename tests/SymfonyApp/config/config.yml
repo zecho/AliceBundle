@@ -46,9 +46,9 @@ doctrine:
                 driver: pdo_mysql
                 host: localhost
                 port: 3306
-                dbname: alice
-                user: root
-                password: null
+                dbname: "%database.name%"
+                user: "%database.user%"
+                password: "%database.password%"
                 charset: utf8
                 server_version: 5.6
                 wrapper_class: Doctrine\DBAL\Sharding\PoolingShardConnection
@@ -57,9 +57,9 @@ doctrine:
                     - id: 1
                       host: localhost
                       port: 3306
-                      dbname: alice_shard_1
-                      user: root
-                      password: null
+                      dbname: "%database.name%_shard_1"
+                      user: "%database.user%"
+                      password: "%database.password%"
                       charset: utf8
 
 doctrine_mongodb:

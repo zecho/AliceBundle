@@ -6,6 +6,9 @@
 
     <php>
         <server name="KERNEL_DIR" value="tests/SymfonyApp" />
+        <server name="SYMFONY__DATABASE__NAME" value="alice"/>
+        <server name="SYMFONY__DATABASE__USER" value="root"/>
+        <server name="SYMFONY__DATABASE__PASSWORD" value=""/>
     </php>
 
     <logging>
