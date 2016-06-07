@@ -87,7 +87,7 @@ class Loader implements LoaderInterface
 
         $this->errorMessages = [];
         while (true) {
-            $objects = array_merge($objects, $this->tryToLoadFiles($persister, $normalizedFixturesFiles, $objects));
+            $objects = $this->tryToLoadFiles($persister, $normalizedFixturesFiles, $objects);
 
             if (true === $this->areAllFixturesLoaded($normalizedFixturesFiles)) {
                 break;
@@ -184,7 +184,6 @@ class Loader implements LoaderInterface
      */
     private function tryToLoadFiles(PersisterInterface $persister, array &$normalizedFixturesFiles, array $references)
     {
-        $objects = [];
         foreach ($normalizedFixturesFiles as $fixtureFilePath => $hasBeenLoaded) {
             if (true === $hasBeenLoaded) {
                 continue;
@@ -198,13 +197,13 @@ class Loader implements LoaderInterface
                     $this->persist($persister, $dataSet);
                 }
 
-                $objects = array_merge($objects, $dataSet);
+                $references = array_merge($references, $dataSet);
             } catch (\UnexpectedValueException $exception) {
                 $this->registerErrorMessage($fixtureFilePath, $exception->getMessage());
             }
         }
 
-        return $objects;
+        return $references;
     }
 
     /**
