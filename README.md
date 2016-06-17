@@ -122,6 +122,7 @@ Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
 ## Resources
 
 * Behat extension: [AliceBundleExtension](https://github.com/theofidry/AliceBundleExtension)
+* Bundle for generating AliceBundle compatible fixtures directly from Doctrine entities: [AliceGeneratorBundle](https://github.com/trappar/AliceGeneratorBundle)
 * [Upgrade guide](UPGRADE.md)
   * [Upgrade from 0.X to 1.X](UPGRADE.md#from-0x-to-1x)
 * [Changelog](CHANGELOG.md)
