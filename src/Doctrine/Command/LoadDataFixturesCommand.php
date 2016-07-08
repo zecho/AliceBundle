@@ -109,6 +109,7 @@ class LoadDataFixturesCommand extends Command
     protected function configure()
     {
         $this
+            ->setAliases(['fixtures:load'])
             ->setDescription('Load data fixtures to your database.')
             ->addOption(
                 'bundle',

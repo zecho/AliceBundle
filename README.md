@@ -111,9 +111,9 @@ AppBundle\Entity\RelatedDummy:
         name: <name()>
 ```
 
-Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:doctrine:fixtures:load` (or `php app/console h:d:f:l`).
+Then simply load your fixtures with the doctrine command `php app/console fixtures:load`.
 
-If you want to load the fixtures of a bundle only, do `php app/console h:d:f:l -b MyFirstBundle -b MySecondBundle`.
+If you want to load the fixtures of a bundle only, do `php app/console fixtures:load -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
 Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
