@@ -48,6 +48,19 @@ cache:
     - $HOME/.bin/
 
 before_install:
+  # From https://github.com/travis-ci/travis-ci/issues/5780#issuecomment-196308406
+  - |
+    function composer()
+    {
+      mv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
+      COMPOSER="$(which composer)"
+      $COMPOSER "$@"
+      STATUS=$?
+      mv ~/xdebug.ini /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
+
+      return $STATUS
+    }
+  - |
   - |
     if [ "$SYMFONY_VERSION" != "" ]; then
       composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
@@ -57,21 +70,21 @@ before_install:
   - |
     if [ -z "$COVERAGE_ENABLED" ]; then
       phpenv config-rm xdebug.ini
-    elseif [ -f
-      wget https://scrutinizer-ci.com/ocular.phar
-      mv ocular.phar $HOME/.bin/
+    elif [ ! -e $OCULAR_BIN ]; then
+      wget https://scrutinizer-ci.com/ocular.phar -O $OCULAR_BIN
+      alias ocular="php $OCULAR_BIN"
     fi
 
 install:
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
-  - phpunit --stop-on-failure $PHPUNIT_FLAGS
+  - phpunit --stop-on-failure --verbose $PHPUNIT_FLAGS
 
 after_script:
   - |
     if [ -n "$COVERAGE_ENABLED" ]; then
-      php $OCULAR_BIN code-coverage:upload --format=php-clover coverage.xml
+      ocular code-coverage:upload --format=php-clover coverage.xml
     fi
 
 notifications:
