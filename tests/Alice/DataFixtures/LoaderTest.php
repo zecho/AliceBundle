@@ -30,7 +30,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $aliceLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\Loader');
 
-        $processors = [$this->getMock('Nelmio\Alice\ProcessorInterface')];
+        $processors = [$this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal()];
         $loader = new Loader($aliceLoaderProphecy->reveal(), new ProcessorChain($processors), false, 5);
 
         $this->assertSame($processors, $loader->getProcessors());
@@ -54,7 +54,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
 
-        $processors = [$this->getMock('Nelmio\Alice\ProcessorInterface')];
+        $processors = [$this->prophesize('Nelmio\Alice\ProcessorInterface')->reveal()];
         $loader = new Loader($aliceLoaderProphecy->reveal(), new ProcessorChain($processors), false, 5);
         $objects = $loader->load($persisterProphecy->reveal(), []);
 

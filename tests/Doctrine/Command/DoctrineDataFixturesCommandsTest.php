@@ -34,6 +34,10 @@ class DoctrineDataFixturesCommandsTest extends CommandTestCase
      */
     public function testDoctrineORM()
     {
+        if (false === class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+        
         $command = $this->application->find('doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
@@ -58,6 +62,10 @@ EOF;
 
     public function testDoctrineODM()
     {
+        if (false === class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+
         $command = $this->application->find('doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);
@@ -74,6 +82,8 @@ EOF;
 
     public function testDoctrinePHPCR()
     {
+        $this->markTestSkipped('No implemented yet.');
+
         $command = $this->application->find('doctrine:mongodb:fixtures:load');
 
         $commandTester = new CommandTester($command);

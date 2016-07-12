@@ -22,6 +22,13 @@ use Prophecy\Argument;
  */
 class MongoDBExecutorTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (false === class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+    }
+    
     /**
      * @cover ::__construct
      */
