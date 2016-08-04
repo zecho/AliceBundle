@@ -100,7 +100,7 @@ Then create a fixture file in `src/AppBundle/DataFixtures/ORM`:
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
         name: <name()>
-        related_dummy: @related_dummy*
+        related_dummy: '@related_dummy*'
 ```
 
 ```yaml
