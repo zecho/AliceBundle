@@ -17,7 +17,7 @@ This bundle also provides data loaders and they are fully compatible with Doctri
 As a conclusion: if you are using advanced features of [DoctrineFixturesBundle][1], there is a little bit of work to fully migrate from it. If it's too much work, you can always keep both and run the two commands to load all your fixtures.
 
 Previous chapter: [Custom Alice Processors](alice-processors.md)<br />
-[Back to Table of Contents](../../../README.md#documentation)
+[Back to Table of Contents](../README.md#documentation)
 
 [1]: https://github.com/doctrine/DoctrineFixturesBundle
 [2]: https://github.com/nelmio/alice

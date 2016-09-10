@@ -127,5 +127,5 @@ The usage is the same as [HautelookAliceBundle with Doctrine ORM](#doctrine-orm)
 * `hautelook_alice:doctrine:mongodb:fixtures:load`
 * `hautelook_alice:doctrine:phpcr:fixtures:load`
 
-Previous chapter: [Basic usage](../../../README.md#basic-usage)<br />
+Previous chapter: [Basic usage](../README.md#basic-usage)<br />
 Next chapter: [Custom Faker Providers](faker-providers.md)

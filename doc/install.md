@@ -18,5 +18,5 @@
 
 Then install [HautelookAliceBundle](https://github.com/hautelook/AliceBundle#installation).
 
-Previous chapter: [Table of Contents](../../../README.md#documentation)<br />
-Next chapter: [Basic usage](../../../README.md#basic-usage)
+Previous chapter: [Table of Contents](../README.md#documentation)<br />
+Next chapter: [Basic usage](../README.md#basic-usage)

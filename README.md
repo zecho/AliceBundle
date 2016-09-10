@@ -20,17 +20,17 @@ Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.h
 
 1. [Install](#installation)
 2. [Basic usage](#basic-usage)
-3. [Advanced usage](src/Resources/doc/advanced-usage.md)
-    1. [Enabling databases](src/Resources/doc/advanced-usage.md#enabling-databases)
-    2. [Fixtures parameters](src/Resources/doc/advanced-usage.md#fixtures-parameters)
-    3. [Doctrine ORM](src/Resources/doc/advanced-usage.md#doctrine-orm)
-    4. [Doctrine ODM (MongoDB)](src/Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
-    5. [Doctrine PHPCR ODM](src/Resources/doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
-4. [Custom Faker Providers](src/Resources/doc/faker-providers.md)
-    1. [Simple Provider](src/Resources/doc/faker-providers.md#simple-provider)
-    2. [Advanced Provider](src/Resources/doc/faker-providers.md#advanced-provider)
-5. [Custom Alice Processors](src/Resources/doc/alice-processors.md)
-6. [DoctrineFixturesBundle support](src/Resources/doc/doctrine-fixtures-bundle.md)
+3. [Advanced usage](doc/advanced-usage.md)
+    1. [Enabling databases](doc/advanced-usage.md#enabling-databases)
+    2. [Fixtures parameters](doc/advanced-usage.md#fixtures-parameters)
+    3. [Doctrine ORM](doc/advanced-usage.md#doctrine-orm)
+    4. [Doctrine ODM (MongoDB)](doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+    5. [Doctrine PHPCR ODM](doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+4. [Custom Faker Providers](doc/faker-providers.md)
+    1. [Simple Provider](doc/faker-providers.md#simple-provider)
+    2. [Advanced Provider](doc/faker-providers.md#advanced-provider)
+5. [Custom Alice Processors](doc/alice-processors.md)
+6. [DoctrineFixturesBundle support](doc/doctrine-fixtures-bundle.md)
 7. [Resources](#resources)
 
 Other references:
@@ -40,7 +40,7 @@ Other references:
 ## Installation
 
 First you need install appropriate database managers (if you didn't install it yet), according to your project requirements.
-Check the documentation [here](src/Resources/doc/install.md).
+Check the documentation [here](doc/install.md).
 
 You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
 
@@ -116,7 +116,7 @@ Then simply load your fixtures with the doctrine command `php app/console fixtur
 If you want to load the fixtures of a bundle only, do `php app/console fixtures:load -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
-Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
+Next chapter: [Advanced usage](doc/advanced-usage.md)
 
 
 ## Resources
@@ -135,4 +135,4 @@ This bundle was originaly developped by [Baldur RENSCH](https://github.com/baldu
 
 ## License
 
-[![license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](Resources/meta/LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
