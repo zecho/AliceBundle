@@ -23,6 +23,13 @@ use Prophecy\Argument;
  */
 class ORMExecutorTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        if (false === class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+    }
+    
     /**
      * @cover ::__construct
      */

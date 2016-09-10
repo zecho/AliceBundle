@@ -4,84 +4,10 @@ imports:
 framework:
     secret: test
     router:
-        resource: %kernel.root_dir%/config/routing.yml
+        resource: "%kernel.root_dir%/config/routing.yml"
     form: ~
     validation:
         enabled: true
         enable_annotations: true
     session: ~
     test: ~
-
-doctrine:
-    orm:
-        default_entity_manager: default
-        entity_managers:
-            default:
-                connection: default
-                mappings:
-                    TestBundle: ~
-                    TestABundle: ~
-                    TestBBundle: ~
-                    TestCBundle: ~
-                    TestDBundle: ~
-            mysql:
-                connection: mysql
-                mappings:
-                    TestBundle: ~
-                    TestABundle: ~
-                    TestBBundle: ~
-                    TestCBundle: ~
-                    TestDBundle: ~
-    dbal:
-        connections:
-            default:
-                driver: pdo_sqlite
-                path: %kernel.cache_dir%/db.sqlite
-                charset: UTF8
-                wrapper_class: Doctrine\DBAL\Sharding\PoolingShardConnection
-                shard_choser: Doctrine\DBAL\Sharding\ShardChoser\MultiTenantShardChoser
-                shards:
-                    - { id: 1, path: %kernel.cache_dir%/db_shard.sqlite }
-            mysql:
-                driver: pdo_mysql
-                host: localhost
-                port: 3306
-                dbname: alice
-                user: root
-                password: null
-                charset: utf8
-                server_version: 5.6
-                wrapper_class: Doctrine\DBAL\Sharding\PoolingShardConnection
-                shard_choser: Doctrine\DBAL\Sharding\ShardChoser\MultiTenantShardChoser
-                shards:
-                    - id: 1
-                      host: localhost
-                      port: 3306
-                      dbname: alice_shard_1
-                      user: root
-                      password: null
-                      charset: utf8
-
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://localhost:27017
-            options: {}
-    default_database: test_database
-    document_managers:
-        default:
-            auto_mapping: true
-
-doctrine_phpcr:
-    session:
-        backend:
-            type: doctrinedbal
-            logging: true
-            profiling: true
-        workspace: default
-        username: admin
-        password: admin
-
-    odm:
-        auto_mapping: true
-        auto_generate_proxy_classes: %kernel.debug%

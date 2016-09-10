@@ -13,8 +13,6 @@ namespace Hautelook\AliceBundle\Tests\SymfonyApp;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
-use Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle;
-use Doctrine\Bundle\PHPCRBundle\DoctrinePHPCRBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\ABundle\TestABundle;
 use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\BBundle\TestBBundle;
@@ -29,11 +27,7 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        return [
-            new DoctrineBundle(),
-            new DoctrineFixturesBundle(),
-            new DoctrineMongoDBBundle(),
-            new DoctrinePHPCRBundle(),
+        $bundles = [
             new FrameworkBundle(),
             new HautelookAliceBundle(),
             new TestBundle(),
@@ -42,10 +36,32 @@ class AppKernel extends Kernel
             new TestCBundle(),
             new TestDBundle(),
         ];
+
+        if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
+            $bundles[] = new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle();
+        }
+
+        if (class_exists('Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle', true)) {
+            $bundles[] = new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
+        }
+
+        if (class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
+            $bundles[] = new \Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle();
+        }
+
+        return $bundles;
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__.'/config/config.yml');
+
+        if (class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
+            $loader->load(__DIR__.'/config/config_doctrine_orm.yml');
+        }
+
+        if (class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
+            $loader->load(__DIR__.'/config/config_doctrine_odm.yml');
+        }
     }
 }

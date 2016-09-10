@@ -100,7 +100,7 @@ Then create a fixture file in `src/AppBundle/DataFixtures/ORM`:
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
         name: <name()>
-        related_dummy: @related_dummy*
+        related_dummy: '@related_dummy*'
 ```
 
 ```yaml
@@ -111,9 +111,9 @@ AppBundle\Entity\RelatedDummy:
         name: <name()>
 ```
 
-Then simply load your fixtures with the doctrine command `php app/console hautelook_alice:doctrine:fixtures:load` (or `php app/console h:d:f:l`).
+Then simply load your fixtures with the doctrine command `php app/console fixtures:load`.
 
-If you want to load the fixtures of a bundle only, do `php app/console h:d:f:l -b MyFirstBundle -b MySecondBundle`.
+If you want to load the fixtures of a bundle only, do `php app/console fixtures:load -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
 Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
@@ -122,6 +122,7 @@ Next chapter: [Advanced usage](src/Resources/doc/advanced-usage.md)
 ## Resources
 
 * Behat extension: [AliceBundleExtension](https://github.com/theofidry/AliceBundleExtension)
+* Bundle for generating AliceBundle compatible fixtures directly from Doctrine entities: [AliceGeneratorBundle](https://github.com/trappar/AliceGeneratorBundle)
 * [Upgrade guide](UPGRADE.md)
   * [Upgrade from 0.X to 1.X](UPGRADE.md#from-0x-to-1x)
 * [Changelog](CHANGELOG.md)

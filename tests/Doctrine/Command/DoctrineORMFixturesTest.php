@@ -28,6 +28,10 @@ class DoctrineORMFixturesTest extends CommandTestCase
 
     protected function setUp()
     {
+        if (false === class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+
         parent::setUp();
 
         $this->application->add(

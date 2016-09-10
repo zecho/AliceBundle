@@ -11,15 +11,16 @@
 
 use Composer\Autoload\ClassLoader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver as ODMAnnotationDriver;
 
 /** @var ClassLoader $loader */
 $loader = require __DIR__.'/../../vendor/autoload.php';
 
-AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-ODMAnnotationDriver::registerAnnotationClasses();
+if (class_exists('Doctrine\Common\Annotations\AnnotationRegistry', true)) {
+    \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader([$loader, 'loadClass']);
+}
 
-AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-AnnotationRegistry::registerFile(__DIR__.'/../../vendor/doctrine/phpcr-odm/lib/Doctrine/ODM/PHPCR/Mapping/Annotations/DoctrineAnnotations.php');
+if (class_exists('Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver', true)) {
+    \Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver::registerAnnotationClasses();
+}
 
 return $loader;

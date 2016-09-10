@@ -21,6 +21,11 @@ use Nelmio\Alice\Persister\Doctrine;
  */
 class PHPCRExecutorTest extends \PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        $this->markTestSkipped('Not supported yet.');
+    }
+
     /**
      * @cover ::__construct
      */

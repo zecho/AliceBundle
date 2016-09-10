@@ -8,6 +8,9 @@
         <service id="hautelook_alice.doctrine.phpcr.fixtures_finder"
                  class="Hautelook\AliceBundle\Doctrine\Finder\FixturesFinder">
             <argument type="string">DataFixtures/PHPCR</argument>
+            <call method="setContainer">
+                <argument type="service" id="service_container" />
+            </call>
         </service>
 
         <service id="hautelook_alice.doctrine.phpcr.loader_generator"
