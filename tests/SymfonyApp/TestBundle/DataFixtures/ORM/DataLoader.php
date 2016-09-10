@@ -11,18 +11,6 @@
 
 namespace Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM;
 
-use Hautelook\AliceBundle\Doctrine\DataFixtures\AbstractLoader;
-
-class DataLoader extends AbstractLoader
+class DataLoader extends AbstractDataLoader
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getFixtures()
-    {
-        return [
-            __DIR__.'/product.yml',
-            __DIR__.'/brand.yml',
-        ];
-    }
 }

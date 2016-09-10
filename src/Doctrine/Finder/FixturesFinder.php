@@ -12,6 +12,8 @@
 namespace Hautelook\AliceBundle\Doctrine\Finder;
 
 use Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -21,8 +23,21 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
+class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder implements ContainerAwareInterface
 {
+    /**
+     * @var ContainerInterface|null
+     */
+    private $container;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     /**
      * {@inheritdoc}
      *
@@ -89,14 +104,21 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder
             require_once $file->getRealPath();
         }
 
+        $loaderInterface = 'Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface';
+
         // Check if PHP classes are data loaders or not
         foreach (get_declared_classes() as $className) {
             $reflectionClass = new \ReflectionClass($className);
             $sourceFile = $reflectionClass->getFileName();
 
             if (true === isset($phpClasses[$sourceFile])) {
-                if ($reflectionClass->implementsInterface('Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface')) {
-                    $loaders[$className] = new $className();
+                if ($reflectionClass->implementsInterface($loaderInterface) && !$reflectionClass->isAbstract()) {
+                    $loader = new $className();
+                    $loaders[$className] = $loader;
+
+                    if ($loader instanceof ContainerAwareInterface) {
+                        $loader->setContainer($this->container);
+                    }
                 }
             }
         }

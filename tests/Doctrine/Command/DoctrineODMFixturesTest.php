@@ -27,6 +27,10 @@ class DoctrineODMFixturesTest extends CommandTestCase
 
     protected function setUp()
     {
+        if (false === class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
+            $this->markTestSkipped('Bundle not installed.');
+        }
+        
         parent::setUp();
 
         $this->application->add(

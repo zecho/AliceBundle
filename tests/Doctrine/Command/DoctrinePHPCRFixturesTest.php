@@ -27,6 +27,8 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
     protected function setUp()
     {
+        $this->markTestSkipped();
+
         parent::setUp();
 
         $this->application->add(
@@ -38,7 +40,6 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
     public function testFixturesLoading()
     {
-        $this->markTestSkipped();
         $command = $this->application->find('hautelook_alice:doctrine:phpcr:fixtures:load');
 
         $commandTester = new CommandTester($command);
@@ -55,7 +56,6 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
      */
     public function testFixturesRegistering(array $inputs, $expected)
     {
-        $this->markTestSkipped();
         $command = $this->application->find('hautelook_alice:doctrine:phpcr:fixtures:load');
 
         $commandTester = new CommandTester($command);
