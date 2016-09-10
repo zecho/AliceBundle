@@ -46,6 +46,59 @@ class LoaderFunctionalTest extends KernelTestCase
 
         $this->loader->load(new FakePersister(), $files);
     }
+
+    /**
+     * @expectedException \Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException
+     */
+    public function testLoadFixtureWithNonexistentFixture()
+    {
+        $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/nonexistent_fixture.yml']);
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessage Unknown formatter "unknown"
+     */
+    public function testLoadFixtureWithNonexistentFunction()
+    {
+        $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/nonexistent_function.yml']);
+    }
+
+    /**
+     * @expectedException \Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException
+     */
+    public function testLoadFixtureWithNonexistentMatchFixture()
+    {
+        $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/nonexistent_match_fixture.yml']);
+    }
+
+    /**
+     * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage Parameter "unknown_param" was not found
+     */
+    public function testLoadFixtureWithNonexistentParameter()
+    {
+        $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/nonexistent_parameter.yml']);
+    }
+
+    public function testLoadFixtureWithNonexistentVariable()
+    {
+        try {
+            $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/nonexistent_variable.yml']);
+            $this->fails('Expected error to be thrown.');
+        } catch (\Exception $exception) {
+            $this->assertInstanceOf(\PHPUnit_Framework_Error_Notice::class, $exception);
+            $this->assertEquals('Undefined variable: username', $exception->getMessage());
+        }
+    }
+
+    /**
+     * @expectedException \Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException
+     */
+    public function testLoadFixtureWithPropertyOfNonexistentFixture()
+    {
+        $this->loader->load(new FakePersister(), [__DIR__.'/fixtures/property_of_nonexistent_fixture.yml']);
+    }
 }
 
 class FakePersister implements PersisterInterface

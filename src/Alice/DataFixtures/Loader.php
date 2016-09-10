@@ -199,7 +199,20 @@ class Loader implements LoaderInterface
 
                 $references = array_merge($references, $dataSet);
             } catch (\UnexpectedValueException $exception) {
-                $this->registerErrorMessage($fixtureFilePath, $exception->getMessage());
+                $message = $exception->getMessage();
+                if (1 !== preg_match(
+                        '/Instance .* is not defined/',
+                        $message
+                    )
+                    && 1 !== preg_match(
+                        '/Instance mask .* did not match any existing instance/',
+                        $message
+                    )
+                ) {
+                    throw $exception;
+                }
+
+                $this->registerErrorMessage($fixtureFilePath, $message);
             }
         }
 

@@ -226,7 +226,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $persisterProphecy->persist()->shouldNotBeCalled();
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
-        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException('Instance * is not defined'));
         $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(6);
 
         $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 5);
@@ -242,7 +242,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $persisterProphecy->persist()->shouldNotBeCalled();
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
-        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException());
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException('Instance * is not defined'));
         $fixturesLoaderProphecy->load('random/file', [])->shouldBeCalledTimes(11);
 
         $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 10);
@@ -259,19 +259,20 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             '\Hautelook\AliceBundle\Alice\DataFixtures\LoadingLimitException',
             'Loading files limit of 3 reached. Could not load the following files:'.PHP_EOL
             .'another/file:'.PHP_EOL
-            .' - That is a failed'.PHP_EOL
-            .'empty/message'.PHP_EOL
+            .' - Instance user1 is not defined'.PHP_EOL
+            .'empty/message:'.PHP_EOL
+            .' - Instance user2 is not defined'.PHP_EOL
             .'random/file:'.PHP_EOL
-            .' - Some dummy message'
+            .' - Instance user0 is not defined'
         );
 
         $persisterProphecy = $this->prophesize('Nelmio\Alice\PersisterInterface');
         $persisterProphecy->persist()->shouldNotBeCalled();
 
         $fixturesLoaderProphecy = $this->prophesize('Hautelook\AliceBundle\Alice\DataFixtures\Fixtures\LoaderInterface');
-        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException('Some dummy message'));
-        $fixturesLoaderProphecy->load('another/file', [])->willThrow(new \UnexpectedValueException('That is a failed'));
-        $fixturesLoaderProphecy->load('empty/message', [])->willThrow(new \UnexpectedValueException());
+        $fixturesLoaderProphecy->load('random/file', [])->willThrow(new \UnexpectedValueException('Instance user0 is not defined'));
+        $fixturesLoaderProphecy->load('another/file', [])->willThrow(new \UnexpectedValueException('Instance user1 is not defined'));
+        $fixturesLoaderProphecy->load('empty/message', [])->willThrow(new \UnexpectedValueException('Instance user2 is not defined'));
 
         $loader = new Loader($fixturesLoaderProphecy->reveal(), new ProcessorChain([]), false, 3);
         $loader->load($persisterProphecy->reveal(), ['random/file', 'another/file', 'empty/message']);
