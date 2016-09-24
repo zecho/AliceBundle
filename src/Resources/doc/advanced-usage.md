@@ -75,7 +75,7 @@ class DataLoader extends AbstractLoader
 
 ### Alice parameters
 
-You can already use parameters specifics to your fixture file with [Alice](https://github.com/nelmio/alice/blob/master/doc/fixtures-refactoring.md#parameters). To manage your fixtures parameters, you may wish to have a dedicated file for that:
+You can already use parameters specifics to your fixture file with [Alice](https://github.com/nelmio/alice/blob/2.x/doc/fixtures-refactoring.md#parameters). To manage your fixtures parameters, you may wish to have a dedicated file for that:
 
 ```yaml
 # src/AppBundle/DataFixtures/ORM/parameters.yml

@@ -92,5 +92,5 @@ services:
 Previous chapter: [Advanced usage](advanced-usage.md)<br />
 Next chapter: [Custom Alice Processors](alice-processors.md)
 
-[1]: https://github.com/nelmio/alice/blob/master/doc/customizing-data-generation.md#add-a-custom-faker-provider-class
+[1]: https://github.com/nelmio/alice/blob/2.x/doc/customizing-data-generation.md#add-a-custom-faker-provider-class
 [2]: https://github.com/fzaninotto/Faker/blob/master/src/Faker/Provider/Base.php

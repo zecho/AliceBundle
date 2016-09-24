@@ -15,7 +15,7 @@ use Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Brand;
 use Nelmio\Alice\ProcessorInterface;
 
 /**
- * @link   https://github.com/nelmio/alice/blob/master/doc/processors.md#processors
+ * @link   https://github.com/nelmio/alice/blob/2.x/doc/processors.md#processors
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
