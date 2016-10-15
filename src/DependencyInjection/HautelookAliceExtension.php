@@ -46,8 +46,6 @@ class HautelookAliceExtension extends Extension implements PrependExtensionInter
 
     /**
      * {@inheritdoc}
-     *
-     * @throws InvalidConfigurationException
      */
     public function load(array $configs, ContainerBuilder $container)
     {
@@ -60,6 +58,16 @@ class HautelookAliceExtension extends Extension implements PrependExtensionInter
 
         $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.xml');
+
+        // Ensure seed is either an integer or null.
+        if (!(is_int($config['seed']) || is_null($config['seed']))) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    'Expected the seed argument to be an integer or null. Got an argument of type %s instead.',
+                    gettype($config['seed'])
+                )
+            );
+        }
 
         // Deprecated factory methods handling.
         // To be removed and set directly on config file when bumping Symfony requirements to >=2.6

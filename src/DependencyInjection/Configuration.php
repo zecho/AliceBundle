@@ -55,7 +55,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('en_US')
                     ->info('Locale to use with faker')
                 ->end()
-                ->integerNode('seed')
+                ->scalarNode('seed')
                     ->defaultValue(1)
                     ->info('A seed to make sure faker generates data consistently across runs, set to null to disable')
                 ->end()
