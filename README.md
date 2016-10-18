@@ -4,7 +4,7 @@ AliceBundle
 A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
 [fzaninotto/Faker](https://github.com/fzaninotto/Faker).
 
-Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html), [Doctrine ODM](http://doctrine-mongodb-odm.readthedocs.org/en/latest/), [Doctrine PHPCR ODM](http://doctrine-phpcr-odm.readthedocs.org/en/latest/).
+Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html) and [Doctrine ODM](http://doctrine-mongodb-odm.readthedocs.org/en/latest/).
 
 [![Package version](https://img.shields.io/packagist/v/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
 [![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=1.x)
