@@ -118,7 +118,7 @@ class FixturesFinder implements FixturesFinderInterface
     {
         $fixtures = [];
 
-        $finder = SymfonyFinder::create()->in($path)->depth(0)->files()->name('*.yml');
+        $finder = SymfonyFinder::create()->in($path)->depth(0)->files()->name('*.yml')->name('*.php');
         foreach ($finder as $file) {
             /* @var SplFileInfo $file */
             $fixtures[$file->getRealPath()] = true;

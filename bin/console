@@ -10,7 +10,6 @@
  * file that was distributed with this source code.
  */
 
-
 // Debug only
 set_time_limit(0);
 

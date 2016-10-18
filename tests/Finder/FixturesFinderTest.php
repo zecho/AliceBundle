@@ -184,7 +184,7 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.php',
             ],
         ];
 
@@ -213,7 +213,7 @@ class FixturesFinderTest extends KernelTestCase
             ],
             'dev',
             [
-                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.yml',
+                '/home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/Bundle/ABundle/DataFixtures/ORM/aentity.php',
             ],
         ];
 

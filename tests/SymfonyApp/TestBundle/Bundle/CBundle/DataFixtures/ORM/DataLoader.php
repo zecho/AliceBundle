@@ -21,7 +21,7 @@ class DataLoader extends AbstractLoader
     public function getFixtures()
     {
         return [
-            '@TestABundle/DataFixtures/ORM/aentity.yml',
+            '@TestABundle/DataFixtures/ORM/aentity.php',
             '@TestBBundle/DataFixtures/ORM/bentity.yml',
         ];
     }
