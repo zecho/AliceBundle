@@ -9,46 +9,43 @@
  * file that was distributed with this source code.
  */
 
-namespace Hautelook\AliceBundle\Tests\DependencyInjection;
+namespace Hautelook\AliceBundle\DependencyInjection;
 
-use Hautelook\AliceBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
- * @coversDefaultClass Hautelook\AliceBundle\DependencyInjection\Configuration
+ * @covers \Hautelook\AliceBundle\DependencyInjection\Configuration
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
 class ConfigurationTest extends \PHPUnit_Framework_TestCase
 {
-    private static $defaultConfig = [
-        'db_drivers'    => [
-            'orm'     => null,
-            'mongodb' => null,
-            'phpcr'   => null,
-        ],
-        'locale'        => 'en_US',
-        'seed'          => 1,
-        'persist_once'  => false,
-        'loading_limit' => 5,
-    ];
-
-    /**
-     * @cover ::getConfigTreeBuilder
-     */
-    public function testDefaultConfig()
+    public function testDefaultValues()
     {
         $configuration = new Configuration();
-        $treeBuilder = $configuration->getConfigTreeBuilder();
         $processor = new Processor();
-        $config = $processor->processConfiguration(
+        $expected = [
+            'fixtures_path' => '/Resources/fixtures',
+        ];
+        $actual = $processor->processConfiguration($configuration, []);
+        $this->assertEquals($expected, $actual);
+    }
+
+    public function testDefaultValuesCanBeOverridden()
+    {
+        $configuration = new Configuration();
+        $processor = new Processor();
+        $expected = [
+            'fixtures_path' => '/Resources/path/tofixtures',
+        ];
+        $actual = $processor->processConfiguration(
             $configuration,
             [
-                'hautelook_alice' => [],
+                'hautelook_alice' => [
+                    'fixtures_path' => '/Resources/path/tofixtures',
+                ],
             ]
         );
-        $this->assertInstanceOf('Symfony\Component\Config\Definition\ConfigurationInterface', $configuration);
-        $this->assertInstanceOf('Symfony\Component\Config\Definition\Builder\TreeBuilder', $treeBuilder);
-        $this->assertSame(self::$defaultConfig, $config);
+        $this->assertEquals($expected, $actual);
     }
 }
