@@ -78,7 +78,7 @@ install:
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
-  - phpunit --stop-on-failure --verbose $PHPUNIT_FLAGS
+  - ./vendor/bin/phpunit --stop-on-failure --verbose $PHPUNIT_FLAGS
 
 after_script:
   - |
