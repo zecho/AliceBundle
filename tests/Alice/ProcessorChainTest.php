@@ -71,7 +71,7 @@ class ProcessorChainTest extends KernelTestCase
     {
         $this->assertSame(1, count($this->processorChain->getProcessors()));
         $this->assertSame(
-            'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Processor\BrandProcessor',
+            'Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\Processor\BrandProcessor',
             get_class($this->processorChain->getProcessors()[0]),
             'Expected custom Faker provider to be registered.'
         );

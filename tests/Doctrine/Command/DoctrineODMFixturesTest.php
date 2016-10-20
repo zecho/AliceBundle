@@ -30,7 +30,7 @@ class DoctrineODMFixturesTest extends CommandTestCase
         if (false === class_exists('Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle', true)) {
             $this->markTestSkipped('Bundle not installed.');
         }
-        
+
         parent::setUp();
 
         $this->application->add(
@@ -68,7 +68,7 @@ class DoctrineODMFixturesTest extends CommandTestCase
 
     private function verifyProducts()
     {
-        $products = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Product')->findAll();
+        $products = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\Functional\TestBundle\Document\Product')->findAll();
 
         $this->assertCount(10, $products);
     }
@@ -81,7 +81,7 @@ class DoctrineODMFixturesTest extends CommandTestCase
             [],
             <<<'EOF'
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/ODM/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/DataFixtures/ODM/product.yml
   > purging database
   > fixtures loaded
 

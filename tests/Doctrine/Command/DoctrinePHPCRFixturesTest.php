@@ -66,7 +66,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
 
     private function verifyProducts()
     {
-        $tasks = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Document\Task')->findAll();
+        $tasks = $this->documentManager->getRepository('\Hautelook\AliceBundle\Tests\Functional\TestBundle\Document\Task')->findAll();
 
         $this->assertCount(10, $tasks);
     }
@@ -79,7 +79,7 @@ class DoctrinePHPCRFixturesTest extends CommandTestCase
             [],
             <<<'EOF'
               > fixtures found:
-      - /home/travis/build/theofidry/AliceBundle/tests/SymfonyApp/TestBundle/DataFixtures/PHPCR/task.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/DataFixtures/PHPCR/task.yml
   > purging database
   > fixtures loaded
 

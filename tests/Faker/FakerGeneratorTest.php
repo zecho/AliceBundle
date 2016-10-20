@@ -42,7 +42,7 @@ class FakerGeneratorTest extends KernelTestCase
     public function testGenerator()
     {
         $this->assertSame(
-            'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Faker\Provider\FooProvider',
+            'Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\Faker\Provider\FooProvider',
             get_class($this->faker->getProviders()[0]),
             'Expected custom Faker provider to be registered.'
         );

@@ -61,7 +61,7 @@ class ProviderChainTest extends KernelTestCase
     {
         $this->assertSame(count((new Generator())->getProviders()) + 1, count($this->providerChain->getProviders()));
         $this->assertSame(
-            'Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\Faker\Provider\FooProvider',
+            'Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\Faker\Provider\FooProvider',
             get_class($this->providerChain->getProviders()[0]),
             'Expected custom Faker provider to be registered.'
         );

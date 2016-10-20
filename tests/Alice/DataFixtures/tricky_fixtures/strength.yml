@@ -1,4 +1,4 @@
-Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Strength:
+Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Strength:
     city_strength_{1..2}:
         name: Strength <current()>
         city: '@city_paris'

@@ -37,7 +37,7 @@ class DoctrineDataFixturesCommandsTest extends CommandTestCase
         if (false === class_exists('Doctrine\Bundle\DoctrineBundle\DoctrineBundle', true)) {
             $this->markTestSkipped('Bundle not installed.');
         }
-        
+
         $command = $this->application->find('doctrine:fixtures:load');
 
         $commandTester = new CommandTester($command);
@@ -45,15 +45,15 @@ class DoctrineDataFixturesCommandsTest extends CommandTestCase
 
         $expected = <<<'EOF'
               > purging database
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Ignored2\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\DataFixtures\ORM\Provider\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\AEnv\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\BEnv\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\DEnv\DataLoader
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\CBundle\DataFixtures\ORM\EEnv\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\ORM\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\ORM\Ignored\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\ORM\Ignored2\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\DataFixtures\ORM\Provider\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\CBundle\DataFixtures\ORM\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\CBundle\DataFixtures\ORM\AEnv\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\CBundle\DataFixtures\ORM\BEnv\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\CBundle\DataFixtures\ORM\DEnv\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\CBundle\DataFixtures\ORM\EEnv\DataLoader
 
 EOF;
 
@@ -73,7 +73,7 @@ EOF;
 
         $expected = <<<'EOF'
               > purging database
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
 
 EOF;
 
@@ -91,7 +91,7 @@ EOF;
 
         $expected = <<<'EOF'
               > purging database
-  > loading Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
+  > loading Hautelook\AliceBundle\Tests\Functional\TestBundle\Bundle\DBundle\DataFixtures\MongoDB\DataLoader
 
 EOF;
 

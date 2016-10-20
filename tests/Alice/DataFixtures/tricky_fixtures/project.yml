@@ -1,4 +1,4 @@
-Hautelook\AliceBundle\Tests\SymfonyApp\TestBundle\Entity\Project:
+Hautelook\AliceBundle\Tests\Functional\TestBundle\Entity\Project:
     project_alice:
         name: Alice
         city: '@city_paris'
