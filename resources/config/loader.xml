@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <!-- DataFixtures -->
+        <!-- Resources -->
         <service id="hautelook_alice.data_fixtures.loader.file_resolver_loader"
                  class="Fidry\AliceDataFixtures\Loader\FileResolverLoader">
             <argument type="service" id="fidry_alice_data_fixtures.doctrine.purger_loader" />

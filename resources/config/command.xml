@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="hautelook_alice.console_command_doctrine.doctrine_orm_load_data_fixtures_command"
+        <service id="hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command"
                  class="Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand">
             <argument type="string">hautelook:fixtures:load</argument>
             <argument type="service" id="doctrine" />

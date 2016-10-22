@@ -12,8 +12,8 @@
 namespace Hautelook\AliceBundle\DependencyInjection;
 
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
-use Hautelook\AliceBundle\SymfonyApp\AppKernel;
-use Hautelook\AliceBundle\SymfonyApp\ConfigurableKernel;
+use Hautelook\AliceBundle\Functional\AppKernel;
+use Hautelook\AliceBundle\Functional\ConfigurableKernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -85,18 +85,13 @@ class HautelookAliceBundleTest extends \PHPUnit_Framework_TestCase
 
         // Locators
         $this->assertInstanceOf(
-            \Hautelook\AliceBundle\Locator\EnvFilesLocator::class,
-            $this->kernel->getContainer()->get('hautelook_alice.locator.env_files')
+            \Hautelook\AliceBundle\Locator\EnvironmentlessFilesLocator::class,
+            $this->kernel->getContainer()->get('hautelook_alice.locator.environmentless')
         );
 
         $this->assertInstanceOf(
             \Hautelook\AliceBundle\Locator\EnvDirectoryLocator::class,
             $this->kernel->getContainer()->get('hautelook_alice.locator.env_directory')
-        );
-
-        $this->assertInstanceOf(
-            \Hautelook\AliceBundle\Locator\LocatorRegistry::class,
-            $this->kernel->getContainer()->get('hautelook_alice.locator.registry')
         );
 
         $this->assertInstanceOf(
@@ -130,7 +125,7 @@ class HautelookAliceBundleTest extends \PHPUnit_Framework_TestCase
         // Commands
         $this->assertInstanceOf(
             \Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand::class,
-            $this->kernel->getContainer()->get('hautelook_alice.console_command_doctrine.doctrine_orm_load_data_fixtures_command')
+            $this->kernel->getContainer()->get('hautelook_alice.console.command.doctrine.doctrine_orm_load_data_fixtures_command')
         );
     }
 }

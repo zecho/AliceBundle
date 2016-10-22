@@ -56,12 +56,46 @@ class EnvDirectoryLocatorTest extends \PHPUnit_Framework_TestCase
             []
         ];
 
-        yield 'bundle with with fixture files' => [
+        yield 'bundle with non-existing path' => [
+            [new EmptyBundle()],
+            'test',
+            'ftp://Resources/fixtures',
+            []
+        ];
+
+        yield 'bundle with file as path' => [
+            [new EmptyBundle()],
+            'test',
+            'Resources/fixtures/test/file1.yml',
+            []
+        ];
+
+        yield 'bundle with fixture files' => [
             [new DummyBundle()],
             'test',
             'Resources/fixtures',
             [
                 sprintf('%s/file1.yml', $prefix = realpath(__DIR__.'/../../fixtures/Locator/EnvDirectoryLocator/DummyBundle/Resources/fixtures/test')),
+                $prefix.'/file2.yaml',
+                $prefix.'/file3.php',
+                $prefix.'/file5.YML',
+                $prefix.'/file6.YAML',
+            ]
+        ];
+
+        yield 'bundle  with fixture files but no fixtures in env' => [
+            [new DummyBundle()],
+            '',
+            'Resources/fixtures',
+            []
+        ];
+
+        yield 'bundle with fixture files' => [
+            [new DummyBundle()],
+            '',
+            'Resources/fixtures/test',
+            [
+                $prefix.'/file1.yml',
                 $prefix.'/file2.yaml',
                 $prefix.'/file3.php',
                 $prefix.'/file5.YML',

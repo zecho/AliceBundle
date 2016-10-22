@@ -13,7 +13,7 @@ namespace Hautelook\AliceBundle\Resolver\File;
 
 use Fidry\AliceDataFixtures\FileResolverInterface;
 use Hautelook\AliceBundle\HttpKernel\DummyKernel;
-use Hautelook\AliceBundle\SymfonyApp\SimpleKernel;
+use Hautelook\AliceBundle\Functional\SimpleKernel;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -103,7 +103,7 @@ class KernelFileResolverTest extends \PHPUnit_Framework_TestCase
         $this->kernel->boot();
 
         $expected = [
-            realpath(__DIR__.'/../../../fixtures/SymfonyApp/SimpleBundle/files/foo.yml'),
+            realpath(__DIR__.'/../../../fixtures/Functional/SimpleBundle/files/foo.yml'),
             __FILE__,
         ];
 
@@ -176,8 +176,8 @@ class KernelFileResolverTest extends \PHPUnit_Framework_TestCase
         $this->kernel->boot();
 
         $expected = [
-            realpath(__DIR__.'/../../../fixtures/SymfonyApp/SimpleBundle/files/foo.yml'),
-            realpath(__DIR__.'/../../../fixtures/SymfonyApp/SimpleBundle/files/bar.yml'),
+            realpath(__DIR__.'/../../../fixtures/Functional/SimpleBundle/files/foo.yml'),
+            realpath(__DIR__.'/../../../fixtures/Functional/SimpleBundle/files/bar.yml'),
             __FILE__,
         ];
 

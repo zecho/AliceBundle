@@ -15,12 +15,6 @@
             "homepage": "https://github.com/theofidry"
         }
     ],
-    "require": {
-        "php": "^7.0",
-        "nelmio/alice": "^3.0@dev",
-        "symfony/finder": "^2.7||^3.0"
-    },
-    "prefer-stable": true,
     "autoload": {
         "psr-4": { "Hautelook\\AliceBundle\\": "src" }
     },
@@ -31,6 +25,12 @@
                 "tests"
             ]
         }
+    },
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.0",
+        "nelmio/alice": "^3.0@dev",
+        "symfony/finder": "^2.7||^3.0"
     },
     "require-dev": {
         "sllh/php-cs-fixer-styleci-bridge": "^1.0",

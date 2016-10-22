@@ -25,7 +25,7 @@ class ConfigurationTest extends \PHPUnit_Framework_TestCase
         $configuration = new Configuration();
         $processor = new Processor();
         $expected = [
-            'fixtures_path' => '/Resources/fixtures',
+            'fixtures_path' => 'Resources/fixtures/orm',
         ];
         $actual = $processor->processConfiguration($configuration, []);
         $this->assertEquals($expected, $actual);

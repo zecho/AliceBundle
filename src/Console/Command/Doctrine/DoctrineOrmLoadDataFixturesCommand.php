@@ -65,7 +65,7 @@ final class DoctrineOrmLoadDataFixturesCommand extends Command
                 'manager',
                 'em',
                 InputOption::VALUE_REQUIRED,
-                'The entity manager to use for this command. If not specified, use the default Doctrine ORM entity'
+                'The entity manager to use for this command. If not specified, use the default Doctrine fixtures entity'
                 .'manager.'
             )
             ->addOption(
@@ -83,7 +83,7 @@ final class DoctrineOrmLoadDataFixturesCommand extends Command
             ->addOption('purge-with-truncate',
                 null,
                 InputOption::VALUE_NONE,
-                'Purge data by using a database-level TRUNCATE statement when using Doctrine ORM.'
+                'Purge data by using a database-level TRUNCATE statement when using Doctrine fixtures.'
             )
         ;
     }

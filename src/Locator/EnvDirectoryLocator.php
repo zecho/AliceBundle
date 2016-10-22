@@ -57,12 +57,16 @@ final class EnvDirectoryLocator implements FixtureLocatorInterface
 
     private function locateBundleFiles(BundleInterface $bundle, string $environment): array
     {
-        $path = sprintf('%s/%s/%s', $bundle->getPath(), $this->fixturesPath, $environment);
-        if (false === file_exists($path)) {
+        $path = '' !== $environment
+            ? sprintf('%s/%s/%s', $bundle->getPath(), $this->fixturesPath, $environment)
+            : sprintf('%s/%s', $bundle->getPath(), $this->fixturesPath)
+        ;
+        $path = realpath($path);
+        if (false === $path || false === file_exists($path)) {
             return [];
         }
 
-        $files = SymfonyFinder::create()->files()->in($path)->name('/.*\.(ya?ml|php)$/i');
+        $files = SymfonyFinder::create()->files()->in($path)->depth(0)->name('/.*\.(ya?ml|php)$/i');
         $fixtureFiles = [];
         foreach ($files as $file) {
             $fixtureFiles[$file->getRealPath()] = true;

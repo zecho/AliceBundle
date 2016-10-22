@@ -11,24 +11,8 @@
 
 namespace Hautelook\AliceBundle;
 
-use Nelmio\Alice\Bridge\Symfony\DependencyInjection\Compiler\RegisterTagServicesPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class HautelookAliceBundle extends Bundle
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function build(ContainerBuilder $container)
-    {
-        parent::build($container);
-
-        $container->addCompilerPass(
-            new RegisterTagServicesPass(
-                'hautelook_alice.locator.registry',
-                'hautelook_alice.locator'
-            )
-        );
-    }
 }

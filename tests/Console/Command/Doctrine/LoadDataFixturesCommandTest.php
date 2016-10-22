@@ -11,9 +11,7 @@
 
 namespace Hautelook\AliceBundle\Console\Command\Doctrine;
 
-use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Hautelook\AliceBundle\Console\Command\Doctrine\DoctrineOrmLoadDataFixturesCommand;
 use Hautelook\AliceBundle\HttpKernel\DummyKernel;
 use Hautelook\AliceBundle\Persistence\ObjectMapper\FakeEntityManager;
 use Hautelook\AliceBundle\Loader\FakeLoader;

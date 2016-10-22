@@ -4,25 +4,18 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="hautelook_alice.locator.env_files"
-                 class="Hautelook\AliceBundle\Locator\EnvFilesLocator">
-            <argument type="string">%hautelook_alice.fixtures_path%</argument>
-            <tag name="hautelook_alice.locator" />
-        </service>
-
         <service id="hautelook_alice.locator.env_directory"
                  class="Hautelook\AliceBundle\Locator\EnvDirectoryLocator">
             <argument type="string">%hautelook_alice.fixtures_path%</argument>
-            <tag name="hautelook_alice.locator" />
         </service>
 
-        <service id="hautelook_alice.locator.registry"
-                 class="Hautelook\AliceBundle\Locator\LocatorRegistry">
-            <!-- Passed via a Compiler Pass -->
+        <service id="hautelook_alice.locator.environmentless"
+                 class="Hautelook\AliceBundle\Locator\EnvironmentlessFilesLocator">
+            <argument type="service" id="hautelook_alice.locator.env_directory" />
         </service>
 
         <service id="hautelook_alice.locator"
-                 alias="hautelook_alice.locator.registry" />
+                 alias="hautelook_alice.locator.environmentless" />
     </services>
 
 </container>
