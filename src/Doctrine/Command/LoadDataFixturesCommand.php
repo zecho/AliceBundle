@@ -117,6 +117,7 @@ class LoadDataFixturesCommand extends Command
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'Bundles where fixtures should be loaded.'
             )
+            ->addOption('fixtures', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'The directory to load data fixtures from.')
             ->addOption(
                 'manager',
                 'em',
@@ -186,7 +187,12 @@ class LoadDataFixturesCommand extends Command
 
         // Get bundles
         if (true === empty($bundles)) {
-            $bundles = $application->getKernel()->getBundles();
+            $dirOrFile = $input->getOption('fixtures');
+            if ($dirOrFile) {
+                $bundles = is_array($dirOrFile) ? $dirOrFile : [$dirOrFile];
+            } else {
+                $bundles = $application->getKernel()->getBundles();
+            }
         } else {
             $bundles = $this->bundlesResolver->resolveBundles($application, $bundles);
         }

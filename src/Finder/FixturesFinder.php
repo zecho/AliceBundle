@@ -13,7 +13,6 @@ namespace Hautelook\AliceBundle\Finder;
 
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\Finder\SplFileInfo;
-use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -44,7 +43,11 @@ class FixturesFinder implements FixturesFinderInterface
         // Add all fixtures to the new Doctrine loader
         $fixtures = [];
         foreach ($loadersPaths as $path) {
-            $fixtures = array_merge($fixtures, $this->getFixturesFromDirectory($path));
+            if (is_file($path)) {
+                $fixtures[] = $path;
+            } else {
+                $fixtures = array_merge($fixtures, $this->getFixturesFromDirectory($path));
+            }
         }
 
         if (0 === count($fixtures)) {
@@ -130,7 +133,7 @@ class FixturesFinder implements FixturesFinderInterface
     /**
      * Gets paths to directories containing loaders and fixtures files.
      *
-     * @param BundleInterface[] $bundles
+     * @param array<string, BundleInterface> $bundles
      * @param string            $environment
      *
      * @return string[] Real paths to loaders.
@@ -144,6 +147,11 @@ class FixturesFinder implements FixturesFinderInterface
 
         $paths = [];
         foreach ($bundles as $bundle) {
+            if (is_string($bundle) && file_exists($bundle)) {
+                    $paths[$bundle] = true;
+                    continue;
+            }
+
             $path = sprintf('%s/%s', $bundle->getPath(), $this->bundleFixturesPath);
             if (true === file_exists($path)) {
                 $paths[$path] = true;

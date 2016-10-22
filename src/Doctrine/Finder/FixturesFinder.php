@@ -78,7 +78,9 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder implem
         // Add all fixtures to the new Doctrine loader
         $loaders = [];
         foreach ($loadersPaths as $path) {
-            $loaders = array_merge($loaders, $this->getDataLoadersFromDirectory($path));
+            if (is_dir($path)) {
+                $loaders = array_merge($loaders, $this->getDataLoadersFromDirectory($path));
+            }
         }
 
         return $loaders;
@@ -93,32 +95,66 @@ class FixturesFinder extends \Hautelook\AliceBundle\Finder\FixturesFinder implem
      */
     private function getDataLoadersFromDirectory($path)
     {
-        $loaders = [];
+        $includedFilesFromPath = $this->includePhpFiles($path, array_flip(get_included_files()));
 
-        // Get all PHP classes in given folder
-        $phpClasses = [];
+        return $this->loadDataLoaders(
+            get_declared_classes(),
+            $includedFilesFromPath
+        );
+    }
+
+    /**
+     * Includes all the PHP files present in a folder and returns the list of the included files.
+     *
+     * @param string $path
+     * @param array  $includedFiles Real files path as keys
+     *
+     * @return array Loaded real files path as keys
+     */
+    private function includePhpFiles($path, array $includedFiles)
+    {
+        $includedFilesFromPath = [];
         $finder = SymfonyFinder::create()->depth(0)->in($path)->files()->name('*.php');
         foreach ($finder as $file) {
             /* @var SplFileInfo $file */
-            $phpClasses[$file->getRealPath()] = true;
-            require_once $file->getRealPath();
+            $includedFilesFromPath[$fileRealPath = $file->getRealPath()] = true;
+
+            if (false === array_key_exists($fileRealPath, $includedFiles)) {
+                require_once $fileRealPath;
+            }
         }
 
-        $loaderInterface = 'Hautelook\AliceBundle\Doctrine\DataFixtures\LoaderInterface';
+        return array_fill_keys(array_keys($includedFilesFromPath), true);
+    }
 
-        // Check if PHP classes are data loaders or not
-        foreach (get_declared_classes() as $className) {
+    /**
+     * Looks for loaders among the classes given.
+     *
+     * @param array $classNames
+     * @param array $includedFilesFromPath Real files path as keys
+     *
+     * @return LoaderInterface[]
+     */
+    private function loadDataLoaders(array $classNames, array $includedFilesFromPath)
+    {
+        $loaders = [];
+        $loaderInterface = LoaderInterface::class;
+
+        foreach ($classNames as $className) {
             $reflectionClass = new \ReflectionClass($className);
             $sourceFile = $reflectionClass->getFileName();
 
-            if (true === isset($phpClasses[$sourceFile])) {
-                if ($reflectionClass->implementsInterface($loaderInterface) && !$reflectionClass->isAbstract()) {
-                    $loader = new $className();
-                    $loaders[$className] = $loader;
+            if (false === isset($includedFilesFromPath[$sourceFile])) {
+                // The class does not come from the loaded directories
+                continue;
+            }
 
-                    if ($loader instanceof ContainerAwareInterface) {
-                        $loader->setContainer($this->container);
-                    }
+            if ($reflectionClass->implementsInterface($loaderInterface) && false === $reflectionClass->isAbstract()) {
+                $loader = new $className();
+                $loaders[$className] = $loader;
+
+                if ($loader instanceof ContainerAwareInterface) {
+                    $loader->setContainer($this->container);
                 }
             }
         }

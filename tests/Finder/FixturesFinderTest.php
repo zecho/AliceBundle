@@ -61,37 +61,6 @@ class FixturesFinderTest extends KernelTestCase
     }
 
     /**
-     * @cover ::getFixtures
-     * @cover ::getLoadersPaths
-     * @cover ::getFixturesFromDirectory
-     * @cover ::resolveFixtures
-     */
-    public function testGetFixturesWithInvalidPath()
-    {
-        // Non existent path
-        $finder = new FixturesFinder('ORM/DataFixtures');
-        $kernelProphecy = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
-
-        try {
-            $finder->getFixtures($kernelProphecy->reveal(), [new TestEmptyBundle()], 'dev');
-            $this->fail('Expected \InvalidArgumentException to be thrown.');
-        } catch (\InvalidArgumentException $exception) {
-            // Expected result
-        }
-
-        // Path to a file
-        $finder = new FixturesFinder('ORM/DataFixtures/brand.yml');
-        $kernelProphecy = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
-
-        try {
-            $finder->getFixtures($kernelProphecy->reveal(), [new TestEmptyBundle()], 'dev');
-            $this->fail('Expected \InvalidArgumentException to be thrown.');
-        } catch (\InvalidArgumentException $exception) {
-            // Expected result
-        }
-    }
-
-    /**
      * @cover ::resolveFixtures
      * @dataProvider unresolvedFixturesProvider
      *

@@ -81,21 +81,6 @@ class FixturesFinderTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @cover ::getFixtures
-     */
-    public function testGetFixturesWithInvalidPath()
-    {
-        $kernel = $this->prophesize('Symfony\Component\HttpKernel\KernelInterface');
-
-        try {
-            $this->finder->getFixtures($kernel->reveal(), [new TestEmptyBundle()], 'dev');
-            $this->fail('Expected \InvalidArgumentException to be thrown.');
-        } catch (\InvalidArgumentException $exception) {
-            // Expected result
-        }
-    }
-
-    /**
      * @cover ::getDataLoaders
      * @dataProvider dataLoadersProvider
      */
