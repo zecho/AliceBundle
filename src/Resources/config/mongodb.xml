@@ -19,8 +19,7 @@
         </service>
 
         <service id="hautelook_alice.doctrine.mongodb.command.load_command"
-                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
-                 lazy="true">
+                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand">
             <argument type="string">hautelook_alice:doctrine:mongodb:fixtures:load</argument>
             <argument type="service" id="doctrine_mongodb" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />

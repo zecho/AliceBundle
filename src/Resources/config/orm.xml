@@ -19,8 +19,7 @@
         </service>
 
         <service id="hautelook_alice.doctrine.command.deprecated_load_command"
-                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
-                 lazy="true">
+                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand">
             <argument type="string">hautelook_alice:fixtures:load</argument>
             <argument type="service" id="doctrine" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />
@@ -33,8 +32,7 @@
         </service>
 
         <service id="hautelook_alice.doctrine.command.load_command"
-                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand"
-                 lazy="true">
+                 class="Hautelook\AliceBundle\Doctrine\Command\LoadDataFixturesCommand">
             <argument type="string">hautelook_alice:doctrine:fixtures:load</argument>
             <argument type="service" id="doctrine" />
             <argument type="service" id="hautelook_alice.fixtures.loader" />
