@@ -15,12 +15,6 @@
             "homepage": "https://github.com/theofidry"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/lafourchette/DoctrineBundle"
-        }
-    ],
     "require": {
         "php": "^5.6||^7.0",
         "nelmio/alice": "^2.1 < 2.2.0",
@@ -28,7 +22,7 @@
     },
     "require-dev": {
         "doctrine/data-fixtures": "1.0.1",
-        "doctrine/doctrine-bundle": "dev-sharding-erb as 1.2.x-dev",
+        "doctrine/doctrine-bundle": "^1.6.4",
         "doctrine/doctrine-fixtures-bundle": "^2.2",
         "doctrine/mongodb-odm": "^1.0",
         "doctrine/mongodb-odm-bundle": "^3.0",

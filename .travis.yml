@@ -62,7 +62,7 @@ before_install:
   - |
     if [ -n "$COVERAGE_ENABLED" ] && [ ! -e $OCULAR_BIN ]; then
       wget https://scrutinizer-ci.com/ocular.phar -O $OCULAR_BIN
-      export alias ocular="php $OCULAR_BIN"
+      alias ocular="php $OCULAR_BIN"
     fi
 
 install:
