@@ -29,6 +29,15 @@ abstract class AbstractLoader implements ContainerAwareInterface, LoaderInterfac
      */
     protected $container;
 
+    public function __construct()
+    {
+        @trigger_error(
+            'Doctrine loaders support is deprecated since 1.4.0 and will be removed in 2.0.',
+            E_USER_DEPRECATED
+        );
+    }
+
+
     /**
      * {@inheritdoc}
      *

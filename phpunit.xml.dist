@@ -11,21 +11,21 @@
         <server name="SYMFONY__DATABASE__NAME" value="alice"/>
         <server name="SYMFONY__DATABASE__USER" value="root"/>
         <server name="SYMFONY__DATABASE__PASSWORD" value=""/>
+
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="102" />
     </php>
 
     <testsuites>
         <testsuite name="AliceBundle Test Suite">
-            <directory>./tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./</directory>
+            <directory>src</directory>
             <exclude>
-                <directory>./vendor</directory>
-                <directory>./tests</directory>
-                <directory>./src/Resources</directory>
+                <directory>src/Resources</directory>
             </exclude>
         </whitelist>
     </filter>
