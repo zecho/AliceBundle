@@ -4,8 +4,6 @@ sudo: false
 
 php:
   - '5.6'
-  - '7.0'
-  - nightly
 
 env:
   global:
@@ -34,9 +32,7 @@ matrix:
     - php: '5.6'
       env: SYMFONY_VERSION="~3.2.0@dev"
   allow_failures:
-    - php: '7.0'
-    - php: nightly
-    - env: SYMFONY_VERSION="~3.2.0@dev"
+    - env: SYMFONgY_VERSION="~3.2.0@dev"
 
 services:
   - mongodb
@@ -48,37 +44,32 @@ cache:
     - $HOME/.bin/
 
 before_install:
-  # From https://github.com/travis-ci/travis-ci/issues/5780#issuecomment-196308406
   - |
-    function composer()
-    {
-      mv /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini ~/xdebug.ini
-      COMPOSER="$(which composer)"
-      $COMPOSER "$@"
-      STATUS=$?
-      mv ~/xdebug.ini /home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini
-
-      return $STATUS
-    }
+    if [ -z "$COVERAGE_ENABLED" ]; then
+      (php --ini | grep xdebug) && phpenv config-rm xdebug.ini
+    fi
   - |
     if [ "$SYMFONY_VERSION" != "" ]; then
       composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
     fi
   - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
-  - echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - |
-    if [ -z "$COVERAGE_ENABLED" ]; then
-      phpenv config-rm xdebug.ini
-    elif [ ! -e $OCULAR_BIN ]; then
+    if [ "$TRAVIS_PHP_VERSION" = "5.6" ]; then
+      echo "extension = mongo.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    else
+      echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+    fi
+  - |
+    if [ -n "$COVERAGE_ENABLED" ] && [ ! -e $OCULAR_BIN ]; then
       wget https://scrutinizer-ci.com/ocular.phar -O $OCULAR_BIN
-      alias ocular="php $OCULAR_BIN"
+      export alias ocular="php $OCULAR_BIN"
     fi
 
 install:
   - composer update --prefer-dist --no-interaction $COMPOSER_FLAGS
 
 script:
-  - ./vendor/bin/phpunit --stop-on-failure --verbose $PHPUNIT_FLAGS
+  - vendor/bin/phpunit --stop-on-failure --verbose $PHPUNIT_FLAGS
 
 after_script:
   - |

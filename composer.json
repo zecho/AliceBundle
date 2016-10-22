@@ -47,10 +47,7 @@
         "doctrine/orm": "To use Doctrine ORM",
         "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
         "doctrine/mongodb-odm": "To use Doctrine MongoDB",
-        "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
-        "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
-        "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
-        "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony"
+        "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
