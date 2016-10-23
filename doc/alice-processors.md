@@ -1,17 +1,19 @@
 # Alice Processors
 
-Refer to [nelmio/alice](https://github.com/nelmio/alice/blob/2.x/doc/processors.md#processors) documentation to see how to create a Processor
-class. Given you declared a processor `AppBundle\DataFixtures\Processor\UserProcessor`, you have to declare it as a
-service with the tag `hautelook_alice.alice.processor` to register it:
+Given you declared a processor `App\DataFixtures\Processor\UserProcessor`, you have to declare it as a
+service with the tag `fidry_alice_data_fixtures.processor` to register it:
 
 ```yaml
 # app/config/services.yml
 
 services:
-    alice.processor.user:
-        class: AppBundle\DataFixtures\Processor\UserProcessor
-        tags: [ { name: hautelook_alice.alice.processor } ]
+    data_fixtures.processor.user:
+        class: App\DataFixtures\Processor\UserProcessor
+        tags: [ { name: fidry_alice_data_fixtures.processor } ]
 ```
 
+Refer to [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures/blob/master/doc/processors.md#processors)
+for a more advanced documentation.
+
 Previous chapter: [Custom Faker providers](faker-providers.md)<br />
-Next chapter: [DoctrineFixturesBundle support](doctrine-fixtures-bundle.md)
+[Back to Table of Contents](../README.md#documentation)

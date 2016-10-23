@@ -4,10 +4,14 @@ AliceBundle
 A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](https://github.com/nelmio/alice) and
 [fzaninotto/Faker](https://github.com/fzaninotto/Faker).
 
-Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.html) and [Doctrine ODM](http://doctrine-mongodb-odm.readthedocs.org/en/latest/).
+The database support is done in [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures). Check this
+project to know which database/ORM is supported.
+
+Warning: this doc is behind updated for HautelookAliceBundle 2.0. If you want to check the documentation for 1.x, head 
+[this way](https://github.com/hautelook/AliceBundle/blob/1.x).
 
 [![Package version](https://img.shields.io/packagist/v/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
-[![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=1.x)
+[![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
 [![SensioLabsInsight](https://img.shields.io/sensiolabs/i/d93a3fc4-3fe8-4be3-aa62-307f53898199.svg?style=flat-square)](https://insight.sensiolabs.com/projects/d93a3fc4-3fe8-4be3-aa62-307f53898199)
 [![Dependency Status](https://www.versioneye.com/user/projects/55d26478265ff6001a000084/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55d26478265ff6001a000084)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hautelook/AliceBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
@@ -21,33 +25,36 @@ Currently supports [Doctrine ORM](http://www.doctrine-project.org/projects/orm.h
 2. [Basic usage](#basic-usage)
 3. [Advanced usage](doc/advanced-usage.md)
     1. [Enabling databases](doc/advanced-usage.md#enabling-databases)
+    2. [Environment specific fixtures](doc/advanced-usage.md#environment-specific-fixtures)
     2. [Fixtures parameters](doc/advanced-usage.md#fixtures-parameters)
-    3. [Doctrine ORM](doc/advanced-usage.md#doctrine-orm)
-    4. [Doctrine ODM (MongoDB)](doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
-    5. [Doctrine PHPCR ODM](doc/advanced-usage.md#doctrine-odm-and-doctrine-phpcr-odm)
+        1. [Alice parameters](doc/advanced-usage.md#alice-parameters)
+        1. [Application parameters](doc/advanced-usage.md#application-parameters)
 4. [Custom Faker Providers](doc/faker-providers.md)
-    1. [Simple Provider](doc/faker-providers.md#simple-provider)
-    2. [Advanced Provider](doc/faker-providers.md#advanced-provider)
 5. [Custom Alice Processors](doc/alice-processors.md)
-6. [DoctrineFixturesBundle support](doc/doctrine-fixtures-bundle.md)
 7. [Resources](#resources)
 
 Other references:
 
 * [Knp University screencast](https://knpuniversity.com/screencast/alice-fixtures)
 
+
 ## Installation
 
-First you need install appropriate database managers (if you didn't install it yet), according to your project requirements.
-Check the documentation [here](doc/install.md).
-
-You can use [Composer](https://getcomposer.org/) to install the bundle to your project:
+Example of installation:
 
 ```bash
-composer require --dev hautelook/alice-bundle doctrine/data-fixtures
+composer require --dev hautelook/alice-bundle \
+doctrine/data-fixtures \
+theofidry/alice-persistence \
+doctrine/orm-bundle \
+doctrine/orm \
+doctrine/data-fixtures
 ```
 
-Of course, the `doctrine/data-fixtures` library is only needed if you're using Doctrine.
+Explanation: HautelookAliceBundle uses [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures) for the
+persistence layer. As FidryAliceDataFixtures is compatible with different databases/ORM, one cannot be installed by
+default. In the example above, we are using Doctrine ORM which requires
+`doctrine/orm doctrine/orm-bundle doctrine/data-fixtures`.
 
 Then, enable the bundle by updating your `app/AppKernel.php` file to enable the bundle:
 
@@ -57,9 +64,16 @@ Then, enable the bundle by updating your `app/AppKernel.php` file to enable the 
 
 public function registerBundles()
 {
-    //...
+    $bundles = [
+        new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
+        // ...
+        new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+    ];
+    
     if (in_array($this->getEnvironment(), ['dev', 'test'])) {
         //...
+        $bundles[] = new Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle;
+        $bundles[] = new Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle();
         $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
     }
 
@@ -73,28 +87,20 @@ Configure the bundle to your needs (example with default values):
 # app/config/config_dev.yml
 
 hautelook_alice:
-    db_drivers:
-        orm: ~          # Enable Doctrine ORM if is registered
-        mongodb: ~      # Enable Doctrine ODM if is registered
-        phpcr: ~        # Enable Doctrine PHPCR ODM if is registered
-    locale: en_US       # Locale to used for faker; must be a valid Faker locale otherwise will fallback to en_US
-    seed: 1             # A seed to make sure faker generates data consistently across runs, set to null to disable
-    persist_once: false # Only persist objects once if multiple files are passed
-    loading_limit: 5    # Maximum number of time the loader will try to load the files passed
+    fixtures_path: 'Resources/fixtures/orm' # Path to which to look for fixtures relative to the bundle path.
 ```
 
-Fore more information regarding the locale, refer to
-[Faker documentation on localization](https://github.com/fzaninotto/Faker#localization).
 
 ## Basic usage
 
 Assuming you are using [Doctrine](http://www.doctrine-project.org/projects/orm.html), make sure you
-have the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and [`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages installed.
+have the [`doctrine/doctrine-bundle`](https://github.com/doctrine/DoctrineBundle) and
+[`doctrine/data-fixtures`](https://github.com/doctrine/data-fixtures) packages installed.
 
-Then create a fixture file in `src/AppBundle/DataFixtures/ORM`:
+Then create a fixture file in `app/Resources/fixtures/orm`:
 
 ```yaml
-# src/AppBundle/DataFixtures/ORM/dummy.yml
+# app/Resources/fixtures/orm/dummy.yml
 
 AppBundle\Entity\Dummy:
     dummy_{1..10}:
@@ -103,7 +109,7 @@ AppBundle\Entity\Dummy:
 ```
 
 ```yaml
-# AppBundle/DataFixtures/ORM/related_dummy.yml
+# app/Resources/fixtures/orm/related_dummy.yml
 
 AppBundle\Entity\RelatedDummy:
     related_dummy_{1..10}:
@@ -126,11 +132,13 @@ Next chapter: [Advanced usage](doc/advanced-usage.md)
   * [Upgrade from 0.X to 1.X](UPGRADE.md#from-0x-to-1x)
 * [Changelog](CHANGELOG.md)
 
+
 ## Credits
 
 This bundle was originaly developped by [Baldur RENSCH](https://github.com/baldurrensch) and [HauteLook](https://github.com/hautelook). It is now maintained by [Théo FIDRY](https://github.com/theofidry).
 
 [Other contributors](https://github.com/hautelook/AliceBundle/graphs/contributors).
+
 
 ## License
 

@@ -1,5 +1,26 @@
 # Upgrading guide
 
+## From 1.x to 2.x
+
+1. Remove [DataLoaders](https://github.com/hautelook/AliceBundle/blob/1.x/src/Resources/doc/advanced-usage.md#using-data-loaders).
+   Instead of having a data loader to reference a file in a different folder, you can create a "dummy" file, which will
+   only contain an [include statement](https://github.com/nelmio/alice/blob/master/doc/fixtures-refactoring.md#including-files)
+   and refer to the other file.
+    
+1. The persistence layer has been moved to [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures). As
+   a result, refer to this library documentation for configuration related to the database.
+   
+1. Alice now [ships with a Symfony bundle](https://github.com/nelmio/alice/blob/master/doc/getting-started.md#symfony) so
+   some elements of the configuration have been moved from HautelookAliceBundle to NelmioAliceBundle.
+   
+1. The default and recommended location of fixtures have been changed from `src/AppBundle/DataFixtures{/ORM}` to
+   `Resources/fixtures{/orm}` instead (from `app` or one of your bundle).
+
+1. Faker provider are now registered with the tag `nelmio_alice.faker.provider` instead of `hautelook_alice.faker.provider`.
+
+1. Processors are now registered with the tag `fidry_alice_data_fixtures.processor` instead of `hautelook_alice.alice.processor`
+
+
 ## From 0.2 to 1.x
 
 ### Upgrading the data loaders
