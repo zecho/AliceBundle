@@ -6,8 +6,11 @@ php:
   - nightly
 
 branches:
-    only:
-        - master
+  only:
+    - master
+
+services:
+  - mysql
 
 matrix:
   fast_finish: true
@@ -20,11 +23,8 @@ matrix:
         - SYMFONY_VERSION="~3.0.0"
     - php: '7.0'
       env: SYMFONY_VERSION='~3.1.0'
-    - php: '7.0'
-      env: SYMFONY_VERSION='~3.2.0@dev'
   allow_failures:
     - php: nightly
-    - env: SYMFONY_VERSION="~3.2.0@dev"
 
 cache:
   directories:
@@ -37,22 +37,21 @@ before_install:
   - PHPUNIT_BIN='vendor/bin/phpunit'
   - PHPUNIT_CONFIG='phpunit.xml.dist'
   - PHPUNIT_FLAGS='--stop-on-failure --verbose'
-
+  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - |
-    XDEBUG_INI="/home/travis/.phpenv/versions/$(phpenv version-name)/etc/conf.d/xdebug.ini"
-    if [ -f "$XDEBUG_INI" ]; then
-        rm $XDEBUG_INI
+    if [ -z "$COVERAGE" ] && [ -f "$XDEBUG_INI" ]; then
+      phpenv config-rm xdebug.ini
     fi
   - |
     if [ "$SYMFONY_VERSION" != "" ]; then
       composer require "symfony/symfony:${SYMFONY_VERSION}" --no-update
     fi
-  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - |
     if [ -n "$COVERAGE" ] && [ ! -e $OCULAR_BIN ]; then
       wget https://scrutinizer-ci.com/ocular.phar -O $OCULAR_BIN
       alias ocular="php $OCULAR_BIN"
     fi
+  - mysql -u root -e 'create database hautelook_alice_bundle;'
 
 install:
   - composer update --prefer-dist $COMPOSER_FLAGS

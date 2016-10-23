@@ -53,9 +53,19 @@ class Product
         return $this->brand;
     }
 
+    public function setBrand(Brand $brand)
+    {
+        $this->brand = $brand;
+    }
+
     public function getDescription(): string
     {
         return $this->description;
+    }
+
+    public function setDescription(string $description)
+    {
+        $this->description = $description;
     }
 
     public function getId(): int

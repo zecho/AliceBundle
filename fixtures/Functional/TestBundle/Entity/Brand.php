@@ -13,6 +13,7 @@ namespace Hautelook\AliceBundle\Functional\TestBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Prophecy\Util\StringUtil;
 
 /**
  * @ORM\Entity
@@ -34,13 +35,6 @@ class Brand
      * @ORM\Column(type="string", length=100)
      */
     protected $name;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    public $canonicalName;
 
     /**
      * @var ArrayCollection
@@ -68,6 +62,11 @@ class Brand
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setName(string $name)
+    {
+        $this->name = $name;
     }
 
     /**

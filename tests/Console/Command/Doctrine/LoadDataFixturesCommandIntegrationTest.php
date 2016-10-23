@@ -114,286 +114,267 @@ class LoadDataFixturesCommandIntegrationTest extends \PHPUnit_Framework_TestCase
         $this->verifyBrands();
     }
 
-//    /**
-//     * @dataProvider loadCommandProvider
-//     *
-//     * @param array  $inputs
-//     * @param string $expected
-//     */
-//    public function testFixturesRegisteringUsingSQLite(array $inputs, $expected)
-//    {
-//        $command = $this->application->find('hautelook:fixtures:load');
-//        $commandTester = new CommandTester($command);
-//        $commandTester->execute(array_merge([
-//            'command' => 'hautelook:fixtures:load',
-//        ],
-//            $inputs),
-//            ['interactive' => false]);
-//        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
-//    }
-//
-//    /**
-//     * @dataProvider             loadCommandProvider
-//     *
-//     * @param array  $inputs
-//     * @param string $expected
-//     *
-//     * @expectedException \InvalidArgumentException
-//     * @expectedExceptionMessage Doctrine fixtures Manager named "foo" does not exist.
-//     */
-//    public function testFixturesRegisteringUsingInvalidManager(array $inputs, $expected)
-//    {
-//        $command = $this->application->find('hautelook:fixtures:load');
-//        $commandTester = new CommandTester($command);
-//        $commandTester->execute(array_merge([
-//            'command' => 'hautelook:fixtures:load',
-//            '--manager' => 'foo',
-//        ],
-//            $inputs),
-//            ['interactive' => false]);
-//        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
-//    }
-//
-//    /**
-//     * @dataProvider loadCommandProvider
-//     *
-//     * @param array  $inputs
-//     * @param string $expected
-//     */
-//    public function testFixturesRegisteringUsingMySQL(array $inputs, $expected)
-//    {
-//        $command = $this->application->find('hautelook:fixtures:load');
-//        $commandTester = new CommandTester($command);
-//        $commandTester->execute(array_merge([
-//            'command' => 'hautelook:fixtures:load',
-//            '--manager' => 'mysql',
-//        ],
-//            $inputs),
-//            ['interactive' => false]);
-//        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
-//    }
-//
-//    public function loadCommandProvider()
-//    {
-//        $data = [];
-//        $data[] = [
-//            [],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'dev',
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'Prod',
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Prod/prod.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'prod',
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Prod/prod.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'dev',
-//                '--bundle' => [
-//                    'TestBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'dev',
-//                '--bundle' => [
-//                    'TestABundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'dev',
-//                '--bundle' => [
-//                    'TestBundle',
-//                    'TestABundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'dev',
-//                '--bundle' => [
-//                    'TestCBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'ignored',
-//                '--bundle' => [
-//                    'TestBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'ignored2',
-//                '--bundle' => [
-//                    'TestBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Ignored2/notIgnored.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'provider',
-//                '--bundle' => [
-//                    'TestBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Provider/testFormatter.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        $data[] = [
-//            [
-//                '--env' => 'Shard',
-//                '--shard' => 1,
-//                '--bundle' => [
-//                    'TestBundle',
-//                ],
-//            ],
-//            <<<'EOF'
-//              > fixtures found:
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
-//      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Shard/shard.yml
-//  > purging database
-//  > fixtures loaded
-//EOF
-//        ];
-//        // Fix paths
-//        foreach ($data as $index => $dataSet) {
-//            $data[$index][1] = str_replace('/home/travis/build/theofidry/AliceBundle', getcwd(), $dataSet[1]);
-//        }
-//
-//        return $data;
-//    }
-//
-//    /**
-//     * @param string $expected
-//     * @param string $display
-//     */
-//    protected function assertFixturesDisplayEquals($expected, $display)
-//    {
-//        $expected = $this->normalizeFixturesDisplay($expected);
-//        $display = $this->normalizeFixturesDisplay($display);
-//        $this->assertCount(0, array_diff($expected, $display));
-//    }
-//
-//    /**
-//     * @param string $display
-//     *
-//     * @return string[]
-//     */
-//    private function normalizeFixturesDisplay($display)
-//    {
-//        $display = trim($display, ' ');
-//        $display = trim($display, "\t");
-//        $display = preg_replace('/\n/', '', $display);
-//        $display = explode('  > loading ', $display);
-//        array_shift($display);
-//
-//        return $display;
-//    }
+    /**
+     * @dataProvider loadCommandProvider
+     *
+     * @expectedException \InvalidArgumentException
+     * @expectedExceptionMessageRegExp /^Doctrine (fixtures|ORM) Manager named "foo" does not exist\.$/
+     */
+    public function testFixturesRegisteringUsingInvalidManager(array $inputs, string $expected)
+    {
+        $command = $this->application->find('hautelook:fixtures:load');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(
+            array_merge(
+                [
+                    'command' => 'hautelook:fixtures:load',
+                    '--manager' => 'foo',
+                ],
+                $inputs
+            ),
+            ['interactive' => false]
+        );
+
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
+    }
+
+    /**
+     * @dataProvider loadCommandProvider
+     */
+    public function testFixturesRegisteringUsingMySQL(array $inputs, string $expected)
+    {
+        $command = $this->application->find('hautelook:fixtures:load');
+        $commandTester = new CommandTester($command);
+        $commandTester->execute(
+            array_merge(
+                [
+                    'command' => 'hautelook:fixtures:load',
+                    '--manager' => 'default',
+                ],
+                $inputs
+            ),
+            ['interactive' => false]
+        );
+
+        $this->assertFixturesDisplayEquals($expected, $commandTester->getDisplay());
+    }
+
+    public function loadCommandProvider()
+    {
+        $data = [];
+
+        $data[] = [
+            [],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev',
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'Prod',
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'prod',
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Prod/prod.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev',
+                '--bundle' => [
+                    'TestBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev',
+                '--bundle' => [
+                    'TestABundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev',
+                '--bundle' => [
+                    'TestBundle',
+                    'TestABundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Dev/dev.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'dev',
+                '--bundle' => [
+                    'TestCBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/ABundle/Resources/fixtures/aentity.php
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Bundle/BBundle/Resources/fixtures/bentity.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'ignored',
+                '--bundle' => [
+                    'TestBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'ignored2',
+                '--bundle' => [
+                    'TestBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Ignored2/notIgnored.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        $data[] = [
+            [
+                '--env' => 'provider',
+                '--bundle' => [
+                    'TestBundle',
+                ],
+            ],
+            <<<'EOF'
+              > fixtures found:
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/brand.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/product.yml
+      - /home/travis/build/theofidry/AliceBundle/tests/Functional/TestBundle/Resources/fixtures/Provider/testFormatter.yml
+  > purging database
+  > fixtures loaded
+EOF
+        ];
+
+        // Fix paths
+        foreach ($data as $index => $dataSet) {
+            $data[$index][1] = str_replace('/home/travis/build/theofidry/AliceBundle', getcwd(), $dataSet[1]);
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param string $expected
+     * @param string $display
+     */
+    protected function assertFixturesDisplayEquals($expected, $display)
+    {
+        $expected = $this->normalizeFixturesDisplay($expected);
+        $display = $this->normalizeFixturesDisplay($display);
+        $this->assertCount(0, array_diff($expected, $display));
+    }
+
+    /**
+     * @param string $display
+     *
+     * @return string[]
+     */
+    private function normalizeFixturesDisplay($display)
+    {
+        $display = trim($display, ' ');
+        $display = trim($display, "\t");
+        $display = preg_replace('/\n/', '', $display);
+        $display = explode('  > loading ', $display);
+        array_shift($display);
+
+        return $display;
+    }
 
     private function runConsole(string $command, array $options = []): int
     {

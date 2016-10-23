@@ -4,14 +4,8 @@ doctrine:
         connections:
             default:
                 driver: pdo_mysql
-                dbname: fidry_alice_data_fixtures
-                user: root
-                password: ~
+                dbname: '%database.name%'
+                user: '%database.user%'
+                password: '%database.password%'
     orm:
         auto_mapping: true
-        mappings:
-            fixture_entities:
-                type: xml
-                dir: '%kernel.root_dir%/config/doctrine'
-                is_bundle: false
-                prefix: Fidry\AliceDataFixtures\Bridge\Symfony\Entity

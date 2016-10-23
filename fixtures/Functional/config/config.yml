@@ -1,3 +1,6 @@
+parameters:
+    test_app.random: 'Random parameter'
+
 framework:
     secret: test
     router:
@@ -9,3 +12,25 @@ framework:
         enable_annotations: true
     session: ~
     test: ~
+
+monolog:
+    handlers:
+        buffered:
+            type: buffer
+            handler: easylog
+            level: debug
+        easylog:
+            type: service
+            id: easycorp.easylog.handler
+        console:
+            type:   console
+
+services:
+    data_fixtures.faker.provider.foo:
+        class: Hautelook\AliceBundle\Functional\TestBundle\DataFixtures\Faker\Provider\FooProvider
+        tags: [ { name: nelmio_alice.faker.provider } ]
+
+    easycorp.easylog.handler:
+        class: EasyCorp\EasyLog\EasyLogHandler
+        arguments:
+            - '%kernel.logs_dir%/%kernel.environment%.log'
