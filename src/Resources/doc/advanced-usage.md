@@ -22,6 +22,7 @@ If you which to explicitly enable or disable a driver, just put its value to `tr
 
 If you were using [DoctrineFixturesBundle](https://github.com/doctrine/DoctrineFixturesBundle), take a look at [DoctrineFixturesBundle supports](doctrine-fixtures-bundle.md).
 
+**Warning:** DoctrineFixturesBundle support is deprecated since 1.0 and will be removed in 2.0.
 
 ### Environment specific fixtures
 
@@ -44,6 +45,8 @@ Then, when you're running the command `php app/console h:d:f:l --env=inte`, it w
 
 
 ### Using Data loaders
+
+**Warning**: data loaders are deprecated since 1.4.0 and will be removed in 2.0.
 
 Sometime, you will want to omit some fixtures or use fixtures from another bundle. This can be achieved by using a data loader, which is a class implementing the [`Hautelook\Doctrine\DataFixtures\LoaderInterface`](../../Doctrine/DataFixtures/LoaderInterface.php) or extending [`Hautelook\Doctrine\DataFixtures\AbstractLoader`](../../Doctrine/DataFixtures/AbstractLoader.php). You can then specify the fixtures you wish to use by giving an absolute or relative path or even with the `@Bundlename` notation:
 
@@ -106,7 +109,7 @@ AppBundle\Entity\Dummy:
         name: <foo(<{app.alice.parameters.parameter1}>)>
 ```
 
-For more, check [Alice documentation](https://github.com/nelmio/alice#table-of-contents).
+For more, check [Alice documentation](https://github.com/nelmio/alice/tree/2.x#table-of-contents).
 
 ### Application parameters
 

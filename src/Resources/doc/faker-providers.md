@@ -2,14 +2,14 @@
 
 ## Simple Provider
 
-As explained in [nelmio/alice](https://github.com/nelmio/alice#custom-faker-data-providers) documentation, you have
-three ways to declare custom data provider. To use [Custom Faker Provider classes][1]
+As explained in [nelmio/alice](https://github.com/nelmio/alice/blob/2.x/doc/customizing-data-generation.md#customizing-data-generation) 
+documentation, you have three ways to declare custom data provider. To use [Custom Faker Provider classes][1]
 you will have to declare them as services:
 
 ```php
 <?php
 
-namespace AppBundle\DataFixtures\Faker\Provider;
+namespace AppBundle\DataFixtures\Provider;
 
 class FooProvider
 {
