@@ -44,11 +44,11 @@ Example of installation:
 
 ```bash
 composer require --dev hautelook/alice-bundle \
-doctrine/data-fixtures \
-theofidry/alice-persistence \
-doctrine/orm-bundle \
-doctrine/orm \
-doctrine/data-fixtures
+  doctrine/data-fixtures \
+  theofidry/alice-persistence \
+  doctrine/orm-bundle \
+  doctrine/orm \
+  doctrine/data-fixtures
 ```
 
 Explanation: HautelookAliceBundle uses [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures) for the
