@@ -1,13 +1,15 @@
 language: php
-
-sudo: false
-
 php:
   - '5.6'
 
 env:
   global:
     - OCULAR_BIN=$HOME/.bin/ocular.phar
+
+branches:
+    only:
+        - master
+        - 1.x
 
 matrix:
   fast_finish: true
