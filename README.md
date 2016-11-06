@@ -7,8 +7,8 @@ A [Symfony](http://symfony.com) bundle to manage fixtures with [nelmio/alice](ht
 The database support is done in [FidryAliceDataFixtures](https://github.com/theofidry/AliceDataFixtures). Check this
 project to know which database/ORM is supported.
 
-Warning: this doc is behind updated for HautelookAliceBundle 2.0. If you want to check the documentation for 1.x, head 
-[this way](https://github.com/hautelook/AliceBundle/blob/1.x).
+**Warning: this doc is behind updated for HautelookAliceBundle 2.0. If you want to check the documentation for 1.x, head
+[this way](https://github.com/hautelook/AliceBundle/blob/1.x).**
 
 [![Package version](https://img.shields.io/packagist/v/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
 [![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
@@ -16,7 +16,6 @@ Warning: this doc is behind updated for HautelookAliceBundle 2.0. If you want to
 [![Dependency Status](https://www.versioneye.com/user/projects/55d26478265ff6001a000084/badge.svg?style=flat)](https://www.versioneye.com/user/projects/55d26478265ff6001a000084)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hautelook/AliceBundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hautelook/AliceBundle.svg?b=master&style=flat-square)](https://scrutinizer-ci.com/g/hautelook/AliceBundle/?branch=master)
-
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/hautelook/AliceBundle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 ## Documentation
