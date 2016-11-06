@@ -43,11 +43,10 @@ Other references:
 Example of installation:
 
 ```bash
-composer require --dev hautelook/alice-bundle \
-  doctrine/data-fixtures \
-  theofidry/alice-persistence \
+composer require --dev hautelook/alice-bundle:^2.0@dev \
+  theofidry/alice-data-fixtures:^1.0@dev \
   doctrine/orm-bundle \
-  doctrine/orm \
+  doctrine/orm:^2.5 \
   doctrine/data-fixtures
 ```
 
