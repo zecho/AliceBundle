@@ -13,7 +13,6 @@ namespace Hautelook\AliceBundle\Functional;
 
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Symfony\Component\HttpKernel\Kernel;
@@ -33,7 +32,6 @@ class ConfigurableKernel extends Kernel
         return array_merge(
             [
                 new FrameworkBundle(),
-                new MonologBundle(),
                 new HautelookAliceBundle(),
             ],
             $this->addedBundles

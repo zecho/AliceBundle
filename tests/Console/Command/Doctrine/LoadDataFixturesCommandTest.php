@@ -68,7 +68,9 @@ class LoadDataFixturesCommandTest extends \PHPUnit_Framework_TestCase
         $application = new FrameworkBundleConsoleApplication(new DummyKernel());
         $application->setAutoExit(false);
 
-        $input = new ArrayInput([]);
+        $input = new ArrayInput([
+            'command' => 'hautelook:fixtures:load',
+        ]);
         $input->setInteractive(false);
 
         /** @var ManagerRegistry|ObjectProphecy $managerRegistryProphecy */
@@ -81,7 +83,7 @@ class LoadDataFixturesCommandTest extends \PHPUnit_Framework_TestCase
         $loaderProphecy = $this->prophesize(LoaderInterface::class);
         $loaderProphecy
             ->load($application, $manager, [], 'fake_env', false, false, null)
-            ->shouldBeCalled();
+            ->shouldBeCalled()
         ;
         /** @var LoaderInterface $loader */
         $loader = $loaderProphecy->reveal();
@@ -101,6 +103,7 @@ class LoadDataFixturesCommandTest extends \PHPUnit_Framework_TestCase
         $application->setAutoExit(false);
 
         $input = new ArrayInput([
+            'command' => 'hautelook:fixtures:load',
             '--manager' => 'DummyManager',
             '--env' => 'dummy_env',
             '--bundle' => [

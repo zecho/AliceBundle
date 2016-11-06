@@ -13,24 +13,13 @@ framework:
     session: ~
     test: ~
 
-monolog:
-    handlers:
-        buffered:
-            type: buffer
-            handler: easylog
-            level: debug
-        easylog:
-            type: service
-            id: easycorp.easylog.handler
-        console:
-            type:   console
-
 services:
     data_fixtures.faker.provider.foo:
         class: Hautelook\AliceBundle\Functional\TestBundle\DataFixtures\Faker\Provider\FooProvider
         tags: [ { name: nelmio_alice.faker.provider } ]
 
-    easycorp.easylog.handler:
-        class: EasyCorp\EasyLog\EasyLogHandler
-        arguments:
-            - '%kernel.logs_dir%/%kernel.environment%.log'
+    app.city_factory:
+        class: Hautelook\AliceBundle\Functional\TestBundle\Entity\CityFactory
+
+    logger:
+        class: Psr\Log\NullLogger

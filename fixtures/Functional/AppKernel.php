@@ -13,11 +13,9 @@ namespace Hautelook\AliceBundle\Functional;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
-use Fidry\PsyshBundle\PsyshBundle;
 use Hautelook\AliceBundle\HautelookAliceBundle;
 use Nelmio\Alice\Bridge\Symfony\NelmioAliceBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
-use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -30,12 +28,10 @@ class AppKernel extends Kernel
     {
         return [
             new FrameworkBundle(),
-            new MonologBundle(),
             new NelmioAliceBundle(),
             new FidryAliceDataFixturesBundle(),
             new DoctrineBundle(),
             new HautelookAliceBundle(),
-            new PsyshBundle(),
         ];
     }
 

@@ -33,32 +33,16 @@
         "symfony/finder": "^2.7||^3.0"
     },
     "require-dev": {
-        "sllh/php-cs-fixer-styleci-bridge": "^1.0",
-        "symfony/console": "^2.3||~3.0",
-        "symfony/framework-bundle": "^2.3||^3.0",
-        "symfony/phpunit-bridge": "^2.7.4||^3.0",
-        "symfony/yaml": "^2.3||^3.0",
-        "symfony/validator": "^2.3|^3.0",
-        "bamarni/composer-bin-plugin": "dev-master",
-        "theofidry/alice-data-fixtures": "^1.0@dev",
-        "doctrine/orm": "^2.5",
-        "doctrine/doctrine-bundle": "^1.6",
         "doctrine/data-fixtures": "^1.2",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/orm": "^2.5",
         "phpunit/phpunit": "^5.6",
-        "theofidry/psysh-bundle": "^2.0",
-        "symfony/monolog-bundle": "^2.11",
-        "easycorp/easy-log-handler": "^1.0"
+        "symfony/symfony": "^2.3||~3.0",
+        "symfony/phpunit-bridge": "^3.1",
+        "theofidry/alice-data-fixtures": "^1.0@dev"
     },
     "suggest": {
-        "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle",
-        "doctrine/data-fixtures": "To use Doctrine fixtures loader",
-        "doctrine/orm": "To use Doctrine ORM",
-        "doctrine/doctrine-bundle": "To use Doctrine with Symfony",
-        "doctrine/mongodb-odm": "To use Doctrine MongoDB",
-        "doctrine/mongodb-odm-bundle": "To use Doctrine MongoDB with Symfony",
-        "jackalope/jackalope-doctrine-dbal": "To use Doctrine PHPCR",
-        "doctrine/phpcr-odm": "To use Doctrine PHPCR ODM",
-        "doctrine/phpcr-bundle": "To use Doctrine PHPCR ODM with Symfony"
+        "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle"
     },
     "extra": {
         "branch-alias": {

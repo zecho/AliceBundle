@@ -72,7 +72,7 @@ For more, check [Alice documentation](https://github.com/nelmio/alice#table-of-c
 You can access out of the box to your application parameters:
 
 ```yaml
-# AppBundle/DataFixtures/ORM/dummy.yml
+# app/Resources/fixtures/orm/dummy.yml
 
 AppBundle\Entity\Dummy:
     dummy_0:
@@ -81,6 +81,21 @@ AppBundle\Entity\Dummy:
 
 Alice parameters will **not** be injected in your application `ParameterBag`, i.e. are not re-usable outside of the
 fixtures.
+
+
+# Use service factories
+
+If your entity `AppBundle\Entity\Dummy` requires a factory registered as a service (Alice already supports [static
+factories](https://github.com/nelmio/alice/blob/master/doc/complete-reference.md#specifying-constructor-arguments)) to
+`dummy_factory` be instantiated, you can specify it as a constructor:
+
+```yaml
+# app/Resources/fixtures/orm/dummy.yml
+
+AppBundle\Entity\Dummy:
+    dummy_0:
+        __construct: { '@dummy_factory::create': ['<username()>'] }
+```
 
 
 Previous chapter: [Basic usage](../README.md#basic-usage)<br />

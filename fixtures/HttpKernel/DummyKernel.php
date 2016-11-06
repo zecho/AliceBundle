@@ -172,4 +172,13 @@ class DummyKernel implements KernelInterface
     public function getCharset()
     {
         $this->__call(__METHOD__, func_get_args());
-}}
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function isClassInActiveBundle($class)
+    {
+        $this->__call(__METHOD__, func_get_args());
+    }
+}

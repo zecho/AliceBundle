@@ -16,6 +16,11 @@ env:
     - PHPUNIT_CONFIG='phpunit.xml.dist'
     - PHPUNIT_FLAGS='--stop-on-failure --verbose'
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - $HOME/.bin/
+
 services:
   - mysql
 
@@ -26,7 +31,7 @@ matrix:
       env:
         - COMPOSER_FLAGS="--prefer-lowest"
         - COVERAGE="true"
-        - PHPUNIT_FLAGS="--coverage-text --coverage-clover=coverage.xml"
+        - PHPUNIT_FLAGS="--stop-on-failure --verbose --coverage-text --coverage-clover=coverage.xml"
         - SYMFONY_VERSION="~3.1.0"
     - php: '7.0'
       env: SYMFONY_VERSION='~3.2.0@dev'
@@ -34,11 +39,6 @@ matrix:
     - php: nightly
     - php: '7.1'
     - env: SYMFONY_VERSION='~3.2.0@dev'
-
-cache:
-  directories:
-    - $HOME/.composer/cache/files
-    - $HOME/.bin/
 
 before_install:
   - set -eo pipefail
