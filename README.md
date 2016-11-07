@@ -43,10 +43,12 @@ Other references:
 Example of installation:
 
 ```bash
+# If you are using Symfony standard edition, you can skip this step
+composer require doctrine/doctrine-bundle doctrine/orm:^2.5
+
 composer require --dev hautelook/alice-bundle:^2.0@dev \
+  nelmio/alice:^3.0@dev \
   theofidry/alice-data-fixtures:^1.0@dev \
-  doctrine/orm-bundle \
-  doctrine/orm:^2.5 \
   doctrine/data-fixtures
 ```
 
