@@ -46,9 +46,9 @@ Example of installation:
 # If you are using Symfony standard edition, you can skip this step
 composer require doctrine/doctrine-bundle doctrine/orm:^2.5
 
-composer require --dev hautelook/alice-bundle:^2.0@dev \
-  nelmio/alice:^3.0@dev \
-  theofidry/alice-data-fixtures:^1.0@dev \
+composer require --dev hautelook/alice-bundle:^2.0@beta \
+  nelmio/alice:^3.0@beta \
+  theofidry/alice-data-fixtures:^1.0@beta \
   doctrine/data-fixtures
 ```
 
