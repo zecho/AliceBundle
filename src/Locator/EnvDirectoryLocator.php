@@ -49,7 +49,20 @@ final class EnvDirectoryLocator implements FixtureLocatorInterface
     {
         $fixtureFiles = [];
         foreach ($bundles as $bundle) {
-            $fixtureFiles = $fixtureFiles + $this->locateBundleFiles($bundle, $environment);
+            //// ---$fixtureFiles = $fixtureFiles + $this->locateBundleFiles($bundle, $environment);---
+            // do not use "plus" operator:
+            //    "... for keys that exist in both arrays, the elements from the left-hand array will be used,
+            //    and the matching elements from the right-hand array will be IGNORED."
+            //
+            //        $bundle1Files = ['bundle1/001-A.php', 'bundle1/001-B.php', 'bundle1/001-C.php'];
+            //        $bundle2Files = ['bundle2/001-A.php', 'bundle2/001-B.php', 'bundle2/001-C.php', 'bundle2/001-D.php'];
+            //        ----------
+            //        var_dump($bundle1Files + $bundle2Files);
+            //        > 4 elements: 3 from bundle1 + 1 from bundle2
+            //
+            //        var_dump(array_merge($bundle1Files, $bundle2Files));
+            //        > 7 elements: 3 from bundle1 + 4 from bundle2
+            $fixtureFiles = array_merge($fixtureFiles, $this->locateBundleFiles($bundle, $environment));
         }
 
         return $fixtureFiles;
@@ -67,6 +80,10 @@ final class EnvDirectoryLocator implements FixtureLocatorInterface
         }
 
         $files = SymfonyFinder::create()->files()->in($path)->depth(0)->name('/.*\.(ya?ml|php)$/i');
+
+        // this sort helps to set an order with filename ( "001-root-level-fixtures.yml", "002-another-level-fixtures.yml", ... )
+        $files = $files->sort( function ($a, $b) { return strcasecmp($a, $b); } );
+
         $fixtureFiles = [];
         foreach ($files as $file) {
             $fixtureFiles[$file->getRealPath()] = true;

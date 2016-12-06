@@ -15,6 +15,7 @@ use Hautelook\AliceBundle\FixtureLocatorInterface;
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\AnotherDummyBundle\AnotherDummyBundle;
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\DummyBundle\DummyBundle;
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\EmptyBundle\EmptyBundle;
+use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\OneMoreDummyBundle\OneMoreDummyBundle;
 
 /**
  * @covers \Hautelook\AliceBundle\Locator\EnvDirectoryLocator
@@ -118,5 +119,55 @@ class EnvDirectoryLocatorTest extends \PHPUnit_Framework_TestCase
             'resources',
             []
         ];
+    }
+
+    /**
+     * @param array  $bundles
+     * @param string $environment
+     * @param string $path
+     * @param array  $expected
+     *
+     * @dataProvider provideSetsForSeveralBundles
+     */
+    public function testGetFilesFromSeveralBundles(
+        array $bundles,
+        string $environment,
+        string $path,
+        array $expected
+    ) {
+        $locator = new EnvDirectoryLocator($path);
+        $actual = $locator->locateFiles($bundles, $environment);
+
+        $this->assertEquals($expected, $actual, '', 0.0, 10, true);
+    }
+
+    public function provideSetsForSeveralBundles()
+    {
+        $baseDir = 'Resources'.DIRECTORY_SEPARATOR.'fixtures';
+        $env = 'test';
+
+        $bundleA = new DummyBundle();
+        $bundleB = new OneMoreDummyBundle();
+
+        $prefixA = $bundleA->getPath().DIRECTORY_SEPARATOR.$baseDir.DIRECTORY_SEPARATOR.$env.DIRECTORY_SEPARATOR;
+        $prefixB = $bundleB->getPath().DIRECTORY_SEPARATOR.$baseDir.DIRECTORY_SEPARATOR.$env.DIRECTORY_SEPARATOR;
+
+        yield 'several bundles with fixture files' => [
+            [$bundleA, $bundleB],
+            $env,
+            $baseDir,
+            [
+                $prefixA.'file1.yml',
+                $prefixA.'file2.yaml',
+                $prefixA.'file3.php',
+                $prefixA.'file5.YML',
+                $prefixA.'file6.YAML',
+
+                $prefixB.'file1.yml',
+                $prefixB.'file2.yaml',
+                $prefixB.'file3.php',
+            ]
+        ];
+
     }
 }
