@@ -8,7 +8,7 @@ The database support is done in [FidryAliceDataFixtures](https://github.com/theo
 project to know which database/ORM is supported.
 
 **Warning: this doc is behind updated for HautelookAliceBundle 2.0. If you want to check the documentation for 1.x, head
-[this way](https://github.com/hautelook/AliceBundle/blob/1.x).**
+[this way](https://github.com/hautelook/AliceBundle/tree/1.x).**
 
 [![Package version](https://img.shields.io/packagist/vpre/hautelook/alice-bundle.svg?style=flat-square)](https://packagist.org/packages/hautelook/alice-bundle)
 [![Build Status](https://img.shields.io/travis/hautelook/AliceBundle/master.svg?style=flat-square)](https://travis-ci.org/hautelook/AliceBundle?branch=master)
