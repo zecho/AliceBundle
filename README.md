@@ -117,9 +117,9 @@ AppBundle\Entity\RelatedDummy:
         name: <name()>
 ```
 
-Then simply load your fixtures with the doctrine command `php app/console fixtures:load`.
+Then simply load your fixtures with the doctrine command `php bin/console fixtures:load`.
 
-If you want to load the fixtures of a bundle only, do `php app/console fixtures:load -b MyFirstBundle -b MySecondBundle`.
+If you want to load the fixtures of a bundle only, do `php bin/console fixtures:load -b MyFirstBundle -b MySecondBundle`.
 
 [See more](#documentation).<br />
 Next chapter: [Advanced usage](doc/advanced-usage.md)
