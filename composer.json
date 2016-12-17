@@ -29,7 +29,7 @@
     "prefer-stable": true,
     "require": {
         "php": "^7.0",
-        "nelmio/alice": "^3.0@dev",
+        "nelmio/alice": "^3.0-beta3@beta",
         "symfony/finder": "^2.7||^3.0"
     },
     "require-dev": {
@@ -39,7 +39,7 @@
         "phpunit/phpunit": "^5.6",
         "symfony/symfony": "^2.3||~3.0",
         "symfony/phpunit-bridge": "^3.1",
-        "theofidry/alice-data-fixtures": "^1.0@dev"
+        "theofidry/alice-data-fixtures": "^1.0-beta4@beta"
     },
     "suggest": {
         "theofidry/alice-bundle-extension": "Behat extension for HautelookAliceBundle"

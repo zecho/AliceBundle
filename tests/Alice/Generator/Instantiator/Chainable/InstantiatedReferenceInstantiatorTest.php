@@ -160,7 +160,7 @@ class InstantiatedReferenceInstantiatorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException \Nelmio\Alice\Exception\Generator\Instantiator\InstantiationException
+     * @expectedException \Nelmio\Alice\Throwable\Exception\Generator\Instantiator\InstantiationException
      * @expectedExceptionMessage Instantiated fixture was expected to be an instance of "Dummy". Got "Hautelook\AliceBundle\Functional\TestBundle\Entity\City" instead.
      */
     public function testThrowsAnExceptionIfTheInstantiatedFixtureIsNotOfTheClassExpected()

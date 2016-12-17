@@ -13,7 +13,7 @@ namespace Hautelook\AliceBundle\Resolver\Bundle;
 
 use Hautelook\AliceBundle\BundleResolverInterface;
 use Hautelook\AliceBundle\Exception\Resolver\BundleNotFoundException;
-use Nelmio\Alice\NotClonableTrait;
+use Nelmio\Alice\IsAServiceTrait;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
@@ -21,7 +21,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 final class SimpleBundleResolver implements BundleResolverInterface
 {
-    use NotClonableTrait;
+    use IsAServiceTrait;
 
     /**
      * {@inheritdoc}

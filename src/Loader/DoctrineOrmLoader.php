@@ -16,14 +16,14 @@ use Hautelook\AliceBundle\FixtureLocatorInterface;
 use Hautelook\AliceBundle\LoaderInterface as AliceBundleLoaderInterface;
 use Hautelook\AliceBundle\LoggerAwareInterface;
 use Hautelook\AliceBundle\Resolver\File\KernelFileResolver;
-use Nelmio\Alice\NotClonableTrait;
+use Nelmio\Alice\IsAServiceTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAwareInterface
 {
-    use NotClonableTrait;
+    use IsAServiceTrait;
 
     /**
      * @var BundleResolverInterface

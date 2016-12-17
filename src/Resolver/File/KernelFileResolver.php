@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace Hautelook\AliceBundle\Resolver\File;
 
 use Fidry\AliceDataFixtures\FileResolverInterface;
-use Nelmio\Alice\NotClonableTrait;
+use Nelmio\Alice\IsAServiceTrait;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -22,7 +22,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 final class KernelFileResolver implements FileResolverInterface
 {
-    use NotClonableTrait;
+    use IsAServiceTrait;
 
     /**
      * @var KernelInterface

@@ -12,7 +12,7 @@
 namespace Hautelook\AliceBundle\Locator;
 
 use Hautelook\AliceBundle\FixtureLocatorInterface;
-use Nelmio\Alice\NotClonableTrait;
+use Nelmio\Alice\IsAServiceTrait;
 use Symfony\Component\Finder\Finder as SymfonyFinder;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
  */
 final class EnvDirectoryLocator implements FixtureLocatorInterface
 {
-    use NotClonableTrait;
+    use IsAServiceTrait;
 
     /**
      * @var string

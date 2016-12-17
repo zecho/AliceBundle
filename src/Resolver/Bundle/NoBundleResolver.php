@@ -12,7 +12,7 @@
 namespace Hautelook\AliceBundle\Resolver\Bundle;
 
 use Hautelook\AliceBundle\BundleResolverInterface;
-use Nelmio\Alice\NotClonableTrait;
+use Nelmio\Alice\IsAServiceTrait;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
@@ -22,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  */
 final class NoBundleResolver implements BundleResolverInterface
 {
-    use NotClonableTrait;
+    use IsAServiceTrait;
 
     /**
      * @var BundleResolverInterface
