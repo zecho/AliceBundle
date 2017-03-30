@@ -26,12 +26,12 @@ class Product
     public $id;
 
     /**
-     * @MongoDB\String
+     * @MongoDB\Field(type="string")
      */
     public $name;
 
     /**
-     * @MongoDB\Float
+     * @MongoDB\Field(type="float")
      */
     public $price;
 }

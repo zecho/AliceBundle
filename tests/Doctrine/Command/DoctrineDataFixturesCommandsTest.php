@@ -82,7 +82,7 @@ EOF;
 
     public function testDoctrinePHPCR()
     {
-        $this->markTestSkipped('No implemented yet.');
+        $this->markTestSkipped('Not implemented yet.');
 
         $command = $this->application->find('doctrine:mongodb:fixtures:load');
 
