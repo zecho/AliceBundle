@@ -168,6 +168,13 @@ class EnvDirectoryLocatorTest extends \PHPUnit_Framework_TestCase
                 $prefixB.'file3.php',
             ]
         ];
+    }
 
+    public function testGetFilesFromProjectDir()
+    {
+        $basePath = realpath(__DIR__.'/../..');
+
+        $locator = new EnvDirectoryLocator('fixtures/fixture_files', $basePath);
+        $this->assertSame([$basePath.'/fixtures/fixture_files/city.yml'], $locator->locateFiles([], ''));
     }
 }

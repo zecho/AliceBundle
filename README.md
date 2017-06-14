@@ -88,7 +88,7 @@ Configure the bundle to your needs (example with default values):
 # app/config/config_dev.yml
 
 hautelook_alice:
-    fixtures_path: 'Resources/fixtures/orm' # Path to which to look for fixtures relative to the bundle path.
+    fixtures_path: 'Resources/fixtures/orm' # Path to which to look for fixtures relative to the project directory or the bundle path.
 ```
 
 

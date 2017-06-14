@@ -7,6 +7,7 @@
         <service id="hautelook_alice.locator.env_directory"
                  class="Hautelook\AliceBundle\Locator\EnvDirectoryLocator">
             <argument type="string">%hautelook_alice.fixtures_path%</argument>
+            <argument type="string" on-invalid="ignore">%kernel.project_dir%</argument>
         </service>
 
         <service id="hautelook_alice.locator.environmentless"
