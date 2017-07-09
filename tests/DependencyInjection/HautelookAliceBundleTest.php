@@ -14,6 +14,7 @@ namespace Hautelook\AliceBundle\DependencyInjection;
 use Fidry\AliceDataFixtures\Bridge\Symfony\FidryAliceDataFixturesBundle;
 use Hautelook\AliceBundle\Functional\AppKernel;
 use Hautelook\AliceBundle\Functional\ConfigurableKernel;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -23,7 +24,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class HautelookAliceBundleTest extends \PHPUnit_Framework_TestCase
+class HautelookAliceBundleTest extends TestCase
 {
     /**
      * @var KernelInterface|null

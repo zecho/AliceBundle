@@ -18,13 +18,14 @@ use Hautelook\AliceBundle\LoaderInterface;
 use Hautelook\AliceBundle\Logger\FakeLogger;
 use Hautelook\AliceBundle\LoggerAwareInterface;
 use Hautelook\AliceBundle\Resolver\FakeBundleResolver;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Hautelook\AliceBundle\Loader\DoctrineOrmLoader
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class DoctrineOrmLoaderTest extends \PHPUnit_Framework_TestCase
+class DoctrineOrmLoaderTest extends TestCase
 {
     public function testIsALoader()
     {

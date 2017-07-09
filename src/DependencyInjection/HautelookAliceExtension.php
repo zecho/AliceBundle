@@ -92,5 +92,14 @@ final class HautelookAliceExtension extends Extension
                 $file->getRelativePathname()
             );
         }
+
+        if ($container->hasParameter('kernel.project_dir')) {
+            $rootDir = $container->getParameter('kernel.project_dir');
+        } else {
+            $rootDir = $container->getParameter('kernel.root_dir');
+        }
+
+        $locatorDefinition = $container->getDefinition('hautelook_alice.locator.env_directory');
+        $locatorDefinition->addArgument($rootDir);
     }
 }

@@ -15,13 +15,14 @@ namespace Hautelook\AliceBundle\Tests\Alice\Loader;
 
 use Hautelook\AliceBundle\Functional\TestBundle\Entity\CityFactory;
 use Hautelook\AliceBundle\Functional\TestKernel;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class ServiceFactoryTest extends \PHPUnit_Framework_TestCase
+class ServiceFactoryTest extends TestCase
 {
     public function testCanUseServiceFactory()
     {

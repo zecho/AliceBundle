@@ -16,13 +16,14 @@ use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\AnotherDummyBundle\Another
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\DummyBundle\DummyBundle;
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\EmptyBundle\EmptyBundle;
 use Hautelook\AliceBundle\Locator\EnvDirectoryLocator\OneMoreDummyBundle\OneMoreDummyBundle;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Hautelook\AliceBundle\Locator\EnvDirectoryLocator
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class EnvDirectoryLocatorTest extends \PHPUnit_Framework_TestCase
+class EnvDirectoryLocatorTest extends TestCase
 {
     public function testIsAFixtureLocator()
     {

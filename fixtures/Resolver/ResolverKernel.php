@@ -35,5 +35,6 @@ class ResolverKernel extends Kernel
      */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
+        // Do nothing.
     }
 }

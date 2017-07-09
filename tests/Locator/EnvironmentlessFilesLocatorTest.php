@@ -16,6 +16,7 @@ use Hautelook\AliceBundle\FixtureLocatorInterface;
 use Hautelook\AliceBundle\Locator\EnvFilesLocator;
 use Hautelook\AliceBundle\Locator\EnvFilesLocator\DummyBundle;
 use Hautelook\AliceBundle\Locator\EnvironmentlessFilesLocator;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 
@@ -24,7 +25,7 @@ use Prophecy\Prophecy\ObjectProphecy;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class EnvironmentlessFilesLocatorTest extends \PHPUnit_Framework_TestCase
+class EnvironmentlessFilesLocatorTest extends TestCase
 {
     public function testIsAFixtureLocator()
     {

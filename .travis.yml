@@ -33,12 +33,13 @@ matrix:
         - COVERAGE="true"
         - PHPUNIT_FLAGS="--stop-on-failure --verbose --coverage-text --coverage-clover=coverage.xml"
         - SYMFONY_VERSION="~3.1.0"
-    - php: '7.0'
-      env: SYMFONY_VERSION='~3.2.0@dev'
+    - php: '7.1'
+      env: SYMFONY_VERSION='~3.2.0'
+    - php: '7.1'
+      env: SYMFONY_VERSION='~3.3.0'
   allow_failures:
     - php: nightly
-    - php: '7.1'
-    - env: SYMFONY_VERSION='~3.2.0@dev'
+    - php: '7.2'
 
 before_install:
   - set -eo pipefail
@@ -57,6 +58,9 @@ before_install:
           wget https://scrutinizer-ci.com/ocular.phar -O $OCULAR_BIN
           alias ocular="php $OCULAR_BIN"
       fi
+    else
+      PHPUNIT_BIN="php -d zend.enable_gc=0
+       $PHPUNIT_BIN"
     fi
   - mysql -u root -e 'create database hautelook_alice_bundle;'
 

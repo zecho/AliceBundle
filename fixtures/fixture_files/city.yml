@@ -1,5 +1,5 @@
 Hautelook\AliceBundle\Functional\TestBundle\Entity\City:
     city_{0..10}:
-        __construct:
+        __factory:
             '@app.city_factory::create':
                 - <current()>

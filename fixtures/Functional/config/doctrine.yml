@@ -4,8 +4,8 @@ doctrine:
         connections:
             default:
                 driver: pdo_mysql
-                dbname: '%database.name%'
-                user: '%database.user%'
-                password: '%database.password%'
+                dbname: hautelook_alice_bundle
+                user: root
+                password: ~
     orm:
         auto_mapping: true

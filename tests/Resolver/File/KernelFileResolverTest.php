@@ -14,6 +14,7 @@ namespace Hautelook\AliceBundle\Resolver\File;
 use Fidry\AliceDataFixtures\FileResolverInterface;
 use Hautelook\AliceBundle\HttpKernel\DummyKernel;
 use Hautelook\AliceBundle\Functional\SimpleKernel;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
@@ -21,7 +22,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class KernelFileResolverTest extends \PHPUnit_Framework_TestCase
+class KernelFileResolverTest extends TestCase
 {
     /**
      * @var KernelInterface|null

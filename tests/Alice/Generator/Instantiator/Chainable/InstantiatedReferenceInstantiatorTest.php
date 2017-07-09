@@ -28,6 +28,7 @@ use Nelmio\Alice\Generator\Instantiator\ChainableInstantiatorInterface;
 use Nelmio\Alice\Generator\ResolvedFixtureSet;
 use Nelmio\Alice\ObjectBag;
 use Nelmio\Alice\ParameterBag;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\Container;
 
 /**
@@ -35,7 +36,7 @@ use Symfony\Component\DependencyInjection\Container;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class InstantiatedReferenceInstantiatorTest extends \PHPUnit_Framework_TestCase
+class InstantiatedReferenceInstantiatorTest extends TestCase
 {
     public function testIsAChainableInstantiator()
     {

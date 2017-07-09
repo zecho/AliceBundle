@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\HttpKernel;
 
 use Hautelook\AliceBundle\NotCallableTrait;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -67,7 +68,7 @@ class DummyKernel implements KernelInterface
      */
     public function boot()
     {
-        $this->__call(__METHOD__, func_get_args());
+        // Do nothing
     }
 
     /**
@@ -83,7 +84,7 @@ class DummyKernel implements KernelInterface
      */
     public function getBundles()
     {
-        $this->__call(__METHOD__, func_get_args());
+        return [];
     }
 
     /**
@@ -139,7 +140,7 @@ class DummyKernel implements KernelInterface
      */
     public function getContainer()
     {
-        $this->__call(__METHOD__, func_get_args());
+        return new Container();
     }
 
     /**

@@ -15,6 +15,7 @@ use Hautelook\AliceBundle\BundleResolverInterface;
 use Hautelook\AliceBundle\Resolver\FakeBundleResolver;
 use Hautelook\AliceBundle\Resolver\ResolverKernel;
 use Hautelook\AliceBundle\Resolver\Bundle\NoBundleResolver;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
@@ -23,7 +24,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class NoBundleResolverTest extends \PHPUnit_Framework_TestCase
+class NoBundleResolverTest extends TestCase
 {
     public function testIsABundleResolver()
     {

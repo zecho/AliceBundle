@@ -17,6 +17,7 @@ use Hautelook\AliceBundle\Persistence\ObjectMapper\FakeEntityManager;
 use Hautelook\AliceBundle\Loader\FakeLoader;
 use Hautelook\AliceBundle\LoaderInterface;
 use Hautelook\AliceBundle\Persistence\FakeDoctrineManagerRegistry;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use Symfony\Bundle\FrameworkBundle\Console\Application as FrameworkBundleConsoleApplication;
@@ -30,7 +31,7 @@ use Symfony\Component\Console\Output\NullOutput;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class LoadDataFixturesCommandTest extends \PHPUnit_Framework_TestCase
+class LoadDataFixturesCommandTest extends TestCase
 {
     public function testIsACommand()
     {

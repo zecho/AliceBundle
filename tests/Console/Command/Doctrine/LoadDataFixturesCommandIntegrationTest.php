@@ -17,6 +17,7 @@ use Hautelook\AliceBundle\Functional\AppKernel;
 use Hautelook\AliceBundle\Functional\TestBundle\Entity\Brand;
 use Hautelook\AliceBundle\Functional\TestBundle\Entity\Product;
 use Hautelook\AliceBundle\Functional\TestKernel;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -26,7 +27,7 @@ use Symfony\Component\Console\Tester\CommandTester;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class LoadDataFixturesCommandIntegrationTest extends \PHPUnit_Framework_TestCase
+class LoadDataFixturesCommandIntegrationTest extends TestCase
 {
     /**
      * @var Application
@@ -103,15 +104,42 @@ class LoadDataFixturesCommandIntegrationTest extends \PHPUnit_Framework_TestCase
         $commandTester->execute(
             [
                 'command' => 'hautelook:fixtures:load',
-                '-e' => 'Inte',
             ],
             [
                 'interactive' => false,
             ]
         );
 
-        $this->verifyProducts();
-        $this->verifyBrands();
+        $this->verifyProducts(20);
+        $this->verifyBrands(10);
+    }
+
+    public function testAppendFixtures()
+    {
+        $command = $this->application->find('hautelook:fixtures:load');
+        $commandTester = new CommandTester($command);
+
+        $commandTester->execute(
+            [
+                'command' => 'hautelook:fixtures:load',
+            ],
+            [
+                'interactive' => false,
+            ]
+        );
+        $commandTester->execute(
+            [
+                'command' => 'hautelook:fixtures:load',
+                '-e' => 'Inte',
+                '--append' => null,
+            ],
+            [
+                'interactive' => false,
+            ]
+        );
+
+        $this->verifyProducts(40);
+        $this->verifyBrands(20);
     }
 
     /**
@@ -385,9 +413,14 @@ EOF
         return $this->application->run(new ArrayInput($options));
     }
 
-    private function verifyProducts()
+    private function verifyProducts(int $count)
     {
-        for ($i = 1; $i <= 10; ++$i) {
+        $this->assertSame(
+            $count,
+            count($this->defaultEntityManager->getRepository(Product::class)->findAll())
+        );
+
+        for ($i = 1; $i <= $count; ++$i) {
             /* @var Product|null $product */
             $product = $this->defaultEntityManager->find(Product::class, $i);
             $this->assertNotNull($product);
@@ -400,9 +433,14 @@ EOF
         }
     }
 
-    private function verifyBrands()
+    private function verifyBrands(int $count)
     {
-        for ($i = 1; $i <= 10; ++$i) {
+        $this->assertSame(
+            $count,
+            count($this->defaultEntityManager->getRepository(Brand::class)->findAll())
+        );
+
+        for ($i = 1; $i <= $count; ++$i) {
             /* @var Brand|null $brand */
             $brand = $this->defaultEntityManager->find(Brand::class, $i);
             $this->assertNotNull($brand);

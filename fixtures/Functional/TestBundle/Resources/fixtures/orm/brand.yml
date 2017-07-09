@@ -2,7 +2,7 @@ parameters:
     custom: 2
 
 Hautelook\AliceBundle\Functional\TestBundle\Entity\Product:
-    product{11..20}:
+    product{1..10}:
         name: Product <current()>
         price: 10.0
         description: Awesome @self->name

@@ -1,5 +1,5 @@
 Hautelook\AliceBundle\Functional\TestBundle\Entity\Product:
-    product{1..10}:
+    product{11..20}:
         name: Product <current()>
         price: 10.0
         description: Awesome @self->name

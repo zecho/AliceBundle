@@ -14,6 +14,7 @@ namespace Hautelook\AliceBundle\Resolver\Bundle;
 use Hautelook\AliceBundle\BundleResolverInterface;
 use Hautelook\AliceBundle\Resolver\ResolverKernel;
 use Hautelook\AliceBundle\Resolver\Bundle\SimpleBundleResolver;
+use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 /**
@@ -21,7 +22,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class SimpleBundleResolverTest extends \PHPUnit_Framework_TestCase
+class SimpleBundleResolverTest extends TestCase
 {
     public function testIsABundleResolver()
     {
@@ -56,13 +57,14 @@ class SimpleBundleResolverTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @expectedException \Hautelook\AliceBundle\Exception\Resolver\BundleNotFoundException
-     * @expectedExceptionMessage The bundle "ABundle" was not found. Bundles available are: [].
+     * @expectedExceptionMessage The bundle "UnknownBundle" was not found. Bundles available are: ["ABundle", "BBundle"].
      */
     public function testThrowsAnExceptionWhenBundleCoudlNotBeFound()
     {
         $kernel = new ResolverKernel(__FUNCTION__, true);
         $application = new Application($kernel);
+
         $resolver = new SimpleBundleResolver();
-        $resolver->resolveBundles($application, ['ABundle']);   // Will not be found as the kernel is not booted
+        $resolver->resolveBundles($application, ['UnknownBundle']);
     }
 }

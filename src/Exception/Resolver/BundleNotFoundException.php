@@ -18,7 +18,7 @@ class BundleNotFoundException extends \RuntimeException
     {
         return new static(
             sprintf(
-                'The bundle "%s" was not found. Bundles available are: [%s].',
+                'The bundle "%s" was not found. Bundles available are: ["%s"].',
                 $bundle,
                 implode('", "', array_keys($bundles))
             ),

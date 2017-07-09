@@ -5,17 +5,19 @@ namespace Hautelook\AliceBundle\Loader;
 use Doctrine\DBAL\Sharding\PoolingShardConnection;
 use Doctrine\ORM\EntityManagerInterface;
 use Fidry\AliceDataFixtures\Bridge\Doctrine\Persister\ObjectManagerPersister;
-use Fidry\AliceDataFixtures\Bridge\Doctrine\Purger\OrmPurger;
+use Fidry\AliceDataFixtures\Bridge\Doctrine\Purger\Purger;
 use Fidry\AliceDataFixtures\Loader\FileResolverLoader;
 use Fidry\AliceDataFixtures\Loader\PurgerLoader;
 use Fidry\AliceDataFixtures\LoaderInterface;
 use Fidry\AliceDataFixtures\Persistence\PersisterAwareInterface;
 use Fidry\AliceDataFixtures\Persistence\PurgeMode;
+use Fidry\AliceDataFixtures\Persistence\Purger\NullPurger;
 use Hautelook\AliceBundle\BundleResolverInterface;
 use Hautelook\AliceBundle\FixtureLocatorInterface;
 use Hautelook\AliceBundle\LoaderInterface as AliceBundleLoaderInterface;
 use Hautelook\AliceBundle\LoggerAwareInterface;
 use Hautelook\AliceBundle\Resolver\File\KernelFileResolver;
+use LogicException;
 use Nelmio\Alice\IsAServiceTrait;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -147,10 +149,10 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
         array $files,
         array $parameters,
         bool $append,
-        bool $purgeWithTruncate = null
+        bool $purgeWithTruncate
     ) {
-        if ($append && $purgeWithTruncate !== null) {
-            throw new \LogicException(
+        if ($append && $purgeWithTruncate) {
+            throw new LogicException(
                 'Cannot append loaded fixtures and at the same time purge the database. Choose one.'
             );
         }
@@ -165,7 +167,7 @@ final class DoctrineOrmLoader implements AliceBundleLoaderInterface, LoggerAware
             : PurgeMode::createDeleteMode()
         ;
 
-        $purger = new OrmPurger($manager, $purgeMode);
+        $purger = new Purger($manager, $purgeMode);
         $loader = new PurgerLoader($loader, $purger, $purger);
         $loader = new FileResolverLoader($loader, new KernelFileResolver($kernel));
 

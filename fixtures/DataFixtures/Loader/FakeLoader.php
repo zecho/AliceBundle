@@ -12,6 +12,7 @@
 namespace Hautelook\AliceBundle\DataFixtures\Loader;
 
 use Fidry\AliceDataFixtures\LoaderInterface as DataFixturesLoaderInterface;
+use Fidry\AliceDataFixtures\Persistence\PurgeMode;
 use Hautelook\AliceBundle\NotCallableTrait;
 
 /**
@@ -24,7 +25,7 @@ class FakeLoader implements DataFixturesLoaderInterface
     /**
      * @inheritdoc
      */
-    public function load(array $fixturesFiles, array $parameters = [], array $objects = []): array
+    public function load(array $fixturesFiles, array $parameters = [], array $objects = [], PurgeMode $purgeMode = null): array
     {
         $this->__call(__METHOD__, func_get_args());
     }

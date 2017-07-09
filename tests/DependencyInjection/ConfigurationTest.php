@@ -11,6 +11,7 @@
 
 namespace Hautelook\AliceBundle\DependencyInjection;
 
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Processor;
 
 /**
@@ -18,7 +19,7 @@ use Symfony\Component\Config\Definition\Processor;
  *
  * @author Théo FIDRY <theo.fidry@gmail.com>
  */
-class ConfigurationTest extends \PHPUnit_Framework_TestCase
+class ConfigurationTest extends TestCase
 {
     public function testDefaultValues()
     {
