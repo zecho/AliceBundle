@@ -1,6 +1,6 @@
 {
-    "name": "hautelook/alice-bundle",
-    "description": "Symfony2 Bundle to manage fixtures with Alice and Faker.",
+    "name": "zecho/alice-bundle",
+    "description": "Symfony bundle to manage fixtures with Alice and Faker.",
     "keywords": ["Symfony", "Fixture", "ORM", "Alice", "Faker"],
     "type": "symfony-bundle",
     "license": "MIT",
