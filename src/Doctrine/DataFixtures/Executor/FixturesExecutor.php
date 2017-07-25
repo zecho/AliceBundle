@@ -18,6 +18,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager as MongoDBDocumentManager;
 use Doctrine\ODM\PHPCR\DocumentManager as PHPCRDocumentManager;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 use Hautelook\AliceBundle\Alice\DataFixtures\LoaderInterface;
 
 /**
@@ -58,7 +59,16 @@ class FixturesExecutor implements FixturesExecutorInterface
         switch (true) {
             case $manager instanceof EntityManagerInterface:
                 $executor = new ORMExecutor($manager, $loader);
-                $purger = new ORMPurger($manager);
+                $metaData = $manager->getMetadataFactory()->getAllMetadata();
+
+                $excluded = [];
+                foreach ($metaData as $classMetadata) {
+                    /** @var ClassMetadata $classMetadata */
+                    if ($classMetadata->isReadOnly) {
+                        $excluded[] = implode('.', [$classMetadata->getSchemaName(), $classMetadata->getTableName()]);
+                    }
+                }
+                $purger = new ORMPurger($manager, $excluded);
                 $purger->setPurgeMode(
                     $purgeMode
                         ? ORMPurger::PURGE_MODE_TRUNCATE
